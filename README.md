@@ -10,6 +10,8 @@ This repository contains a complete QA Capstone project for the nopCommerce demo
 - Installed **Node.js** and **Playwright**
 - Wrote smoke test: homepage load verification
 - Executed the smoke test and saved the first HTML report
+- Wrote navigation test: menu navigation **Computers → Desktops**
+- Executed the navigation test and saved the HTML report
 
 ## Test Reports
 
@@ -20,3 +22,6 @@ This repository contains a complete QA Capstone project for the nopCommerce demo
 
 ![Smoke report (Day 1)](docs/screenshots/smoke-report-day1.png)
 
+- [Navigation test report (2025-09-02)](docs/reports/20250902-navigation/index.html)  
+  **Screenshot:**  
+  ![Navigation report (Day 1)](docs/screenshots/navigation-report-day1.png)
