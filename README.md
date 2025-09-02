@@ -14,8 +14,9 @@ This repository contains a complete QA Capstone project for the nopCommerce demo
 ## Test Reports
 
 - [Smoke test report (2025-09-02)](docs/reports/20250902-140133/index.html)
+- **HTML report:** [docs/reports/20250902-140133/index.html](docs/reports/20250902-140133/index.html)
 
-- **HTML report:** `docs/reports/20250902-140133/index.html`  
+**Screenshot:**
+
 ![Smoke report (Day 1)](docs/screenshots/smoke-report-day1.png)
-
 
