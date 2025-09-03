@@ -24,7 +24,7 @@ This repository contains a complete QA Capstone project for the nopCommerce demo
 ### Navigation Test (Day 1)
 - **HTML report:** `docs/reports/20250902-navigation/index.html`
 - Screenshots:
-  - [Summary](docs/screenshots/navigation/summary-day1.png)
+  - [Summary](docs/screenshots/navigation/day1.png)
   - [Detail](docs/screenshots/navigation/detail-day1.png)
   - [Desktops page](docs/screenshots/navigation/desktops-day1.png)
   - [Terminal run](docs/screenshots/navigation/terminal-day1.png)
