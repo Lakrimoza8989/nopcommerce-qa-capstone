@@ -13,6 +13,21 @@ This repository contains a complete QA Capstone project for the nopCommerce demo
 - Wrote navigation test: menu navigation **Computers → Desktops**
 - Executed the navigation test and saved the HTML report
 
+### AI Usage (Day 1)
+
+- Used ChatGPT to design initial folder structure and README.md.  
+- Used ChatGPT to generate smoke test code (`smoke.spec.ts`).  
+- Fixed `.gitignore` with ChatGPT guidance.  
+- Saved and linked Playwright HTML reports with ChatGPT help.  
+- Debugged Git push issues following ChatGPT instructions.  
+- Fixed broken screenshot paths with ChatGPT guidance.  
+
+**Evidence (screenshots):**
+- ![AI Chat – Project setup](docs/screenshots/ai/day1-setup.png)
+- ![AI Chat – Smoke test](docs/screenshots/ai/day1-smoke.png)
+- ![AI Chat – Git fixes](docs/screenshots/ai/day1-git.png)
+
+
 ## Test Reports
 
 ### Smoke Test (Day 1)
