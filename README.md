@@ -26,9 +26,9 @@ This repository contains a complete QA Capstone project for the nopCommerce demo
 - Final test (`smoke.spec.ts`) executed successfully. 
 
 - Screenshots:
-- ![AI Chat – Project setup](docs/screenshots/ai/day1-setup.png)
-- ![AI Chat – Smoke test](docs/screenshots/ai/day1-smoke.png)
-- ![AI Chat – Git fixes](docs/screenshots/ai/day1-git.png)
+- [AI Chat – Project setup](docs/screenshots/ai/day1-setup.png)
+- [AI Chat – Smoke test](docs/screenshots/ai/day1-smoke.png)
+- [AI Chat – Git fixes](docs/screenshots/ai/day1-git.png)
 
 
 ## Test Reports
