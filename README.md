@@ -15,19 +15,22 @@ This repository contains a complete QA Capstone project for the nopCommerce demo
 
 ## Test Reports
 
+### Smoke (Day 1)
 - [Smoke test report (2025-09-02)](docs/reports/20250902-140133/index.html)
+- [Navigation test report (2025-09-02)](docs/reports/20250902-navigation/index.html) 
 - **HTML report:** [docs/reports/20250902-140133/index.html](docs/reports/20250902-140133/index.html)
 
 **Screenshot:**
 
 ![Smoke report (Day 1)](docs/screenshots/smoke-report-day1.png)
 
-- [Navigation test report (2025-09-02)](docs/reports/20250902-navigation/index.html)  
+### Navigation Test (Day 1)
+ 
   **Screenshot:**  
   ![Navigation report (Day 1)](docs/screenshots/navigation-report-day1.png)
   **HTML report (details)**  
 ![Navigation report details (Day 1)](docs/screenshots/navigation-report-detail-day1.png)
-### Navigation Test (Day 1)
+
 
 - [Navigation test HTML report (2025-09-02)](docs/reports/20250902-navigation/index.html)
 
