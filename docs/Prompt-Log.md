@@ -4,7 +4,7 @@
 
 ### 1) Requirements.md
 **Goal.** Draft concise product requirements for the **storefront** (Registration, Login/Logout, Cart, Guest Checkout) with Acceptance Criteria and short Gherkin examples.  
-**Tool.** ChatGPT  
+**Tool.** ChatGPT 5
 **Output.** [`docs/Requirements.md`](docs/Requirements.md)
 
 <details>
