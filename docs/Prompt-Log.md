@@ -16,7 +16,12 @@ Include: Scope, Out of Scope, Assumptions. For features Registration, Login/Logo
 Shopping Cart, Guest Checkout — write clear Acceptance Criteria and provide a short
 Gherkin example for the happy path (plus one negative for Registration).
 Keep the wording concise and implementation-agnostic.
+```
+
 </details>
+
+---
+
 
 ### 2) Test-Strategy.md
 **Goal.** Create a pragmatic Test Strategy for Playwright/TypeScript: goals, scope/out of scope, approach, test levels/suites, test data, environments/tools, entry/exit criteria, reporting/metrics, risks/mitigations, and a CI roadmap.  
@@ -32,7 +37,9 @@ Include: Goals; Scope & Out of Scope; Approach (risk-based, resilient selectors)
 Test Levels (Smoke/Functional/Negative/Regression); Test Data; Environments & Tools;
 Structure & Tagging; Entry/Exit Criteria; Reporting & Metrics; Risks & Mitigations;
 CI roadmap for GitHub Actions. Keep it concise and practical.
-</details> ```
+```
+
+</details>
 
 
 
