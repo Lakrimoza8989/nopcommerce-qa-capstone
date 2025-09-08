@@ -17,3 +17,19 @@ Shopping Cart, Guest Checkout — write clear Acceptance Criteria and provide a 
 Gherkin example for the happy path (plus one negative for Registration).
 Keep the wording concise and implementation-agnostic.
 
+### 2) Test-Strategy.md
+**Goal.** Create a pragmatic Test Strategy for Playwright/TypeScript: goals, scope/out of scope, approach, test levels/suites, test data, environments/tools, entry/exit criteria, reporting/metrics, risks/mitigations, and a CI roadmap.  
+**Tool.** GPT-5  
+**Output.** [`docs/Test-Strategy.md`](docs/Test-Strategy.md)
+
+<details>
+<summary><b>Prompt used (click to expand)</b></summary>
+
+```text
+Draft Test-Strategy.md for the nopCommerce storefront automated with Playwright (TypeScript).
+Include: Goals; Scope & Out of Scope; Approach (risk-based, resilient selectors);
+Test Levels (Smoke/Functional/Negative/Regression); Test Data; Environments & Tools;
+Structure & Tagging; Entry/Exit Criteria; Reporting & Metrics; Risks & Mitigations;
+CI roadmap for GitHub Actions. Keep it concise and practical.
+
+
