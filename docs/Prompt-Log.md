@@ -15,7 +15,7 @@ Draft Requirements.md for the nopCommerce storefront (https://demo.nopcommerce.c
 Include: Scope, Out of Scope, Assumptions. For features Registration, Login/Logout,
 Shopping Cart, Guest Checkout — write clear Acceptance Criteria and provide a short
 Gherkin example for the happy path (plus one negative for Registration).
-Keep the wording concise and implementation-agnostic.
+Keep the wording concise and implementation-agnostic.<details>
 
 ### 2) Test-Strategy.md
 **Goal.** Create a pragmatic Test Strategy for Playwright/TypeScript: goals, scope/out of scope, approach, test levels/suites, test data, environments/tools, entry/exit criteria, reporting/metrics, risks/mitigations, and a CI roadmap.  
