@@ -32,7 +32,7 @@ Include: Goals; Scope & Out of Scope; Approach (risk-based, resilient selectors)
 Test Levels (Smoke/Functional/Negative/Regression); Test Data; Environments & Tools;
 Structure & Tagging; Entry/Exit Criteria; Reporting & Metrics; Risks & Mitigations;
 CI roadmap for GitHub Actions. Keep it concise and practical.
-
+</details> ```
 
 
 
