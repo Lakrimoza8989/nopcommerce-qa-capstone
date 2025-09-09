@@ -58,3 +58,64 @@ Draft Test-Plan.md for nopCommerce storefront: objectives; scope/in & out; test 
 priorities (P0/P1/P2); approach (Playwright+TS, role/label-first selectors, data strategy); environments/tools; entry/exit criteria;
 high-level scenarios per feature; reporting/metrics; risks; deliverables. Keep it concrete and concise.
 
+</details>
+
+---
+
+## 2025-09-10 · Day 4
+
+### 1) TestCases.md
+**Goal.** Create a top-level summary of manual test cases (P/N/B) for Registration, Login/Logout, Cart, Guest Checkout. Include IDs (TC-REG-…, TC-LOGIN-…, etc.) and link to per-feature details.  
+**Tool.** GPT-5  
+**Output.** [`./TestCases.md`](./TestCases.md)
+
+<details>
+<summary><b>Prompt used (click to expand)</b></summary>
+
+```text
+Create docs/TestCases.md: a concise list of manual cases for Registration, Login/Logout, Cart, Guest Checkout.
+For each: ID (e.g., TC-REG-001), short title, Type (P/N/B). Add a “Details” line that links to per-feature files:
+  docs/test-cases/registration.md, login.md, cart.md, checkout-guest.md (relative links from docs/Prompt-Log.md must be ./test-cases/<file>.md when referenced from TestCases.md).
+Keep it clean and consistent with previous days.
+
+
+</details>
+
+### 2) Coverage-Matrix.csv (stub)
+**Goal.** Seed a coverage matrix mapping Requirement → Test Case → Automated (Planned).
+**Tool.** GPT-5
+**Output.** ./Coverage-Matrix.csv
+
+<details>
+<summary><b>Prompt used (click to expand)</b></summary>
+
+```text
+Create docs/Coverage-Matrix.csv with columns: Requirement, Test Case ID, Automated, Notes.
+Populate rows for Registration (TC-R…), Login (TC-L…), Cart (TC-C…), Checkout (TC-CH…).
+Set Automated=Planned for now. Keep CSV header and values simple (no extra commas inside cells).
+
+</details>
+
+### 3) Per-feature case files (stubs)
+
+**Goal.** Create per-feature test case detail stubs (Pre/Data/Steps/ER) to match the summary list.
+**Tool.** GPT-5
+**Output.** ./test-cases/registration.md
+, ./test-cases/login.md
+, ./test-cases/cart.md
+, ./test-cases/checkout-guest.md
+
+<details> 
+<summary><b>Prompt used (click to expand)</b></summary>
+
+```text
+Generate per-feature test case stubs:
+  docs/test-cases/registration.md
+  docs/test-cases/login.md
+  docs/test-cases/cart.md
+  docs/test-cases/checkout-guest.md
+For each file: list the cases with ID/Title/Type, then provide a “Use structure: Pre / Data / Steps / ER” note so the team can expand details later.
+
+</details>
+
+
