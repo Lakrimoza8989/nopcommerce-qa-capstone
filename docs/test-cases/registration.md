@@ -8,9 +8,9 @@
 
 > Use structure: / Pre / Data / Steps / ER / P
 
-## TC-REG-001 — New account (valid)
+## TC-REG-001 — [P] New account 
 
-Preconditions —  
+Preconditions:  
 The user is logged out. Registration page is open:  
 [https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)
 
@@ -39,16 +39,16 @@ Expected:
 
 ---
 
-## TC-REG-002 — Existing email
+## TC-REG-002 — [N] Existing email 
 
 
 
-Preconditions —  
+Preconditions:  
 The user is logged out. Registration page is open:  
 [https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)  
 An account with email `user001@example.com` already exists in the system.
 
-Data —  
+Data:  
 - Gender: Male  
 - First Name: John  
 - Last Name: Smith  
@@ -56,7 +56,7 @@ Data —
 - Password: `Qwerty123!`  
 - Confirm Password: `Qwerty123!`
 
-Steps —  
+Steps:  
 1) Open [https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)  
 2) Select gender: Male  
 3) Fill in First Name and Last Name fields  
@@ -64,7 +64,7 @@ Steps —
 5) Enter password and confirm password  
 6) Click the "REGISTER" button
 
-Expected —  
+Expected:  
 - An error message is shown: “The specified email already exists”  
 - Registration is not completed  
 - The user remains on the registration page
