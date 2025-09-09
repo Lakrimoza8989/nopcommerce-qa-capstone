@@ -1,94 +1,70 @@
 # Test Plan — nopCommerce Demo (Storefront)
 
 ## 1. Objectives
-Provide a practical plan to verify the storefront’s critical user flows and build confidence via a fast Smoke layer, focused Functional/Negative tests, and an executable E2E path for Guest checkout. Keep automation stable, fast, and CI-friendly.
+Provide a pragmatic plan to validate critical user flows of the **storefront** and to demonstrate a complete QA workflow (docs → manual/BDD → automation → reports/CI).
 
-## 2. Scope
-In scope (storefront only): Registration, Login/Logout, Shopping Cart, Guest Checkout (happy path), Top-menu navigation, Search (smoke).
-Out of scope: Admin panel, real payments, performance/load, email delivery, taxes/rates correctness.
+## 2. In Scope
+- Registration, Login/Logout
+- Shopping Cart (add/update/remove, terms)
+- Guest Checkout (Check/Money Order)
+- Smoke: home page load, main navigation (Computers → Desktops), basic search
 
-Reference: `docs/Requirements.md`.
+## 3. Out of Scope
+Admin panel, real payments/taxes/email delivery, performance/load, i18n, accessibility audit (beyond basic role/label usage).
 
-## 3. Test Types & Suites
-- **Smoke**: homepage loads; main menu navigation (Computers → Desktops); search returns results.
-- **Functional (happy paths)**:
-  - Registration (unique email)
-  - Login/Logout
-  - Cart: add/update/remove
-  - Guest Checkout (Check / Money Order)
-- **Negative/Validation**:
-  - Registration: existing email; invalid email; required fields
-  - Login: wrong password
-  - Cart/Checkout: terms not accepted
-- **Selective Regression**: stable subset of above, run nightly in CI.
-- **E2E**: Guest checkout from product add to order confirmation.
+## 4. Test Levels & Types
+- **Smoke** (fast, green daily)
+- **Functional** (happy paths)
+- **Negative/Validation**
+- **Selective Regression** (tag-based)
+- **E2E guest checkout (happy path)**
 
-## 4. Environments & Platforms
-- URL: https://demo.nopcommerce.com
-- Browsers: Chromium (primary). Firefox/WebKit optional later.
-- Viewport: desktop.
-- Test data:
-  - Unique email template: `user+{timestamp}@example.com`
-  - Billing address: fixed safe values suitable for the demo
-- Tools: Playwright (TypeScript), Node.js, GitHub Actions, HTML report, screenshots/video on failure, traces on retry.
+## 5. Priorities
+- **P0:** Availability, Registration, Login, Cart add/remove/update totals, Guest Checkout
+- **P1:** Form validations, Navigation categories, Search results
+- **P2:** Cross-browser (FF/WebKit), minor UX polish
 
-## 5. Test Design Approach
-- Risk-based selection; cover business-critical happy paths first.
-- Stable selectors: `getByRole`, `getByLabel`, `getByPlaceholder`; avoid brittle CSS/XPath.
-- Idempotent test data; generate per run; clean up via UI where needed.
-- Small, independent specs; fast runs (parallel by default).
+## 6. Test Approach
+- Risk-based, incremental.
+- UI automation: **Playwright + TypeScript**; selectors first by **role/label/placeholder**.
+- Data: unique emails `user+<timestamp>@example.com`; stable products (Books, Computers/Desktops).
+- Flakiness control: explicit waits via `expect(...).toBeVisible()`, URL assertions; retries — точечно.
 
-## 6. Entry / Exit Criteria
-**Entry:** Demo site reachable; no Sev-1 known blockers for the planned scope.
-**Exit (feature/suite):**
-- Happy path + key negatives pass
-- No open Sev-1/Sev-2 defects for in-scope features
-- HTML report published; evidence (screenshots) attached where relevant
-**Exit (release/demo):**
-- Smoke 100% pass in CI
-- Functional pass rate ≥ 90%
-- Flaky tests quarantined or stabilized
+## 7. Environments & Tools
+- Site: https://demo.nopcommerce.com
+- Browser: Chromium primary (FF/WebKit later)
+- Reporting: Playwright HTML; screenshots/video/trace on fail
+- CI: GitHub Actions (smoke gate; nightly functional matrix — later)
 
-## 7. Defects, Severity & Triage
-Severity:
-- **Sev-1**: critical break of core flow (can’t register/login/checkout)
-- **Sev-2**: major functionality degraded; no simple workaround
-- **Sev-3**: standard functional defect
-- **Sev-4**: minor/visual/text
+## 8. Entry / Exit Criteria
+**Entry (feature):** site reachable; test data prepared.  
+**Exit (feature):** happy path + key negatives pass; no Sev1/Sev2 open; report published.  
+**Exit (release/demo):** smoke green; functional ≥ 90% pass; flaky tests quarantined.
 
-Triage:
-- Sev-1: same day
-- Sev-2: next working day
-- Sev-3/4: as scheduled
+## 9. High-Level Scenarios (HLS)
+- **HLS-SMK-1:** Home page loads and key UI visible (P0, automated)
+- **HLS-NAV-1:** Menu Computers → Desktops lists products (P0, automated)
+- **HLS-SRCH-1:** Search “computer” returns results (P1, automated)
+- **HLS-REG-1:** Successful Registration (P0, auto planned)
+- **HLS-REG-2:** Registration with existing email → error (P1, auto planned)
+- **HLS-AUTH-1:** Login valid → My account / Log out (P0, auto planned)
+- **HLS-AUTH-2:** Login invalid → error (P1, auto planned)
+- **HLS-CART-1:** Add to cart from listing; counter increases (P0, auto planned)
+- **HLS-CART-2:** Update qty recalculates totals (P0, auto planned)
+- **HLS-CART-3:** Remove item clears row (P0, auto planned)
+- **HLS-CHK-1:** Guest checkout end-to-end (P0, auto planned)
 
-## 8. Reporting & Metrics
-- Artifacts: HTML report, screenshots, videos, traces
-- Metrics: pass rate, duration, flaky count, top failing specs
-- Visibility: linked from `README.md` (Docs/Reports section)
-
-## 9. Schedule & Cadence
-- **Local dev:** run Smoke on every change; Functional when altering affected area
-- **CI (GitHub Actions):**
-  - On push/PR: Smoke
-  - Nightly: Functional + Negative subset
-  - Optional weekly: selective Regression
-
-## 10. Suite Inventory (initial)
-- Smoke: homepage, navigation (Computers → Desktops), search
-- Functional: registration, login/logout, cart add/update/remove, guest checkout
-- Negative: registration (existing email/invalid/required), login wrong password, checkout without terms
+## 10. Reporting & Metrics
+Pass rate, duration, flakies, failures by suite; attach HTML report + artifacts; link from README.
 
 ## 11. Risks & Mitigations
-- Changing demo content → prefer role/label selectors; assert URLs/titles where stable
-- Flakiness/slow responses → explicit waits on visibility, retries on known flaky steps only
-- Shared demo data (existing email) → timestamped unique emails
+- Demo data changes → role/label selectors, stable categories
+- Slow responses → explicit expectations, pragmatic timeouts
+- Shared emails → timestamped uniques
 
 ## 12. Deliverables
-- Automated Playwright specs under `/tests`
-- HTML reports under `docs/reports/<date>/`
-- Screenshots under `docs/screenshots/`
-- Updated `README.md` links
-- Prompt log entries in `docs/Prompt-Log.md`
+- Test Plan (this document)
+- Prompt Log (Day 3)
+- HTML reports per run; CI pipeline (later)
+MD
 
-## 13. Approvals
-This plan is owned and maintained within the repository. Changes are proposed via PR and tracked in `README.md` “Progress Log”.
