@@ -30,12 +30,16 @@ This repository contains a complete QA Capstone project for the nopCommerce demo
 - [AI Chat – Smoke test](docs/screenshots/ai/day1-smoke.png)
 - [AI Chat – Git fixes](docs/screenshots/ai/day1-git.png)
 
+### Search Test (Day 1)
+- HTML report: [docs/reports/20250902-search/index.html](docs/reports/20250902-search/index.html)
+
 
 ## Test Reports
 
 ### Smoke Test (Day 1)
 - **HTML report:** `docs/reports/20250902-140133/index.html`
 - Screenshot: [Day 1](docs/screenshots/smoke/day1.png)
+- [Main page](docs/screenshots/smoke/Main%20page.png)
 
 ##
 
