@@ -66,3 +66,14 @@ This repository contains a complete QA Capstone project for the nopCommerce demo
 - **Prompt Log (Day 2):** [`docs/Prompt-Log.md`](docs/Prompt-Log.md)
 
 ---
+
+### Day 3
+- Drafted **Test Plan**
+- Logged the prompt and output in **Prompt Log** (Day 3)
+
+**Documents (Day 3):**
+- **Test Plan:** [docs/Test-Plan.md](docs/Test-Plan.md)
+- **Prompt Log:** [docs/Prompt-Log.md](docs/Prompt-Log.md)
+MD
+
+---
