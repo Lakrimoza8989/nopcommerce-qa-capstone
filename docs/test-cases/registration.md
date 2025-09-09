@@ -35,4 +35,38 @@ Expected:
 - The user is automatically logged in  
 - The user is redirected to the homepage  
 
-### Priority: P0
+### Priority: P0  
+
+---
+
+## TC-REG-002 — Existing email
+
+
+
+Preconditions —  
+The user is logged out. Registration page is open:  
+[https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)  
+An account with email `user001@example.com` already exists in the system.
+
+Data —  
+- Gender: Male  
+- First Name: John  
+- Last Name: Smith  
+- Email: `user001@example.com` (already registered)  
+- Password: `Qwerty123!`  
+- Confirm Password: `Qwerty123!`
+
+Steps —  
+1) Open [https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)  
+2) Select gender: Male  
+3) Fill in First Name and Last Name fields  
+4) Enter already registered email address  
+5) Enter password and confirm password  
+6) Click the "REGISTER" button
+
+Expected —  
+- An error message is shown: “The specified email already exists”  
+- Registration is not completed  
+- The user remains on the registration page
+
+### Priority: P1
