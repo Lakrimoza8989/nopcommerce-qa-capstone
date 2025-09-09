@@ -73,7 +73,7 @@ Expected:
 
 ---
 
-## TC-REG-003 — Invalid email format
+## TC-REG-003 — [N] Invalid email format
 
 Preconditions:  
 The user is logged out. Registration page is open:  
@@ -101,6 +101,6 @@ Expected:
 - Registration is not completed  
 - The user remains on the registration page
 
-###Priority: P1
+### Priority: P1
 
 ---
