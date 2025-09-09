@@ -57,6 +57,7 @@ CI roadmap for GitHub Actions. Keep it concise and practical.
 Draft Test-Plan.md for nopCommerce storefront: objectives; scope/in & out; test levels (smoke/functional/negative/regression/e2e);
 priorities (P0/P1/P2); approach (Playwright+TS, role/label-first selectors, data strategy); environments/tools; entry/exit criteria;
 high-level scenarios per feature; reporting/metrics; risks; deliverables. Keep it concrete and concise.
+```
 
 </details>
 
@@ -77,7 +78,7 @@ Create docs/TestCases.md: a concise list of manual cases for Registration, Login
 For each: ID (e.g., TC-REG-001), short title, Type (P/N/B). Add a “Details” line that links to per-feature files:
   docs/test-cases/registration.md, login.md, cart.md, checkout-guest.md (relative links from docs/Prompt-Log.md must be ./test-cases/<file>.md when referenced from TestCases.md).
 Keep it clean and consistent with previous days.
-
+```
 
 </details>
 
@@ -93,6 +94,7 @@ Keep it clean and consistent with previous days.
 Create docs/Coverage-Matrix.csv with columns: Requirement, Test Case ID, Automated, Notes.
 Populate rows for Registration (TC-R…), Login (TC-L…), Cart (TC-C…), Checkout (TC-CH…).
 Set Automated=Planned for now. Keep CSV header and values simple (no extra commas inside cells).
+```
 
 </details>
 
@@ -115,6 +117,7 @@ Generate per-feature test case stubs:
   docs/test-cases/cart.md
   docs/test-cases/checkout-guest.md
 For each file: list the cases with ID/Title/Type, then provide a “Use structure: Pre / Data / Steps / ER” note so the team can expand details later.
+```
 
 </details>
 
