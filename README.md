@@ -48,4 +48,18 @@ This repository contains a complete QA Capstone project for the nopCommerce demo
   - [Terminal run](docs/screenshots/navigation/terminal-day1.png)
 
 
+### Day 2
+
+**Focus:** foundational test docs for the automation work.
+
+- Added **Requirements.md** (storefront features + ACs + Gherkin) → [docs/Requirements.md](docs/Requirements.md)
+- Added **Test-Strategy.md** (scope, approach, levels, data, env/tools, entry/exit, reporting, risks, CI plan) → [docs/Test-Strategy.md](docs/Test-Strategy.md)
+- Updated **Prompt-Log.md** with Day 2 prompts & outputs → [docs/Prompt-Log.md](docs/Prompt-Log.md)
+
+**Highlights**
+- Scope limited to storefront: Registration, Login/Logout, Cart, Guest Checkout
+- Playwright + TypeScript; resilient, role/label-first selectors
+- Keep Smoke lean; expand Functional/Negative next
+
+**Next up (Day 3):** draft **Test-Plan.md** (scope, priorities, high-level scenarios)
 
