@@ -8,7 +8,7 @@
 
 > Use structure: Pre / Data / Steps / ER / P
 
-> ## TC-REG-001 — New account (valid)
+## TC-REG-001 — New account (valid)
 
 Priority: P0
 
