@@ -64,3 +64,4 @@ This repository contains a complete QA Capstone project for the nopCommerce demo
 
 **Next up (Day 3):** draft **Test-Plan.md** (scope, priorities, high-level scenarios)
 
+---
