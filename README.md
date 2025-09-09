@@ -105,9 +105,9 @@ MD
 - Test Cases: [docs/TestCases.md](docs/TestCases.md)  
 - Coverage Matrix: [docs/Coverage-Matrix.csv](docs/Coverage-Matrix.csv)  
 - Per-feature stubs:  
-  [`docs/test-cases/registration.md`](docs/test-cases/registration.md), 
-  [`docs/test-cases/login.md`](docs/test-cases/login.md),
-  [`docs/test-cases/cart.md`](docs/test-cases/cart.md),
-  [`docs/test-cases/checkout-guest.md`](docs/test-cases/checkout-guest.md)
+  [`docs/test-cases/registration.md`](docs/test-cases/registration.md),   
+  [`docs/test-cases/login.md`](docs/test-cases/login.md),  
+  [`docs/test-cases/cart.md`](docs/test-cases/cart.md),  
+  [`docs/test-cases/checkout-guest.md`](docs/test-cases/checkout-guest.md)  
 
 ---
