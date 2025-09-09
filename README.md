@@ -81,3 +81,11 @@ This repository contains a complete QA Capstone project for the nopCommerce demo
 MD
 
 ---
+
+### Day 4 — Manual Test Cases & Coverage Matrix
+- Added `docs/TestCases.md` (P/N/B cases for Registration, Login/Logout, Cart, Guest Checkout).
+- Added `docs/Coverage-Matrix.csv` (Requirement → Test Case → Automated=Planned).
+
+## Documents
+- Test Cases: [docs/TestCases.md](docs/TestCases.md)
+- Coverage Matrix: [docs/Coverage-Matrix.csv](docs/Coverage-Matrix.csv)

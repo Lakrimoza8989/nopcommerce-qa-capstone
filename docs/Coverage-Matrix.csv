@@ -1,0 +1,25 @@
+Requirement,Test Case ID,Automated,Notes
+Registration,TC-REG-001,Planned,New account (valid)
+Registration,TC-REG-002,Planned,Existing email
+Registration,TC-REG-003,Planned,Invalid email format
+Registration,TC-REG-004,Planned,Empty required fields
+Registration,TC-REG-005,Planned,Password mismatch
+Registration,TC-REG-006,Planned,Min/Max password length boundary
+Login/Logout,TC-LOGIN-001,Planned,Valid login
+Login/Logout,TC-LOGIN-002,Planned,Wrong password
+Login/Logout,TC-LOGIN-003,Planned,Unregistered email
+Login/Logout,TC-LOGIN-004,Planned,Email case-insensitive
+Login/Logout,TC-LOGIN-005,Planned,Empty email/password
+Login/Logout,TC-LOGIN-006,Planned,Logout
+Cart,TC-CART-001,Planned,Add from listing
+Cart,TC-CART-002,Planned,Update quantity recalculates totals
+Cart,TC-CART-003,Planned,Zero quantity not allowed
+Cart,TC-CART-004,Planned,Max quantity boundary
+Cart,TC-CART-005,Planned,Remove item
+Checkout (Guest),TC-CHK-001,Planned,Guest checkout happy path
+Checkout (Guest),TC-CHK-002,Planned,Invalid billing email
+Checkout (Guest),TC-CHK-003,Planned,Required billing field empty
+Checkout (Guest),TC-CHK-004,Planned,Max length address fields
+Checkout (Guest),TC-CHK-005,Planned,Empty cart guard
+Checkout (Guest),TC-CHK-006,Planned,Shipping cost reflected in total
+Checkout (Guest),TC-CHK-007,Planned,Invalid ZIP format
