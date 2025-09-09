@@ -37,7 +37,7 @@ This repository contains a complete QA Capstone project for the nopCommerce demo
 - **HTML report:** `docs/reports/20250902-140133/index.html`
 - Screenshot: [Day 1](docs/screenshots/smoke/day1.png)
 
----
+##
 
 ### Navigation Test (Day 1)
 - **HTML report:** `docs/reports/20250902-navigation/index.html`
@@ -46,7 +46,8 @@ This repository contains a complete QA Capstone project for the nopCommerce demo
   - [Detail](docs/screenshots/navigation/detail-day1.png)
   - [Desktops page](docs/screenshots/navigation/desktops-day1.png)
   - [Terminal run](docs/screenshots/navigation/terminal-day1.png)
-##
+
+---
 
 ### Day 2
 
