@@ -10,8 +10,6 @@
 
 ## TC-REG-001 — New account (valid)
 
-### Priority: P0
-
 Preconditions —  
 The user is logged out. Registration page is open:  
 [https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)
