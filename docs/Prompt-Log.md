@@ -85,7 +85,7 @@ Keep it clean and consistent with previous days.
 ### 2) Coverage-Matrix.csv (stub)
 **Goal.** Seed a coverage matrix mapping Requirement → Test Case → Automated (Planned).  
 **Tool.** GPT-5  
-**Output.** ./Coverage-Matrix.csv
+**Output.** [`./Coverage-Matrix.csv`](./Coverage-Matrix.csv)
 
 <details>
 <summary><b>Prompt used (click to expand)</b></summary>
@@ -101,10 +101,10 @@ Set Automated=Planned for now. Keep CSV header and values simple (no extra comma
 ### 3) Per-feature case files (stubs)
 **Goal.** Create per-feature test case detail stubs (Pre/Data/Steps/ER) to match the summary list.  
 **Tool.** GPT-5  
-**Output.** ./test-cases/registration.md
-, ./test-cases/login.md
-, ./test-cases/cart.md
-, ./test-cases/checkout-guest.md
+**Output.** - [`./test-cases/registration.md`](./test-cases/registration.md)
+- [`./test-cases/login.md`](./test-cases/login.md)
+- [`./test-cases/cart.md`](./test-cases/cart.md)
+- [`./test-cases/checkout-guest.md`](./test-cases/checkout-guest.md)
 
 <details> 
 <summary><b>Prompt used (click to expand)</b></summary>
