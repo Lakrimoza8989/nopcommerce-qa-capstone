@@ -69,4 +69,38 @@ Expected:
 - Registration is not completed  
 - The user remains on the registration page
 
-### Priority: P1
+### Priority: P1  
+
+---
+
+## TC-REG-003 — Invalid email format
+
+Preconditions:  
+The user is logged out. Registration page is open:  
+[https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)
+
+Data:  
+- Gender: Male  
+- First Name: Alex  
+- Last Name: Turner  
+- Email: `invalid-email-format` (missing @ and domain)  
+- Password: `Qwerty123!`  
+- Confirm Password: `Qwerty123!`
+
+Steps:  
+1) Open [https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)  
+2) Select gender: Male  
+3) Fill in First Name and Last Name  
+4) Enter invalid email: `invalid-email-format`  
+5) Enter password and confirm password  
+6) Click the "REGISTER" button
+
+Expected:  
+- A validation error appears under the email field  
+- The message may say: “Wrong email” or similar  
+- Registration is not completed  
+- The user remains on the registration page
+
+###Priority: P1
+
+---
