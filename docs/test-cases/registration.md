@@ -6,11 +6,11 @@
 - TC-REG-005 • Password mismatch • N
 - TC-REG-006 • Min/Max password length • B
 
-> Use structure: Pre / Data / Steps / ER / P
+> Use structure: P / Pre / Data / Steps / ER /
 
 ## TC-REG-001 — New account (valid)
 
-Priority: P0
+### Priority: P0
 
 Preconditions —  
 The user is logged out. Registration page is open:  
