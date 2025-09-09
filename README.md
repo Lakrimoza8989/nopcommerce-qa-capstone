@@ -48,7 +48,7 @@ This repository contains a complete QA Capstone project for the nopCommerce demo
   - [Terminal run](docs/screenshots/navigation/terminal-day1.png)
 
 
-### Day 2
+## Day 2
 
 **Focus:** foundational test docs for the automation work.
 
