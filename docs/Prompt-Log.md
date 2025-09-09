@@ -43,44 +43,18 @@ CI roadmap for GitHub Actions. Keep it concise and practical.
 
 ---
 
-## 2025-09-09 · Day 3
+## 2025-09-09 · ## Day 3
 
 ### 1) Test-Plan.md
-**Goal.** Draft a practical Test Plan: objectives, scope/in-out, assumptions/risks, roles & schedule, test levels/suites, risk-based priorities, environments/browsers, data strategy, entry/exit criteria, triage & SLAs, reporting & deliverables, traceability.  
+**Goal.** Draft a concise Test Plan (scope, priorities, high-level scenarios, approach, criteria, risks).  
 **Tool.** GPT-5  
-**Output.** [`docs/test-plan/Test-Plan.md`](docs/test-plan/Test-Plan.md)
+**Output.** [`Test-Plan.md`](Test-Plan.md)
 
 <details>
 <summary><b>Prompt used (click to expand)</b></summary>
 
 ```text
-Draft Test-Plan.md for the nopCommerce storefront (Playwright + TypeScript focus).
-Include: Objectives; Scope (in/out) & assumptions; Stakeholders/roles & RACI; Schedule/milestones;
-Test levels (Smoke/Functional/Negative/Regression/E2E); Risk-based priorities (P0/P1/P2) by area;
-Environments/browsers; Test data strategy; Entry/Exit criteria; Defect severity/priority + SLAs;
-Triage & reporting cadence; Deliverables; Traceability to Requirements IDs; Dependencies; Open risks.
-Add a compact table for Feature × Priority × Planned coverage.
-Keep it concise and actionable for this repo.
-```
-</details>
-
-### 2) Coverage-Matrix.csv (stub)
-**Goal.** Seed a coverage matrix mapping Requirement IDs to test cases (manual/BDD/automated) with status.  
-**Tool.** GPT-5  
-**Output.** [`docs/Coverage-Matrix.csv`](docs/Coverage-Matrix.csv)
-
-<details>
-<summary><b>Prompt used (click to expand)</b></summary>
-
-```text
-Create an initial CSV for coverage. Columns:
-Requirement_ID,Feature,Test_Case_ID,Type(manual|bdd|auto),Priority(P0|P1|P2),Automated_File,Status(planned|in_progress|done),Notes
-Populate 6–10 example rows using IDs from Requirements:
-AC-R1…R5 (Registration), AC-L1…L4 (Login), AC-C1…C6 (Cart), AC-CH1…CH6 (Guest Checkout).
-Map to sample tests like REG-001, LOGIN-001, CART-001, CHK-001.
-Automated_File examples: tests/smoke.spec.ts, tests/navigation.spec.ts, tests/smoke-search.spec.ts,
-and planned: tests/register.spec.ts, tests/login.spec.ts, tests/cart-add.spec.ts, tests/checkout-guest.spec.ts.
-```
-</details>
-
+Draft Test-Plan.md for nopCommerce storefront: objectives; scope/in & out; test levels (smoke/functional/negative/regression/e2e);
+priorities (P0/P1/P2); approach (Playwright+TS, role/label-first selectors, data strategy); environments/tools; entry/exit criteria;
+high-level scenarios per feature; reporting/metrics; risks; deliverables. Keep it concrete and concise.
 
