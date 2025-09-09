@@ -75,6 +75,11 @@ This repository contains a complete QA Capstone project for the nopCommerce demo
 - Drafted **Test Plan**
 - Logged the prompt and output in **Prompt Log** (Day 3)
 
+### AI Usage
+- Generated `docs/Test-Plan.md` (goals, scope/out of scope, approach, test levels/suites, test data, environments/tools, entry/exit criteria, reporting/metrics, risks/mitigations, CI roadmap).
+- Logged the prompt and output for Day 3 in `docs/Prompt-Log.md` (section **2025-09-09 · Day 3**).
+
+
 ## Documents
 - **Test Plan:** [docs/Test-Plan.md](docs/Test-Plan.md)
 - **Prompt Log: (Day 3)** [docs/Prompt-Log.md](docs/Prompt-Log.md)
@@ -86,6 +91,17 @@ MD
 - Added `docs/TestCases.md` (P/N/B cases for Registration, Login/Logout, Cart, Guest Checkout).
 - Added `docs/Coverage-Matrix.csv` (Requirement → Test Case → Automated=Planned).
 
+### AI Usage
+- Generated `docs/TestCases.md` (index of manual cases with **P/N/B** types and links to per-feature files).
+- Generated per-feature test case files:
+  `docs/test-cases/registration.md`, `docs/test-cases/login.md`,
+  `docs/test-cases/cart.md`, `docs/test-cases/checkout-guest.md`
+  (uniform **Pre / Data / Steps / Expected Result** skeletons).
+- Generated `docs/Coverage-Matrix.csv` (Requirement → Test Case → Automated = **Planned** mapping for traceability).
+
+
 ## Documents
 - Test Cases: [docs/TestCases.md](docs/TestCases.md)
 - Coverage Matrix: [docs/Coverage-Matrix.csv](docs/Coverage-Matrix.csv)
+
+---
