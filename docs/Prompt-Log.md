@@ -20,7 +20,7 @@ Keep the wording concise and implementation-agnostic.
 
 </details>
 
----
+###
 
 
 ### 2) Test-Strategy.md
@@ -41,6 +41,7 @@ CI roadmap for GitHub Actions. Keep it concise and practical.
 
 </details>
 
+---
 
 ## 2025-09-09 · Day 3
 
