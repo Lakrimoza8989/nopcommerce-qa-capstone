@@ -55,12 +55,12 @@ This repository contains a complete QA Capstone project for the nopCommerce demo
 - Logged prompts and outputs in the **Prompt Log**
 - Updated the `/docs` structure (ready for further automation)
 
-### AI Usage (Day 2)
+## AI Usage 
 - Generated `docs/Requirements.md` (Scope / Out of Scope / Assumptions + ACs + Gherkin)
 - Generated `docs/Test-Strategy.md` (goals, approach, levels/suites, test data, environments/tools, entry/exit criteria, reporting/metrics, risks/mitigations, CI roadmap)
 - Cleaned up formatting and added initial traceability (Requirements → future automated specs)
 
-### Documents (Day 2)
+## Documents
 - **Requirements:** [`docs/Requirements.md`](docs/Requirements.md)
 - **Test Strategy:** [`docs/Test-Strategy.md`](docs/Test-Strategy.md)
 - **Prompt Log (Day 2):** [`docs/Prompt-Log.md`](docs/Prompt-Log.md)
