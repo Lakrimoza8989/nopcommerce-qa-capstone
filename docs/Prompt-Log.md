@@ -5,7 +5,7 @@
 ### 1) Requirements.md
 **Goal.** Draft concise product requirements for the **storefront** (Registration, Login/Logout, Cart, Guest Checkout) with acceptance criteria (ACs) and short Gherkin examples. Scope is storefront only.  
 **Tool.** GPT-5  
-**Output.** [`docs/Requirements.md`](docs/Requirements.md)
+**Output.** [`./Requirements.md`](./Requirements.md)
 
 <details>
 <summary><b>Prompt used (click to expand)</b></summary>
@@ -26,7 +26,7 @@ Keep the wording concise and implementation-agnostic.
 ### 2) Test-Strategy.md
 **Goal.** Create a pragmatic Test Strategy for Playwright/TypeScript: goals, scope/out of scope, approach, test levels/suites, test data, environments/tools, entry/exit criteria, reporting/metrics, risks/mitigations, and a CI roadmap.  
 **Tool.** GPT-5  
-**Output.** [`docs/Test-Strategy.md`](docs/Test-Strategy.md)
+**Output.** [`./Test-Strategy.md`](./Test-Strategy.md)
 
 <details>
 <summary><b>Prompt used (click to expand)</b></summary>
