@@ -43,7 +43,7 @@ CI roadmap for GitHub Actions. Keep it concise and practical.
 
 ---
 
-## 2025-09-09 · ## Day 3
+## 2025-09-09 · Day 3
 
 ### 1) Test-Plan.md
 **Goal.** Draft a concise Test Plan (scope, priorities, high-level scenarios, approach, criteria, risks).  
