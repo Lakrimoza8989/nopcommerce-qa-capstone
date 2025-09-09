@@ -6,7 +6,7 @@
 - TC-REG-005 • Password mismatch • N
 - TC-REG-006 • Min/Max password length • B
 
-> Use structure: P / Pre / Data / Steps / ER /
+> Use structure: / Pre / Data / Steps / ER / P
 
 ## TC-REG-001 — New account (valid)
 
@@ -16,7 +16,7 @@ Preconditions —
 The user is logged out. Registration page is open:  
 [https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)
 
-Data —  
+Data:  
 - Gender: Female  
 - First Name: Anna  
 - Last Name: Ivanova  
@@ -24,7 +24,7 @@ Data —
 - Password: `Qwerty123!`  
 - Confirm Password: `Qwerty123!`
 
-Steps —  
+Steps:  
 1) Open [https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)  
 2) Select gender: Female  
 3) Fill in First Name and Last Name fields  
@@ -32,7 +32,9 @@ Steps —
 5) Enter password and confirm password  
 6) Click the "REGISTER" button
 
-Expected —  
+Expected:  
 - A success message “Your registration completed” is displayed  
 - The user is automatically logged in  
-- The user is redirected to the homepage
+- The user is redirected to the homepage  
+
+### Priority: P0
