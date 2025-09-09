@@ -88,7 +88,8 @@ MD
 ---
 
 ### Day 4 — Manual Test Cases & Coverage Matrix
-- Added `docs/TestCases.md` (P/N/B cases for Registration, Login/Logout, Cart, Guest Checkout).
+- Added `docs/TestCases.md` **(summary)** + **per-feature stubs** in `docs/test-cases/`
+  (details to be filled on **Day 5**: *Pre / Data / Steps / ER*).
 - Added `docs/Coverage-Matrix.csv` (Requirement → Test Case → Automated=Planned).
 
 ### AI Usage
@@ -101,7 +102,12 @@ MD
 
 
 ## Documents
-- Test Cases: [docs/TestCases.md](docs/TestCases.md)
-- Coverage Matrix: [docs/Coverage-Matrix.csv](docs/Coverage-Matrix.csv)
+- Test Cases: [docs/TestCases.md](docs/TestCases.md)  
+- Coverage Matrix: [docs/Coverage-Matrix.csv](docs/Coverage-Matrix.csv)  
+- Per-feature stubs:  
+  [`docs/test-cases/registration.md`](docs/test-cases/registration.md), 
+  [`docs/test-cases/login.md`](docs/test-cases/login.md),
+  [`docs/test-cases/cart.md`](docs/test-cases/cart.md),
+  [`docs/test-cases/checkout-guest.md`](docs/test-cases/checkout-guest.md)
 
 ---
