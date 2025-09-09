@@ -51,17 +51,18 @@ This repository contains a complete QA Capstone project for the nopCommerce demo
 
 ### Day 2
 
-**Focus:** foundational test docs for the automation work.
+- Added documentation: **Requirements** and **Test Strategy**
+- Logged prompts and outputs in the **Prompt Log**
+- Updated the `/docs` structure (ready for further automation)
 
-- Added **Requirements.md** (storefront features + ACs + Gherkin) → [docs/Requirements.md](docs/Requirements.md)
-- Added **Test-Strategy.md** (scope, approach, levels, data, env/tools, entry/exit, reporting, risks, CI plan) → [docs/Test-Strategy.md](docs/Test-Strategy.md)
-- Updated **Prompt-Log.md** with Day 2 prompts & outputs → [docs/Prompt-Log.md](docs/Prompt-Log.md)
+### AI Usage (Day 2)
+- Generated `docs/Requirements.md` (Scope / Out of Scope / Assumptions + ACs + Gherkin)
+- Generated `docs/Test-Strategy.md` (goals, approach, levels/suites, test data, environments/tools, entry/exit criteria, reporting/metrics, risks/mitigations, CI roadmap)
+- Cleaned up formatting and added initial traceability (Requirements → future automated specs)
 
-**Highlights**
-- Scope limited to storefront: Registration, Login/Logout, Cart, Guest Checkout
-- Playwright + TypeScript; resilient, role/label-first selectors
-- Keep Smoke lean; expand Functional/Negative next
-
-**Next up (Day 3):** draft **Test-Plan.md** (scope, priorities, high-level scenarios)
+### Documents (Day 2)
+- **Requirements:** [`docs/Requirements.md`](docs/Requirements.md)
+- **Test Strategy:** [`docs/Test-Strategy.md`](docs/Test-Strategy.md)
+- **Prompt Log (Day 2):** [`docs/Prompt-Log.md`](docs/Prompt-Log.md)
 
 ---
