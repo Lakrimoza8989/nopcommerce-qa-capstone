@@ -116,7 +116,7 @@ MD
 
 ## Day 5 — Gherkin (BDD) Scenarios
 
-- Added 3 Gherkin `.feature` files in `bdd-cucumber/features`:  
+- Added 4 Gherkin `.feature` files in `bdd-cucumber/features`:  
   - `registration-invalid-email.feature`  
   - `login-valid-invalid.feature`  
   - `cart-add.feature`  
