@@ -11,7 +11,7 @@
 
 Preconditions:  
 User is logged in  
-Homepage is open or category page (e.g., [https://demo.nopcommerce.com/desktops](https://demo.nopcommerce.com/desktops))
+Homepage is open or category page (e.g., [https://nop-qa.portnov.com/desktops](https://nop-qa.portnov.com/desktops))
 
 Data:  
 - Any in-stock product that has an "Add to cart" button
