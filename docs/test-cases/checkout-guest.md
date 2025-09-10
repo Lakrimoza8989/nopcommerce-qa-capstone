@@ -22,7 +22,7 @@ Data:
 
 Steps:  
 1) Add any product to the cart  
-2) Open the cart: [https://demo.nopcommerce.com/cart](https://demo.nopcommerce.com/cart)  
+2) Open the cart: [https://nop-qa.portnov.com/cart](https://https://nop-qa.portnov.com/cart)  
 3) Click "Checkout as Guest"  
 4) Fill in billing details  
 5) Choose shipping method  
