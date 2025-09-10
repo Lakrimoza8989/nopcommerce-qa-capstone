@@ -132,3 +132,65 @@ Expected:
 Priority: P1
 
 ---
+
+## TC-REG-005 — [N] Password mismatch
+
+Preconditions:  
+The user is logged out. Registration page is open:  
+[https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)
+
+Data:  
+- Gender: Female  
+- First Name: Emma  
+- Last Name: Davis  
+- Email: `emma.davis@example.com` (unique)  
+- Password: `Qwerty123!`  
+- Confirm Password: `WrongPassword!`
+
+Steps:  
+1) Open [https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)  
+2) Select gender: Female  
+3) Fill in First Name, Last Name, and Email  
+4) Enter password and confirm with a mismatched value  
+5) Click the "REGISTER" button
+
+Expected:  
+- An error message appears below the password confirmation field  
+- Example message: “The password and confirmation password do not match.”  
+- Registration is not completed  
+- The user remains on the registration page
+
+### Priority: P1
+
+---
+
+## TC-REG-006 — [B] Min/Max password length
+
+Preconditions:  
+The user is logged out. Registration page is open:  
+[https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)
+
+Data:  
+- First Name: Alan  
+- Last Name: Brooks  
+- Email: `alan.brooks@example.com`  
+- Test passwords:  
+  - Too short: `123`  
+  - Too long: `ThisIsAVeryVeryLongPasswordThatShouldFail`  
+  - Valid: `Qwerty123!`  
+
+Steps:  
+1) Open [https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)  
+2) Fill in First Name, Last Name, and Email  
+3) Enter test passwords (one by one):
+   - Case 1: use short password `123`  
+   - Case 2: use very long password  
+   - Case 3: use valid password `Qwerty123!`  
+4) Click "REGISTER" in each case
+
+Expected:  
+- Case 1: Error message like “Password must meet the minimum length”  
+- Case 2: Error message like “Password must not exceed the maximum length”  
+- Case 3: Registration is successful
+
+### Priority: P1
