@@ -133,4 +133,43 @@ MD
   - [`registration-valid.feature`](bdd-cucumber/features/registration-valid.feature)  
   - [`login-valid-invalid.feature`](bdd-cucumber/features/login-valid-invalid.feature)
   - [`cart-add.feature`](bdd-cucumber/features/cart-add.feature)  
-  - [`guest-checkout.feature`](bdd-cucumber/features/guest-checkout.feature)  
+  - [`guest-checkout.feature`](bdd-cucumber/features/guest-checkout.feature)
+    
+---
+
+## Day 6 — UI & API Registration Tests (NFR-ready)
+
+**Scope.** Finish Registration automation end-to-end: UI tests (valid/invalid), API tests (success/validation/duplicate), config hardening, and local verification.
+
+---
+
+### Deliverables
+- **UI:** [`tests/registration.spec.ts`](tests/registration.spec.ts)  
+  - Valid registration → sees **“Your registration completed”**  
+  - Invalid registration (empty required fields) → sees field validation messages  
+  - Stable locators (`getByLabel`/`getByRole`), auto-scroll helper, unique email generator
+- **API:** [`api-tests/registration.api.spec.ts`](api-tests/registration.api.spec.ts)  
+  - Uses Playwright HTTP client (no browser)  
+  - Grabs `__RequestVerificationToken` from `/register`, then POSTs form  
+  - Cases:
+    - **Valid** → HTTP `200` + success text
+    - **Missing required** → HTTP `200` + validation texts
+    - **Duplicate email** → HTTP `200` + “email already exists”
+- **Config:** [`playwright.config.ts`](playwright.config.ts)  
+  - `baseURL=https://demo.nopcommerce.com`, `headless=false` (debug)  
+  - Viewport 1366×768, timeouts tuned, screenshots on failure, **trace/video retain on failure**  
+  - Project: Desktop Chrome (Chromium). Ready to flip to `channel: 'chrome'` if needed.
+
+---
+
+### How to Run
+```bash
+# UI only
+npx playwright test tests/registration.spec.ts --headed --trace on
+
+# API only
+npx playwright test api-tests/registration.api.spec.ts
+
+# Everything
+npx playwright test
+npx playwright show-report
