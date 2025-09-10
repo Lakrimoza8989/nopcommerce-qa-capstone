@@ -1,19 +1,20 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  testDir: 'tests',
-  timeout: 60_000,
-  retries: 1,
-  reporter: [['html', { open: 'never' }]],
+  timeout: 45000,
+  expect: { timeout: 10000 },
   use: {
+    baseURL: 'https://demo.nopcommerce.com',
     headless: false,
-    browserName: 'chromium',
+    actionTimeout: 10000,
+    navigationTimeout: 30000,
+    viewport: { width: 1366, height: 768 },
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119 Safari/537.36',
     screenshot: 'only-on-failure',
-    trace: 'on-first-retry',
+    trace: 'retain-on-failure',
     video: 'retain-on-failure',
-    baseURL: 'https://demo.nopcommerce.com', 
-    viewport: { width: 1280, height: 800 },    
   },
+  projects: [
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+  ],
 });
-
-
