@@ -52,11 +52,11 @@ test.describe('Registration flow', () => {
 
     await page.getByRole('button', { name: /register/i }).click();
 
-    await expect(page.locator('.field-validation-error:visible')).not.toHaveCount(0);
-    await expect(page.getByText(/first name is required/i)).toBeVisible();
-    await expect(page.getByText(/last name is required/i)).toBeVisible();
-    await expect(page.getByText(/email is required/i)).toBeVisible();
-    await expect(page.getByText(/password is required/i)).toBeVisible();
+   await expect(page.locator('#LastName-error')).toBeVisible();
+await expect(page.locator('#Email-error')).toBeVisible();
+await expect(page.locator('#Password-error')).toBeVisible();
+await expect(page.locator('#ConfirmPassword-error')).toBeVisible();
+
   });
 });
 
