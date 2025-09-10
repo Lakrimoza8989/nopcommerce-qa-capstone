@@ -124,6 +124,8 @@ Notes: Test case detailing (Preconditions / Data / Steps / Expected) completed w
 
 </details>
 
+---
+
 ## 2025-09-11 • Day 5
 
 ### 1) registration-valid.feature
