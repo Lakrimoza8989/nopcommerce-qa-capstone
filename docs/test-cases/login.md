@@ -6,7 +6,7 @@
 - TC-LOGIN-005 • Empty email/password • N
 - TC-LOGIN-006 • Logout • P
 
-> Use structure: P / Pre / Data / Steps / ER
+> Use structure: Pre / Data / Steps / ER / P  
 
 ## TC-LOGIN-001 — [P] Valid login
 
