@@ -12,7 +12,7 @@
 
 Preconditions:  
 The user is logged out. Registration page is open:  
-[https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)
+[https://nop-qa.portnov.com/register](https://nop-qa.portnov.com/register)
 
 Data:  
 - Gender: Female  
@@ -23,7 +23,7 @@ Data:
 - Confirm Password: `Qwerty123!`
 
 Steps:  
-1) Open [https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)  
+1) Open [https://nop-qa.portnov.com/register](https://nop-qa.portnov.com/register)  
 2) Select gender: Female  
 3) Fill in First Name and Last Name fields  
 4) Enter email address  
@@ -45,7 +45,7 @@ Expected:
 
 Preconditions:  
 The user is logged out. Registration page is open:  
-[https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)  
+[https://nop-qa.portnov.com/register](https://nop-qa.portnov.com/register)  
 An account with email `user001@example.com` already exists in the system.
 
 Data:  
@@ -57,7 +57,7 @@ Data:
 - Confirm Password: `Qwerty123!`
 
 Steps:  
-1) Open [https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)  
+1) Open [https://nop-qa.portnov.com/register](https://nop-qa.portnov.com/register)  
 2) Select gender: Male  
 3) Fill in First Name and Last Name fields  
 4) Enter already registered email address  
@@ -77,7 +77,7 @@ Expected:
 
 Preconditions:  
 The user is logged out. Registration page is open:  
-[https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)
+[https://nop-qa.portnov.com/register](https://nop-qa.portnov.com/register)
 
 Data:  
 - Gender: Male  
@@ -88,7 +88,7 @@ Data:
 - Confirm Password: `Qwerty123!`
 
 Steps:  
-1) Open [https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)  
+1) Open [https://nop-qa.portnov.com/register](https://nop-qa.portnov.com/register)  
 2) Select gender: Male  
 3) Fill in First Name and Last Name  
 4) Enter invalid email: `invalid-email-format`  
@@ -109,13 +109,13 @@ Expected:
 
 Preconditions:   
 The user is logged out. Registration page is open:  
-[https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)
+[https://nop-qa.portnov.com/register](https://nop-qa.portnov.com/register)
 
 Data:  
 - Leave all fields empty (no input provided)
 
 Steps:  
-1) Open [https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)  
+1) Open [https://nop-qa.portnov.com/register](https://nop-qa.portnov.com/register)  
 2) Click the "REGISTER" button without filling any fields
 
 Expected:  
@@ -137,7 +137,7 @@ Priority: P1
 
 Preconditions:  
 The user is logged out. Registration page is open:  
-[https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)
+[https://nop-qa.portnov.com/register](https://nop-qa.portnov.com/register)
 
 Data:  
 - Gender: Female  
@@ -148,7 +148,7 @@ Data:
 - Confirm Password: `WrongPassword!`
 
 Steps:  
-1) Open [https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)  
+1) Open [https://nop-qa.portnov.com/register](https://nop-qa.portnov.com/register)  
 2) Select gender: Female  
 3) Fill in First Name, Last Name, and Email  
 4) Enter password and confirm with a mismatched value  
@@ -168,7 +168,7 @@ Expected:
 
 Preconditions:  
 The user is logged out. Registration page is open:  
-[https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)
+[https://nop-qa.portnov.com/register](https://nop-qa.portnov.com/register)
 
 Data:  
 - First Name: Alan  
@@ -180,7 +180,7 @@ Data:
   - Valid: `Qwerty123!`  
 
 Steps:  
-1) Open [https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)  
+1) Open [https://nop-qa.portnov.com/register](https://nop-qa.portnov.com/register)  
 2) Fill in First Name, Last Name, and Email  
 3) Enter test passwords (one by one):
    - Case 1: use short password `123`  

@@ -1,7 +1,7 @@
 # Requirements — nopCommerce Demo (Storefront)
 
 ## Scope
-Testing covers the **user storefront** at https://demo.nopcommerce.com, including:
+Testing covers the **user storefront** at https://nop-qa.portnov.com, including:
 - Registration
 - Login / Logout
 - Shopping Cart

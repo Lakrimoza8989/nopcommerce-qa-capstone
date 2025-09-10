@@ -156,7 +156,7 @@ MD
     - **Missing required** → HTTP `200` + validation texts
     - **Duplicate email** → HTTP `200` + “email already exists”
 - **Config:** [`playwright.config.ts`](playwright.config.ts)  
-  - `baseURL=https://demo.nopcommerce.com`, `headless=false` (debug)  
+  - `baseURL=https://nop-qa.portnov.com`, `headless=false` (debug)  
   - Viewport 1366×768, timeouts tuned, screenshots on failure, **trace/video retain on failure**  
   - Project: Desktop Chrome (Chromium). Ready to flip to `channel: 'chrome'` if needed.  
 

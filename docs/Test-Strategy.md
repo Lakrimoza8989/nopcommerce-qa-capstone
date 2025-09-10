@@ -4,7 +4,11 @@
 Provide a lean, reliable test stack that proves critical user flows work: Registration, Login/Logout, Cart, Guest Checkout. Keep a very fast Smoke layer for daily confidence.
 
 ## Scope
+<<<<<<< HEAD
 User storefront at [nop-qa.portnov.com](https://nop-qa.portnov.com/) (desktop, Chromium primary).
+=======
+User storefront at https://nop-qa.portnov.com (desktop, Chromium primary).
+>>>>>>> switch-to-portnov
 
 ## Out of Scope
 Admin panel, real payment providers, email delivery, tax/shipping rate correctness, performance/load testing.

@@ -1,7 +1,11 @@
 import { test, expect } from '@playwright/test';
 
 test('Computers → Desktops показывает товары', async ({ page }) => {
+<<<<<<< HEAD
   await page.goto('https://nop-qa.portnov.com/');
+=======
+  await page.goto('/');
+>>>>>>> switch-to-portnov
 
   await page.getByRole('link', { name: 'Computers', exact: true }).click();
 
