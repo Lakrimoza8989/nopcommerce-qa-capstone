@@ -118,6 +118,8 @@ Generate per-feature test case stubs:
   docs/test-cases/cart.md
   docs/test-cases/checkout-guest.md
 For each file: list the cases with ID/Title/Type, then provide a “Use structure: Pre / Data / Steps / ER” note so the team can expand details later.
+Notes: Test case detailing (Preconditions / Data / Steps / Expected) completed with GPT-5 assistance. Prompt used interactively during case-by-case creation.
+
 ```
 
 </details>
