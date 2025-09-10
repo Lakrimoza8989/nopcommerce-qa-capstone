@@ -124,4 +124,55 @@ Notes: Test case detailing (Preconditions / Data / Steps / Expected) completed w
 
 </details>
 
+## 2025-09-11 • Day 5
+
+### 1) registration-valid.feature
+
+**Goal**  
+Convert a positive test case for Registration into Gherkin format.
+
+**Tool**  
+GPT-5
+
+**Output**  
+`bdd-cucumber/features/registration-valid.feature`
+
+---
+
+### 2) login-valid-invalid.feature
+
+**Goal**  
+Write a BDD scenario combining both valid and invalid login attempts.
+
+**Tool**  
+GPT-5
+
+**Output**  
+`bdd-cucumber/features/login-valid-invalid.feature`
+
+---
+
+### 3) cart-add.feature
+
+**Goal**  
+Write a BDD scenario for adding an item to the shopping cart from a product listing.
+
+**Tool**  
+GPT-5
+
+**Output**  
+`bdd-cucumber/features/cart-add.feature`
+
+---
+
+### 4) guest-checkout.feature
+
+**Goal**  
+Write a BDD scenario for guest checkout (positive happy path).
+
+**Tool**  
+GPT-5
+
+**Output**  
+`bdd-cucumber/features/guest-checkout.feature`
 
