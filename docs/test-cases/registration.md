@@ -104,3 +104,31 @@ Expected:
 ### Priority: P1
 
 ---
+
+## TC-REG-004 — [N] Empty required fields
+
+Preconditions:   
+The user is logged out. Registration page is open:  
+[https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)
+
+Data:  
+- Leave all fields empty (no input provided)
+
+Steps:  
+1) Open [https://demo.nopcommerce.com/register](https://demo.nopcommerce.com/register)  
+2) Click the "REGISTER" button without filling any fields
+
+Expected:  
+- Validation messages appear under each required field  
+- The messages may include:  
+  - “First name is required”  
+  - “Last name is required”  
+  - “Email is required”  
+  - “Password is required”  
+  - “Password is required” (again for confirmation)  
+- Registration is not completed  
+- The user remains on the registration page
+
+Priority: P1
+
+---
