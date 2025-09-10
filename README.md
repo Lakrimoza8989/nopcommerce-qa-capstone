@@ -158,7 +158,7 @@ MD
 - **Config:** [`playwright.config.ts`](playwright.config.ts)  
   - `baseURL=https://demo.nopcommerce.com`, `headless=false` (debug)  
   - Viewport 1366×768, timeouts tuned, screenshots on failure, **trace/video retain on failure**  
-  - Project: Desktop Chrome (Chromium). Ready to flip to `channel: 'chrome'` if needed.
+  - Project: Desktop Chrome (Chromium). Ready to flip to `channel: 'chrome'` if needed.  
 
 ###
 
