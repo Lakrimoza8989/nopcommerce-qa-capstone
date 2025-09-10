@@ -130,7 +130,7 @@ MD
 ### Documents
 
 - Feature Files (Gherkin):
-  - [`registration-invalid-email.feature`](bdd-cucumber/features/registration-invalid-email.feature)  
+  - [`registration-valid.feature`](bdd-cucumber/features/registration-valid.feature)  
   - [`login-valid-invalid.feature`](bdd-cucumber/features/login-valid-invalid.feature)
   - [`cart-add.feature`](bdd-cucumber/features/cart-add.feature)  
   - [`guest-checkout.feature`](bdd-cucumber/features/guest-checkout.feature)  
