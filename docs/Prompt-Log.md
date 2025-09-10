@@ -126,55 +126,26 @@ Notes: Test case detailing (Preconditions / Data / Steps / Expected) completed w
 
 ---
 
-## 2025-09-11 • Day 5
+2025-09-11 • Day 5
 
-### 1) registration-valid.feature
+1) registration-valid.feature  
+**Goal.** Convert valid registration test case (TC-REG-001) into a Gherkin-based BDD feature.  
+**Tool.** GPT-5  
+**Output.** [bdd-cucumber/features/registration-valid.feature](../bdd-cucumber/features/registration-valid.feature)
 
-**Goal**  
-Convert a positive test case for Registration into Gherkin format.
+2) login-valid-invalid.feature  
+**Goal.** Convert positive and negative login scenarios into one `.feature` file.  
+**Tool.** GPT-5  
+**Output.** [bdd-cucumber/features/login-valid-invalid.feature](../bdd-cucumber/features/login-valid-invalid.feature)
 
-**Tool**  
-GPT-5
+3) cart-add.feature  
+**Goal.** Create a BDD flow for adding item to cart from the product listing page.  
+**Tool.** GPT-5  
+**Output.** [bdd-cucumber/features/cart-add.feature](../bdd-cucumber/features/cart-add.feature)
 
-**Output**  
-`bdd-cucumber/features/registration-valid.feature`
+4) guest-checkout.feature  
+**Goal.** Write end-to-end guest checkout scenario using Gherkin syntax.  
+**Tool.** GPT-5  
+**Output.** [bdd-cucumber/features/guest-checkout.feature](../bdd-cucumber/features/guest-checkout.feature)
 
-
-
-### 2) login-valid-invalid.feature
-
-**Goal**  
-Write a BDD scenario combining both valid and invalid login attempts.
-
-**Tool**  
-GPT-5
-
-**Output**  
-`bdd-cucumber/features/login-valid-invalid.feature`
-
-
-
-### 3) cart-add.feature
-
-**Goal**  
-Write a BDD scenario for adding an item to the shopping cart from a product listing.
-
-**Tool**  
-GPT-5
-
-**Output**  
-`bdd-cucumber/features/cart-add.feature`
-
-
-
-### 4) guest-checkout.feature
-
-**Goal**  
-Write a BDD scenario for guest checkout (positive happy path).
-
-**Tool**  
-GPT-5
-
-**Output**  
-`bdd-cucumber/features/guest-checkout.feature`
 
