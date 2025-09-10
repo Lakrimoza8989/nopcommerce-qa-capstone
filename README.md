@@ -89,7 +89,7 @@ MD
 
 ### Day 4 — Manual Test Cases & Coverage Matrix
 - Added `docs/TestCases.md` **(summary)** + **per-feature stubs** in `docs/test-cases/`
-  (details to be filled on **Day 5**: *Pre / Data / Steps / ER*).
+  (details to be filled on Day 5: Pre / Data / Steps / ER).
 - Added `docs/Coverage-Matrix.csv` (Requirement → Test Case → Automated=Planned).
 
 ### AI Usage
