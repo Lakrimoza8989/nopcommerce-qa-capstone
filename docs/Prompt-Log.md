@@ -146,6 +146,49 @@ Notes: Test case detailing (Preconditions / Data / Steps / Expected) completed w
 ### 4) guest-checkout.feature  
 **Goal.** Write end-to-end guest checkout scenario using Gherkin syntax.  
 **Tool.** GPT-5  
-**Output.** [bdd-cucumber/features/guest-checkout.feature](../bdd-cucumber/features/guest-checkout.feature)
+**Output.** [bdd-cucumber/features/guest-checkout.feature](../bdd-cucumber/features/guest-checkout.feature)  
+
+---  
+
+## 2025-09-10 · Day 6 · Prompt Log
+
+### 1) registration.spec.ts (UI)
+**Goal.** Automate Registration flow via UI: valid and invalid cases.  
+**Prompt used:**  
+> Write a Playwright test in TypeScript for nopCommerce demo site registration.  
+> - Case 1: valid registration with unique email, assert “Your registration completed”.  
+> - Case 2: invalid registration with empty required fields, assert validation messages.  
+> Use `getByLabel` / `getByRole` locators, auto-scroll helper, and dynamic email generator.  
+**Output.** [`tests/registration.spec.ts`](tests/registration.spec.ts)
+
+##
+
+### 2) registration.api.spec.ts (API)
+**Goal.** Automate Registration flow via API: valid (200), missing required (200 + validation errors), duplicate (200 + “email already exists”).  
+**Prompt used:**  
+> Write API tests in Playwright (TypeScript) for nopCommerce demo registration.  
+> - Fetch antiforgery token from `/register` page.  
+> - POST form with required fields.  
+> - Verify success text, validation error messages, and duplicate email message.  
+**Output.** [`api-tests/registration.api.spec.ts`](api-tests/registration.api.spec.ts)
+
+##
+
+### 3) playwright.config.ts
+**Goal.** Update config for stable execution.  
+**Prompt used:**  
+> Update Playwright config: set baseURL=https://demo.nopcommerce.com, headless=false, viewport 1366x768, timeouts, screenshots on failure, trace/video artifacts. Configure project for Desktop Chrome.  
+**Output.** [`playwright.config.ts`](playwright.config.ts)
+
+##
+
+### Verification
+**Prompt used:**  
+> How to verify that both UI and API registration tests pass? Provide Playwright CLI commands.  
+**Output.**  
+```bash
+npx playwright test
+npx playwright show-report
+
 
 
