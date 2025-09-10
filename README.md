@@ -113,3 +113,24 @@ MD
   [`docs/test-cases/checkout-guest.md`](docs/test-cases/checkout-guest.md)  
 
 ---
+
+## Day 5 — Gherkin (BDD) Scenarios
+
+- Added 3 Gherkin `.feature` files in `bdd-cucumber/features`:  
+  - `registration-invalid-email.feature`  
+  - `login-valid-invalid.feature`  
+  - `cart-add.feature`  
+  - `guest-checkout.feature`  
+
+### AI Usage
+
+- GPT-5 assisted in converting manual test cases to BDD format.  
+- Helped with Gherkin syntax, test case structuring, and realistic user steps.  
+
+### Documents
+
+- Feature Files (Gherkin):
+  - [`registration-invalid-email.feature`](bdd-cucumber/features/registration-invalid-email.feature)  
+  - [`login-valid-invalid.feature`](bdd-cucumber/features/login-valid-invalid.feature)
+  - [`cart-add.feature`](bdd-cucumber/features/cart-add.feature)  
+  - [`guest-checkout.feature`](bdd-cucumber/features/guest-checkout.feature)  
