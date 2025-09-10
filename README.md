@@ -99,6 +99,8 @@ MD
   `docs/test-cases/cart.md`, `docs/test-cases/checkout-guest.md`
   (uniform **Pre / Data / Steps / Expected Result** skeletons).
 - Generated `docs/Coverage-Matrix.csv` (Requirement → Test Case → Automated = **Planned** mapping for traceability).
+- Manual test cases written with GPT-5 assistance.
+
 
 
 ## Documents
