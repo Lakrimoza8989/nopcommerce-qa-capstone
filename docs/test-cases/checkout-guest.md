@@ -115,7 +115,7 @@ Data:
 - N/A
 
 Steps:  
-1) Open [https://demo.nopcommerce.com/cart](https://demo.nopcommerce.com/cart)  
+1) Open [https://nop-qa.portnov.com/cart](https://nop-qa.portnov.com/cart)  
 2) Click “Checkout”
 
 Expected:  
