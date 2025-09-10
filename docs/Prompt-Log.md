@@ -139,7 +139,7 @@ GPT-5
 **Output**  
 `bdd-cucumber/features/registration-valid.feature`
 
----
+
 
 ### 2) login-valid-invalid.feature
 
@@ -152,7 +152,7 @@ GPT-5
 **Output**  
 `bdd-cucumber/features/login-valid-invalid.feature`
 
----
+
 
 ### 3) cart-add.feature
 
@@ -165,7 +165,7 @@ GPT-5
 **Output**  
 `bdd-cucumber/features/cart-add.feature`
 
----
+
 
 ### 4) guest-checkout.feature
 
