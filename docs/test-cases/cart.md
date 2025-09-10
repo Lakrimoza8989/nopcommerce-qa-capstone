@@ -11,7 +11,7 @@
 
 Preconditions:  
 User is logged in  
-Homepage is open or category page (e.g., [https://demo.nopcommerce.com/desktops](https://demo.nopcommerce.com/desktops))
+Homepage is open or category page (e.g., [https://nop-qa.portnov.com/desktops](https://nop-qa.portnov.com/desktops))
 
 Data:  
 - Any in-stock product that has an "Add to cart" button
@@ -42,7 +42,7 @@ Data:
 - New quantity: 3
 
 Steps:  
-1) Open the shopping cart page: [https://demo.nopcommerce.com/cart](https://demo.nopcommerce.com/cart)  
+1) Open the shopping cart page: [https://nop-qa.portnov.com/cart](https://nop-qa.portnov.com/cart)  
 2) Change quantity of an item to 3  
 3) Click the "Update shopping cart" button
 
@@ -65,7 +65,7 @@ Data:
 - Set quantity to `0`
 
 Steps:  
-1) Open the shopping cart page: [https://demo.nopcommerce.com/cart](https://demo.nopcommerce.com/cart)  
+1) Open the shopping cart page: [https://nop-qa.portnov.com/cart](https://nop-qa.portnov.com/cart)  
 2) Set item quantity to `0`  
 3) Click "Update shopping cart"
 
@@ -89,7 +89,7 @@ Data:
 - Or attempt to enter an extremely high number (e.g., `9999`)
 
 Steps:  
-1) Open the cart page: [https://demo.nopcommerce.com/cart](https://demo.nopcommerce.com/cart)  
+1) Open the cart page: [https://nop-qa.portnov.com/cart](https://nop-qa.portnov.com/cart)  
 2) Change quantity of item to a large value  
 3) Click "Update shopping cart"
 
@@ -112,7 +112,7 @@ Data:
 - N/A
 
 Steps:  
-1) Open the cart page: [https://demo.nopcommerce.com/cart](https://demo.nopcommerce.com/cart)  
+1) Open the cart page: [https://nop-qa.portnov.com/cart](https://nop-qa.portnov.com/cart)  
 2) Check the "Remove" checkbox next to the product  
 3) Click "Update shopping cart"
 

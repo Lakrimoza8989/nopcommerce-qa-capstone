@@ -4,7 +4,7 @@ export default defineConfig({
   timeout: 45000,
   expect: { timeout: 10000 },
   use: {
-    baseURL: 'https://demo.nopcommerce.com',
+    baseURL: 'http://nop-qa.portnov.com',
     headless: false,
     actionTimeout: 10000,
     navigationTimeout: 30000,

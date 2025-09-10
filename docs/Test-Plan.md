@@ -31,7 +31,7 @@ Admin panel, real payments/taxes/email delivery, performance/load, i18n, accessi
 - Flakiness control: explicit waits via `expect(...).toBeVisible()`, URL assertions; retries — точечно.
 
 ## 7. Environments & Tools
-- Site: https://demo.nopcommerce.com
+- Site: https://nop-qa.portnov.com
 - Browser: Chromium primary (FF/WebKit later)
 - Reporting: Playwright HTML; screenshots/video/trace on fail
 - CI: GitHub Actions (smoke gate; nightly functional matrix — later)

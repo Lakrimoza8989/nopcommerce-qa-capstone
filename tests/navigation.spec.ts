@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('Computers → Desktops показывает товары', async ({ page }) => {
-  await page.goto('https://demo.nopcommerce.com/');
+  await page.goto('/');
 
   await page.getByRole('link', { name: 'Computers', exact: true }).click();
 

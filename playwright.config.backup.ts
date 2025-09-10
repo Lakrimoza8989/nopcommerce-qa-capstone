@@ -11,7 +11,7 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     trace: 'on-first-retry',
     video: 'retain-on-failure',
-    baseURL: 'https://demo.nopcommerce.com', 
+    baseURL: 'https://nop-qa.portnov.com', 
     viewport: { width: 1280, height: 800 },    
   },
 });

@@ -16,14 +16,14 @@ User has a registered account with the following credentials:
 - Password: `Qwerty123!`  
 User is logged out.  
 Login page is open:  
-[https://demo.nopcommerce.com/login?returnUrl=%2Fdesktops](https://demo.nopcommerce.com/login?returnUrl=%2Fdesktops)
+[https://nop-qa.portnov.com/login?returnUrl=%2Fdesktops](https://nop-qa.portnov.com/login?returnUrl=%2Fdesktops)
 
 Data:  
 - Email: `user001@example.com`  
 - Password: `Qwerty123!`
 
 Steps:  
-1) Open [https://demo.nopcommerce.com/login?returnUrl=%2Fdesktops](https://demo.nopcommerce.com/login?returnUrl=%2Fdesktops)  
+1) Open [https://nop-qa.portnov.com/login?returnUrl=%2Fdesktops](https://nop-qa.portnov.com/login?returnUrl=%2Fdesktops)  
 2) Enter valid email and password  
 3) Click the "LOG IN" button
 
@@ -44,14 +44,14 @@ The user has a registered account:
 - Email: `user001@example.com`  
 - Password: `Qwerty123!`  
 User is logged out. Login page is open:  
-[https://demo.nopcommerce.com/login](https://demo.nopcommerce.com/login)
+[https://nop-qa.portnov.com/login](https://nop-qa.portnov.com/login)
 
 Data:  
 - Email: `user001@example.com`  
 - Password: `WrongPass123!`
 
 Steps:  
-1) Open [https://demo.nopcommerce.com/login](https://demo.nopcommerce.com/login)  
+1) Open [https://nop-qa.portnov.com/login](https://nop-qa.portnov.com/login)  
 2) Enter valid email and incorrect password  
 3) Click the "LOG IN" button
 
@@ -68,14 +68,14 @@ Expected:
 
 Preconditions:  
 The user is logged out. Login page is open:  
-[https://demo.nopcommerce.com/login](https://demo.nopcommerce.com/login)
+[https://nop-qa.portnov.com/login](https://nop-qa.portnov.com/login)
 
 Data:  
 - Email: `not.registered@example.com`  
 - Password: `Qwerty123!`
 
 Steps:  
-1) Open [https://demo.nopcommerce.com/login](https://demo.nopcommerce.com/login)  
+1) Open [https://nop-qa.portnov.com/login](https://nop-qa.portnov.com/login)  
 2) Enter unregistered email and any password  
 3) Click the "LOG IN" button
 
@@ -93,14 +93,14 @@ Expected:
 Preconditions:  
 The user has a registered account with email: `user001@example.com`  
 User is logged out. Login page is open:  
-[https://demo.nopcommerce.com/login](https://demo.nopcommerce.com/login)
+[https://nop-qa.portnov.com/login](https://nop-qa.portnov.com/login)
 
 Data:  
 - Email: `USER001@EXAMPLE.COM` (uppercase variant)  
 - Password: `Qwerty123!`
 
 Steps:  
-1) Open [https://demo.nopcommerce.com/login](https://demo.nopcommerce.com/login)  
+1) Open [https://nop-qa.portnov.com/login](https://nop-qa.portnov.com/login)  
 2) Enter the same email but in uppercase  
 3) Enter correct password  
 4) Click the "LOG IN" button
@@ -118,14 +118,14 @@ Expected:
 
 Preconditions:  
 User is logged out. Login page is open:  
-[https://demo.nopcommerce.com/login](https://demo.nopcommerce.com/login)
+[https://nop-qa.portnov.com/login](https://nop-qa.portnov.com/login)
 
 Data:  
 - Email: (empty)  
 - Password: (empty)
 
 Steps:  
-1) Open [https://demo.nopcommerce.com/login](https://demo.nopcommerce.com/login)  
+1) Open [https://nop-qa.portnov.com/login](https://nop-qa.portnov.com/login)  
 2) Leave both email and password fields empty  
 3) Click the "LOG IN" button
 

@@ -11,7 +11,7 @@
 <summary><b>Prompt used (click to expand)</b></summary>
 
 ```text
-Draft Requirements.md for the nopCommerce storefront (https://demo.nopcommerce.com).
+Draft Requirements.md for the nopCommerce storefront (https://nop-qa.portnov.com).
 Include: Scope, Out of Scope, Assumptions. For features Registration, Login/Logout,
 Shopping Cart, Guest Checkout — write clear Acceptance Criteria and provide a short
 Gherkin example for the happy path (plus one negative for Registration).
@@ -177,7 +177,7 @@ Notes: Test case detailing (Preconditions / Data / Steps / Expected) completed w
 ### 3) playwright.config.ts
 **Goal.** Update config for stable execution.  
 **Prompt used:**  
-> Update Playwright config: set baseURL=https://demo.nopcommerce.com, headless=false, viewport 1366x768, timeouts, screenshots on failure, trace/video artifacts. Configure project for Desktop Chrome.  
+> Update Playwright config: set baseURL=https://nop-qa.portnov.com, headless=false, viewport 1366x768, timeouts, screenshots on failure, trace/video artifacts. Configure project for Desktop Chrome.  
 **Output.** [`playwright.config.ts`](playwright.config.ts)
 
 ##
