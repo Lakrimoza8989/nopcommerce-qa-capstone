@@ -141,7 +141,7 @@ MD
 
 **Scope.** Finish Registration automation end-to-end: UI tests (valid/invalid), API tests (success/validation/duplicate), config hardening, and local verification.
 
----
+###
 
 ### Deliverables
 - **UI:** [`tests/registration.spec.ts`](tests/registration.spec.ts)  
@@ -160,7 +160,7 @@ MD
   - Viewport 1366×768, timeouts tuned, screenshots on failure, **trace/video retain on failure**  
   - Project: Desktop Chrome (Chromium). Ready to flip to `channel: 'chrome'` if needed.
 
----
+###
 
 ### How to Run
 ```bash
