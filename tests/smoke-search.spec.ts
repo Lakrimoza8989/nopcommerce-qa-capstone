@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('search returns results', async ({ page }) => {
-  await page.goto('https://demo.nopcommerce.com/');
+  await page.goto('https://nop-qa.portnov.com/');
   await page.getByPlaceholder('Search store').fill('book');
   await page.getByRole('button', { name: 'Search' }).click();
   await expect(page).toHaveURL(/\/search/);
