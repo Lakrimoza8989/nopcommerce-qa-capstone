@@ -98,8 +98,9 @@ Set Automated=Planned for now. Keep CSV header and values simple (no extra comma
 
 </details>
 
-### 3) Per-feature case files (stubs)
-**Goal.** Create per-feature test case detail stubs (Pre/Data/Steps/ER) to match the summary list.  
+### 3) Per-feature case files  
+**Goal.**  Create per-feature test case files (Pre/Data/Steps/Expected/Priority) to match the summary list.  
+  
 **Tool.** GPT-5  
 **Output.**  
 - [`./test-cases/registration.md`](./test-cases/registration.md)
