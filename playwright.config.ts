@@ -17,9 +17,15 @@ export = defineConfig({
     video: 'retain-on-failure',
   },
   reporter: [
-    ['list'],
-    ['html', { outputFolder: 'reports/latest/html-report', open: 'never' }]
+  ['list'],
+  [
+    'html',
+    {
+      outputFolder: path.join(__dirname, 'reports', 'latest', 'html-report'),
+      open: 'never',
+    },
   ],
-  outputDir: 'reports/latest/test-results',
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+],
+outputDir: path.join(__dirname, 'reports', 'latest', 'test-results'),
+ projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
 });
