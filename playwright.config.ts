@@ -29,3 +29,4 @@ export default defineConfig({
   outputDir: ARTIFACTS_DIR,
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
 });
+
