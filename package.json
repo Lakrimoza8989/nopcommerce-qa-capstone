@@ -8,9 +8,9 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "playwright test",
-    "test:headed": "playwright test --headed",
-    "report": "playwright show-report reports/latest/html-report"
+  "test": "npx playwright test",
+  "test:headed": "npx playwright test --headed",
+  "report": "npx playwright show-report reports/latest/html-report"
   },
   "repository": {
     "type": "git",
