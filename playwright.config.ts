@@ -1,8 +1,11 @@
+// playwright.config.ts (ESM)
 import { defineConfig, devices } from '@playwright/test';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const HTML_REPORT_DIR = path.join(__dirname, 'docs', 'reports', 'latest');
+const ARTIFACTS_DIR = path.join(__dirname, 'reports', 'artifacts');
 
 export default defineConfig({
   timeout: 45_000,
@@ -21,17 +24,8 @@ export default defineConfig({
   },
   reporter: [
     ['list'],
-    [
-      'html',
-      {
-        outputFolder: path.join(__dirname, 'reports', 'latest', 'playwright-report'),
-        open: 'never',
-      },
-    ],
+    ['html', { outputFolder: HTML_REPORT_DIR, open: 'never' }],
   ],
-  outputDir: path.join(__dirname, 'reports', 'latest', 'playwright-report', 'data'),
+  outputDir: ARTIFACTS_DIR,
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
 });
-
-
-
