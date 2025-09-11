@@ -25,7 +25,6 @@
     "url": "https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/issues"
   },
   "homepage": "https://github.com/Lakrimoza8989/nopcommerce-qa-capstone#readme",
-  "type": "module",
   "devDependencies": {
     "@playwright/test": "^1.55.0"
   }
