@@ -14,6 +14,10 @@ export default defineConfig({
     trace: 'retain-on-failure',
     video: 'retain-on-failure',
   },
+reporter: [
+    ['list'],                                
+    ['html', { outputFolder: 'playwright-report', open: 'never' }]
+  ],
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
   ],
