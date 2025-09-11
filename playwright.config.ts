@@ -1,15 +1,17 @@
 import { defineConfig, devices } from '@playwright/test';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  timeout: 45000,
-  expect: { timeout: 10000 },
-
+  timeout: 45_000,
+  expect: { timeout: 10_000 },
   use: {
     baseURL: 'http://nop-qa.portnov.com',
     headless: false,
-    actionTimeout: 10000,
-    navigationTimeout: 30000,
+    actionTimeout: 10_000,
+    navigationTimeout: 30_000,
     viewport: { width: 1366, height: 768 },
     userAgent:
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119 Safari/537.36',
@@ -17,28 +19,19 @@ export default defineConfig({
     trace: 'retain-on-failure',
     video: 'retain-on-failure',
   },
-
   reporter: [
     ['list'],
     [
       'html',
       {
-        // HTML report output
         outputFolder: path.join(__dirname, 'reports', 'latest', 'playwright-report'),
         open: 'never',
       },
     ],
   ],
-
-  // Keep raw artifacts (screenshots/videos/traces) separate from the HTML report
-  outputDir: path.join(__dirname, 'reports', 'latest', 'artifacts'),
-
-  projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-  ],
+  outputDir: path.join(__dirname, 'reports', 'latest', 'playwright-report', 'data'),
+  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
 });
+
 
 
