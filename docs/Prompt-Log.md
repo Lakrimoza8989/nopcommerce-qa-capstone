@@ -159,7 +159,7 @@ Notes: Test case detailing (Preconditions / Data / Steps / Expected) completed w
 > - Case 1: valid registration with unique email, assert “Your registration completed”.  
 > - Case 2: invalid registration with empty required fields, assert validation messages.  
 > Use `getByLabel` / `getByRole` locators, auto-scroll helper, and dynamic email generator.  
-**Output.** [`tests/registration.spec.ts`](tests/registration.spec.ts)
+**Output.** [`tests/registration.spec.ts`](../tests/registration.spec.ts)
 
 ##
 
