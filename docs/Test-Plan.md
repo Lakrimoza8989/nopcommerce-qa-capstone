@@ -31,11 +31,11 @@ Admin panel, real payments/taxes/email delivery, performance/load, i18n, accessi
 - Flakiness control: explicit waits via `expect(...).toBeVisible()`, URL assertions; retries — точечно.
 
 ## 7. Environments & Tools
-<<<<<<< HEAD
+HEAD
 - Site: [https://nop-qa.portnov.com](https://nop-qa.portnov.com/)
-=======
+
 - Site: https://nop-qa.portnov.com
->>>>>>> switch-to-portnov
+
 - Browser: Chromium primary (FF/WebKit later)
 - Reporting: Playwright HTML; screenshots/video/trace on fail
 - CI: GitHub Actions (smoke gate; nightly functional matrix — later)
