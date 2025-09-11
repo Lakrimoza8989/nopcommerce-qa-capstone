@@ -18,14 +18,8 @@ export = defineConfig({
   },
   reporter: [
     ['list'],
-    [
-      'html',
-      {
-        outputFolder: path.join(__dirname, 'reports', 'latest', 'playwright-report'),
-        open: 'never',
-      },
-    ],
+    ['html', { outputFolder: 'reports/latest/html-report', open: 'never' }]
   ],
-  outputDir: path.join(__dirname, 'reports', 'latest', 'playwright-report', 'data'),
+  outputDir: 'reports/latest/test-results',
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
 });
