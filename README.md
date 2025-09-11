@@ -167,9 +167,16 @@ MD
 - Saved HTML snapshot: `reports/<timestamp>/playwright-report/index.html`
 - All images/videos/traces: `reports/<timestamp>/playwright-report/data/`
 
-**Open a saved report locally**
+#### Open a saved report locally
 ```bash
 npx playwright show-report reports/<timestamp>/playwright-report
+```
+
+#### One-shot run + save + push
+```bash
+bash scripts/run-save.sh
+```
+
 
 
 
