@@ -162,6 +162,19 @@ MD
 
 ##
 
+### How to Run
+```bash
+# UI only
+npx playwright test tests/registration.spec.ts --headed --trace on
+
+# API only
+npx playwright test api-tests/registration.api.spec.ts
+
+# Everything
+npx playwright test
+npx playwright show-report
+```
+
 ### Reports & Artifacts
 
 - Saved HTML snapshot: `reports/<timestamp>/playwright-report/index.html`
@@ -176,19 +189,3 @@ npx playwright show-report reports/<timestamp>/playwright-report
 ```bash
 bash scripts/run-save.sh
 ```
-
-
-
-
-### How to Run
-```bash
-# UI only
-npx playwright test tests/registration.spec.ts --headed --trace on
-
-# API only
-npx playwright test api-tests/registration.api.spec.ts
-
-# Everything
-npx playwright test
-npx playwright show-report
-
