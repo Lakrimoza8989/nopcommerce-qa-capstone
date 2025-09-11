@@ -8,11 +8,11 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "playwright test",
-    "report": "playwright show-report",
-    "test:ci": "playwright test --reporter=list,html && echo Report: playwright-report/index.html",
-    "test:trace": "playwright test --trace on --reporter=list,html && playwright show-report",
-    "report:open": "playwright show-report"
+  "test": "playwright test",
+  "report": "playwright show-report",
+  "test:ci": "playwright test --reporter=list,html && echo Report: playwright-report/index.html",
+  "test:trace": "playwright test --trace on --reporter=list,html && playwright show-report",
+  "report:open": "playwright show-report"
   },
   "repository": {
     "type": "git",
