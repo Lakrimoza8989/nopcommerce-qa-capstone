@@ -1,13 +1,18 @@
 {
   "name": "nopcommerce-qa-capstone",
   "version": "1.0.0",
-  "private": true,
-  "type": "module",
+  "description": "This repository contains a complete QA Capstone project for the nopCommerce demo store. It includes test documentation (Test Plan, Strategy, Coverage Matrix), manual and BDD test cases, automated Playwright tests, CI/CD setup, and HTML reports. AI tools (ChatGPT, Gemini) were used to speed up test design and automation.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
   "scripts": {
     "test": "playwright test",
-    "report:open": "playwright show-report",
+    "report": "playwright show-report",
     "test:ci": "playwright test --reporter=list,html && echo Report: playwright-report/index.html",
-    "save": "bash scripts/run-save.sh"
+    "test:trace": "playwright test --trace on --reporter=list,html && playwright show-report",
+    "report:open": "playwright show-report"
   },
   "repository": {
     "type": "git",
