@@ -1,11 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 import path from 'path';
-<<<<<<< HEAD
-=======
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
->>>>>>> 921f500 (restore: revert package.json & playwright.config.ts to last known good versions)
 
 export default defineConfig({
   timeout: 45000,
@@ -23,7 +20,6 @@ export default defineConfig({
   },
   reporter: [
     ['list'],
-<<<<<<< HEAD
     ['html', {
       outputFolder: path.join(__dirname, 'reports', 'latest', 'playwright-report'),
       open: 'never'
@@ -34,21 +30,3 @@ export default defineConfig({
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
   ],
 });
-
-
-=======
-    [
-      'html',
-      {
-        outputFolder: path.join(__dirname, 'reports', 'latest', 'playwright-report'),
-        open: 'never',
-      },
-    ],
-  ],
-  outputDir: path.join(__dirname, 'reports', 'latest', 'playwright-report', 'data'),
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
-});
-
-
-
->>>>>>> 921f500 (restore: revert package.json & playwright.config.ts to last known good versions)
