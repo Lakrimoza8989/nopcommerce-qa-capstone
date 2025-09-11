@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-(paste text above)
-=======
 {
   "name": "nopcommerce-qa-capstone",
   "version": "1.0.0",
@@ -32,4 +29,3 @@
     "@playwright/test": "^1.55.0"
   }
 }
->>>>>>> 53de8997375f124ff1196a2368ffaceb84152cdb
