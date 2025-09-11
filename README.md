@@ -173,3 +173,23 @@ npx playwright test api-tests/registration.api.spec.ts
 # Everything
 npx playwright test
 npx playwright show-report
+```
+
+##
+
+### Reports & Artifacts
+
+- Saved HTML snapshot: `reports/latest/playwright-report/index.html`
+- All images/videos/traces: `reports/latest/playwright-report/data/`
+
+#### Open a saved report locally
+```bash
+npx playwright show-report reports/latest/playwright-report
+
+```
+
+### Launch
+```bash
+npx playwright test
+
+```
