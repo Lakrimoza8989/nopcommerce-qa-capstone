@@ -179,15 +179,17 @@ npx playwright show-report
 
 ### Reports & Artifacts
 
-- Saved HTML snapshot: `reports/<timestamp>/playwright-report/index.html`
-- All images/videos/traces: `reports/<timestamp>/playwright-report/data/`
+- Saved HTML snapshot: `reports/latest/playwright-report/index.html`
+- All images/videos/traces: `reports/latest/playwright-report/data/`
 
 #### Open a saved report locally
 ```bash
-npx playwright show-report reports/<timestamp>/playwright-report
+npx playwright show-report reports/latest/playwright-report
+
 ```
 
-#### One-shot run + save + push
+### Launch
 ```bash
-bash scripts/run-save.sh
+npx playwright test
+
 ```
