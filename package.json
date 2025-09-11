@@ -1,7 +1,7 @@
 {
   "name": "nopcommerce-qa-capstone",
   "version": "1.0.0",
-  "description": "This repository contains a complete QA Capstone project for the nopCommerce demo store. It includes test documentation (Test Plan, Strategy, Coverage Matrix), manual and BDD test cases, automated Playwright tests, CI/CD setup, and HTML reports.",
+  "description": "QA Capstone project for nopCommerce demo store. Includes test documentation, manual and BDD test cases, automated Playwright tests, CI/CD setup, and HTML reports.",
   "main": "index.js",
   "directories": {
     "doc": "docs",
@@ -29,5 +29,3 @@
     "@playwright/test": "^1.55.0"
   }
 }
-
-
