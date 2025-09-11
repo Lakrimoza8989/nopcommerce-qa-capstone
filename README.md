@@ -175,6 +175,8 @@ npx playwright test
 npx playwright show-report
 ```
 
+##
+
 ### Reports & Artifacts
 
 - Saved HTML snapshot: `reports/<timestamp>/playwright-report/index.html`
