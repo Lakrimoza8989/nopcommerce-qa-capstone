@@ -178,7 +178,7 @@ Notes: Test case detailing (Preconditions / Data / Steps / Expected) completed w
 **Goal.** Update config for stable execution.  
 **Prompt used:**  
 > Update Playwright config: set baseURL=https://nop-qa.portnov.com, headless=false, viewport 1366x768, timeouts, screenshots on failure, trace/video artifacts. Configure project for Desktop Chrome.  
-**Output.** [`playwright.config.ts`](playwright.config.ts)
+**Output.** [`playwright.config.ts`](../playwright.config.ts)
 
 ##
 
