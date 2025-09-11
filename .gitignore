@@ -5,3 +5,6 @@ test-results/
 
 NUL
 reports/latest/
+
+# local Playwright artifacts (not committed)
+reports/latest/
