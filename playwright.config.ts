@@ -29,6 +29,3 @@ export default defineConfig({
   outputDir: path.join(__dirname, 'reports', 'latest', 'playwright-report', 'data'),
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
 });
-
-
-
