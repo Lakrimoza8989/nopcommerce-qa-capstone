@@ -3,17 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "devDependencies": {
-    "@playwright/test": "^1.47.0"
-  },
   "scripts": {
     "test": "playwright test",
     "report:open": "playwright show-report",
     "test:ci": "playwright test --reporter=list,html && echo Report: playwright-report/index.html",
     "save": "bash scripts/run-save.sh"
-  }
-}
- "repository": {
+  },
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/Lakrimoza8989/nopcommerce-qa-capstone.git"
   },
