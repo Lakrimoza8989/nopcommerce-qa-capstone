@@ -4,16 +4,16 @@ test('homepage loads (nopCommerce)', async ({ page }) => {
   let ok = false;
 
   for (let i = 0; i < 6; i++) {
-<<<<<<< HEAD
+
 
     await page.goto('https://nop-qa.portnov.com/', { waitUntil: 'domcontentloaded' });
 
     await page.goto('/', { waitUntil: 'domcontentloaded' });
 
-=======
+
     await page.goto('https://nop-qa.portnov.com/', { waitUntil: 'domcontentloaded' });
     await page.goto('/', { waitUntil: 'domcontentloaded' });
->>>>>>> aaba72c (chore: save all changes (tests + reports + docs))
+
 
     // если висит Cloudflare "Just a moment..." — короткая пауза и новая попытка
     const cfGate = await page.getByText(/just a moment/i).first().isVisible().catch(() => false);
