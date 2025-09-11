@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import path from 'path';
 
 export default defineConfig({
   timeout: 45000,
@@ -14,11 +15,16 @@ export default defineConfig({
     trace: 'retain-on-failure',
     video: 'retain-on-failure',
   },
-reporter: [
-    ['list'],                                
-    ['html', { outputFolder: 'playwright-report', open: 'never' }]
+  reporter: [
+    ['list'],
+    ['html', { 
+      outputFolder: path.join(__dirname, 'reports', 'latest', 'playwright-report'),
+      open: 'never' 
+    }]
   ],
+  outputDir: path.join(__dirname, 'reports', 'latest', 'playwright-report', 'data'),
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
   ],
 });
+
