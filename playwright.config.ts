@@ -1,13 +1,13 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  timeout: 45_000,
-  expect: { timeout: 10_000 },
+  timeout: 45000,
+  expect: { timeout: 10000 },
   use: {
     baseURL: 'http://nop-qa.portnov.com',
     headless: false,
-    actionTimeout: 10_000,
-    navigationTimeout: 30_000,
+    actionTimeout: 10000,
+    navigationTimeout: 30000,
     viewport: { width: 1366, height: 768 },
     userAgent:
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119 Safari/537.36',
@@ -17,10 +17,10 @@ export default defineConfig({
   },
   reporter: [
     ['list'],
-    ['html', { outputFolder: 'reports/latest/playwright-report', open: 'never' }]
+    ['html', { outputFolder: 'reports/latest/html-report', open: 'never' }],
   ],
-  outputDir: 'reports/latest/playwright-report/data',
+  outputDir: 'reports/latest/test-results',
   projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'] } }
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
   ],
 });
