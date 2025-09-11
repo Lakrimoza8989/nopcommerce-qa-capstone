@@ -1,10 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-export default defineConfig({
+export = defineConfig({
   timeout: 45000,
   expect: { timeout: 10000 },
   use: {
