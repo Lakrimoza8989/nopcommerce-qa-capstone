@@ -13,8 +13,7 @@
     "save": "bash scripts/run-save.sh"
   }
 }
-
-  "repository": {
+ "repository": {
     "type": "git",
     "url": "git+https://github.com/Lakrimoza8989/nopcommerce-qa-capstone.git"
   },
