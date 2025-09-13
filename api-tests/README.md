@@ -27,7 +27,7 @@ During the implementation of API registration tests we encountered several issue
 
 # API tests (Postman)
 
-Day 6: Registration (success, duplicate, CSRF 400)
+Day 6: Registration (success, duplicate, missing required)
 
 ### What this covers
 End-to-end registration flow via nopCommerce public site using Postman (UI only).
