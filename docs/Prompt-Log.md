@@ -190,5 +190,28 @@ Notes: Test case detailing (Preconditions / Data / Steps / Expected) completed w
 npx playwright test
 npx playwright show-report
 
+```
+
+#### Troubleshooting Log (API)
+
+- Initial `POST /register` attempts returned **400 Bad Request**.
+  - Root cause: missing antiforgery token and cookies.
+  - Fix: added a GET step to `/register`, parsed the HTML with `cheerio` in Postman Tests, and saved:
+    - `__RequestVerificationToken` (hidden input),
+    - `formAction` (form action attribute),
+    - The cookie jar was warmed by the GET and reused automatically.
+
+- Blocked as a **“Search Engine”**:
+  - Symptom: “Search engine can’t be registered”.
+  - Fix: set a real browser `User-Agent` header in both GET and POST.
+
+- Success validation:
+  - Instead of relying on redirects, we assert the response body contains `"Your registration completed"`.
+
+- Stable flow:
+  1) GET → capture token, cookies, and action.  
+  2) POST → submit the form with a unique email.  
+  3) Assert 200 + success text; otherwise extract message from `<div class="message-error">`.
+
 
 
