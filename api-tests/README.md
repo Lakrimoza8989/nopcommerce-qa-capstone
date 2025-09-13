@@ -1,4 +1,4 @@
-#### API Registration Troubleshooting (Day 6)
+# API Registration Troubleshooting (Day 6)
 
 During the implementation of API registration tests we encountered several issues:
 
