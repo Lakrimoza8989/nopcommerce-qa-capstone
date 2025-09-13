@@ -1,3 +1,28 @@
+# API Tests — Day-based Structure
+
+
+
+Tests are now organized **by days**: `api-tests/day6`, `api-tests/day7`, ...
+
+
+
+Inside each day:
+
+- `collections/` → Postman collections
+
+- `environments/` → Postman environments
+
+- `results/` → saved HTML responses
+
+- `screenshots/` → screenshots of test runs
+
+- `src/` → Playwright/TypeScript API test specs
+
+
+
+For **Day 6**, you can already find collections, results, and screenshots of the Registration API tests.
+
+
 # API Registration Troubleshooting (Day 6)
 
 During the implementation of API registration tests we encountered several issues:
