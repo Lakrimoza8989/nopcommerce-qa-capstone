@@ -1,3 +1,30 @@
+#### API Registration Troubleshooting (Day 6)
+
+During the implementation of API registration tests we encountered several issues:
+
+1. **400 Bad Request**  
+   - **Cause:** the POST request was sent without valid cookies and antiforgery token.  
+   - **Fix:** always call `GET /register` first, then extract via Postman Tests:  
+     - `__RequestVerificationToken` from the hidden input;  
+     - `formAction` from the `<form>` tag;  
+     - cookies are warmed in the cookie jar automatically.  
+   - These values were stored in environment variables and reused in the `POST`.
+
+2. **Blocked as "Search Engine"**  
+   - **Cause:** the server classified the client as a search engine when using default user agents.  
+   - **Symptom:** “Search engine can’t be registered”.  
+   - **Fix:** set `User-Agent` to a real browser string (e.g., Chrome on Windows) in both requests.
+
+3. **Stale environment values**  
+   - **Fix:** refresh variables on each run via the GET step and generate a unique email.
+
+4. **Success validation**  
+   - **Fix:** check for `"Your registration completed"` in the response body.
+
+✅ With these fixes the test now consistently passes (200 OK + “Your registration completed”).
+
+##
+
 # API tests (Postman)
 
 Day 6: Registration (success, duplicate, CSRF 400)
