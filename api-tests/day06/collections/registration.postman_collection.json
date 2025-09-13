@@ -1,0 +1,963 @@
+{
+	"info": {
+		"_postman_id": "2b995e77-b77e-48b8-9bb1-4aed9e0b82ec",
+		"name": "nopCommerce API (Day 6)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27210950",
+		"_collection_link": "https://www.postman.com/namedteam-4575/workspace/nop-qa-portnov-com/collection/27210950-2b995e77-b77e-48b8-9bb1-4aed9e0b82ec?action=share&source=collection_link&creator=27210950"
+	},
+	"item": [
+		{
+			"name": "Register page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Чистим окружение перед новым заходом\r",
+							"pm.environment.unset(\"requestVerificationToken\");\r",
+							"pm.environment.unset(\"formAction\");\r",
+							"pm.environment.unset(\"register_cookie\");\r",
+							"\r",
+							"const cheerio = require('cheerio');\r",
+							"const html = pm.response.text();\r",
+							"const $ = cheerio.load(html);\r",
+							"\r",
+							"// 1) __RequestVerificationToken (он на странице вне формы)\r",
+							"const token = $('input[name=\"__RequestVerificationToken\"]').attr('value') || '';\r",
+							"if (token) {\r",
+							"  pm.environment.set('requestVerificationToken', token);\r",
+							"  console.log('✅ Token saved:', token);\r",
+							"} else {\r",
+							"  console.log('❌ Token not found');\r",
+							"}\r",
+							"\r",
+							"// 2) Ищем ИМЕННО форму регистрации, не форму поиска\r",
+							"let action =\r",
+							"  $('.registration-page form[method=\"post\"]').attr('action') ||\r",
+							"  $('form[action*=\"/register\"]').attr('action') ||\r",
+							"  '';\r",
+							"\r",
+							"if (action) {\r",
+							"  // убираем query-параметры (?returnUrl=%2F и т.п.)\r",
+							"  action = action.split('?')[0].trim();\r",
+							"  pm.environment.set('formAction', action);\r",
+							"  console.log('✅ Form action saved:', action);\r",
+							"} else {\r",
+							"  console.log('❌ Register form action not found');\r",
+							"}\r",
+							"\r",
+							"\r",
+							"// 3) Собираем ВСЕ Set-Cookie -> \"k1=v1; k2=v2; ...\"\r",
+							"const setCookies = pm.response.headers\r",
+							"  .all()\r",
+							"  .filter(h => h.key.toLowerCase() === 'set-cookie')\r",
+							"  .map(h => h.value.split(';')[0]);\r",
+							"\r",
+							"if (setCookies.length) {\r",
+							"  const cookies = Array.from(new Set(setCookies)).join('; ');\r",
+							"  pm.environment.set('register_cookie', cookies);\r",
+							"  console.log('✅ Cookies:', cookies);\r",
+							"} else {\r",
+							"  console.log('❌ No Set-Cookie headers');\r",
+							"}\r",
+							"\r",
+							"// 4) Базовые проверки\r",
+							"pm.test('Status code is 200', () => pm.response.to.have.status(200));\r",
+							"pm.test('Token captured', () =>\r",
+							"  pm.expect(pm.environment.get('requestVerificationToken'))\r",
+							"    .to.be.a('string').and.to.have.length.greaterThan(10)\r",
+							");\r",
+							"pm.test('Correct formAction', () =>\r",
+							"  pm.expect(pm.environment.get('formAction'))\r",
+							"    .to.match(/^\\/register/i)\r",
+							");\r",
+							"pm.test('Cookies captured', () =>\r",
+							"  pm.expect(pm.environment.get('register_cookie'))\r",
+							"    .to.include('.Nop.')\r",
+							");\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {
+					"user-agent": true,
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/register",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Register (success 200)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Генерим всегда свежий уникальный email\r",
+							"pm.environment.set('reg_email', `qa_${Date.now()}@example.com`);\r",
+							"\r",
+							"// Быстрая проверка, что перед этим был GET\r",
+							"if (!pm.environment.get('requestVerificationToken')) {\r",
+							"  console.log('⚠️ Нет токена — сначала запускай GET Register page');\r",
+							"}\r",
+							"if (!pm.environment.get('register_cookie')) {\r",
+							"  console.log('⚠️ Нет cookies — сначала запускай GET Register page');\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Registration success\", () => {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Your registration completed\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"No validation errors\", () => {\r",
+							"  const html = pm.response.text();\r",
+							"  pm.expect(html).to.not.include(\"Search engine can't be registered\");\r",
+							"  pm.expect(html).to.not.include(\"validation-summary-errors\");\r",
+							"  pm.expect(html).to.not.include(\"The specified email already exists\");\r",
+							"  pm.expect(html).to.not.include(\"Password is required.\");\r",
+							"});\r",
+							"\r",
+							"pm.environment.set('registered_email', pm.environment.get('reg_email'));\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"connection": true,
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "https://nop-qa.portnov.com",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "https://nop-qa.portnov.com/register?returnurl=%2F",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "FirstName",
+							"value": "{{first_name}}",
+							"type": "text"
+						},
+						{
+							"key": "LastName",
+							"value": "{{last_name}}",
+							"type": "text"
+						},
+						{
+							"key": "Email",
+							"value": "{{reg_email}}",
+							"type": "text"
+						},
+						{
+							"key": "Password",
+							"value": "{{reg_password}}",
+							"type": "text"
+						},
+						{
+							"key": "ConfirmPassword",
+							"value": "{{reg_password}}",
+							"type": "text"
+						},
+						{
+							"key": "__RequestVerificationToken",
+							"value": "{{requestVerificationToken}}",
+							"type": "text"
+						},
+						{
+							"key": "Newsletter",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "Gender",
+							"value": "F",
+							"type": "text"
+						},
+						{
+							"key": "DateOfBirthDay",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "DateOfBirthMonth",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "DateOfBirthYear",
+							"value": "1998",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}{{formAction}}",
+					"host": [
+						"{{baseUrl}}{{formAction}}"
+					]
+				},
+				"description": "## Endpoint Description\n\nThis endpoint is used to submit user registration details. It processes a POST request containing user information and handles the registration logic on the server side.\n\n### Request Parameters\n\nThe request body must be sent as `x-www-form-urlencoded` and includes the following parameters:\n\n- **FirstName** (text): The first name of the user registering.\n    \n- **LastName** (text): The last name of the user registering.\n    \n- **Email** (text): The email address of the user. This will be used for account verification and login.\n    \n- **Password** (text): The password chosen by the user for account security.\n    \n- **ConfirmPassword** (text): A confirmation of the password to ensure it matches the original input.\n    \n- **__RequestVerificationToken** (text): A token used to prevent cross-site request forgery (CSRF) attacks.\n    \n\n### Response Structure\n\nUpon successful registration, the server responds with a status code of **200** and a `Content-Type` of **text/html**. The response body is empty, indicating that the request was processed successfully without any errors.\n\n### Summary\n\nThis endpoint is crucial for creating new user accounts by collecting essential user information and ensuring secure submission through verification tokens."
+			},
+			"response": []
+		},
+		{
+			"name": "Register page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Чистим окружение перед новым заходом\r",
+							"pm.environment.unset(\"requestVerificationToken\");\r",
+							"pm.environment.unset(\"formAction\");\r",
+							"pm.environment.unset(\"register_cookie\");\r",
+							"\r",
+							"const cheerio = require('cheerio');\r",
+							"const html = pm.response.text();\r",
+							"const $ = cheerio.load(html);\r",
+							"\r",
+							"// 1) __RequestVerificationToken (он на странице вне формы)\r",
+							"const token = $('input[name=\"__RequestVerificationToken\"]').attr('value') || '';\r",
+							"if (token) {\r",
+							"  pm.environment.set('requestVerificationToken', token);\r",
+							"  console.log('✅ Token saved:', token);\r",
+							"} else {\r",
+							"  console.log('❌ Token not found');\r",
+							"}\r",
+							"\r",
+							"// 2) Ищем ИМЕННО форму регистрации, не форму поиска\r",
+							"let action =\r",
+							"  $('.registration-page form[method=\"post\"]').attr('action') ||\r",
+							"  $('form[action*=\"/register\"]').attr('action') ||\r",
+							"  '';\r",
+							"\r",
+							"if (action) {\r",
+							"  // убираем query-параметры (?returnUrl=%2F и т.п.)\r",
+							"  action = action.split('?')[0].trim();\r",
+							"  pm.environment.set('formAction', action);\r",
+							"  console.log('✅ Form action saved:', action);\r",
+							"} else {\r",
+							"  console.log('❌ Register form action not found');\r",
+							"}\r",
+							"\r",
+							"\r",
+							"// 3) Собираем ВСЕ Set-Cookie -> \"k1=v1; k2=v2; ...\"\r",
+							"const setCookies = pm.response.headers\r",
+							"  .all()\r",
+							"  .filter(h => h.key.toLowerCase() === 'set-cookie')\r",
+							"  .map(h => h.value.split(';')[0]);\r",
+							"\r",
+							"if (setCookies.length) {\r",
+							"  const cookies = Array.from(new Set(setCookies)).join('; ');\r",
+							"  pm.environment.set('register_cookie', cookies);\r",
+							"  console.log('✅ Cookies:', cookies);\r",
+							"} else {\r",
+							"  console.log('❌ No Set-Cookie headers');\r",
+							"}\r",
+							"\r",
+							"// 4) Базовые проверки\r",
+							"pm.test('Status code is 200', () => pm.response.to.have.status(200));\r",
+							"pm.test('Token captured', () =>\r",
+							"  pm.expect(pm.environment.get('requestVerificationToken'))\r",
+							"    .to.be.a('string').and.to.have.length.greaterThan(10)\r",
+							");\r",
+							"pm.test('Correct formAction', () =>\r",
+							"  pm.expect(pm.environment.get('formAction'))\r",
+							"    .to.match(/^\\/register/i)\r",
+							");\r",
+							"pm.test('Cookies captured', () =>\r",
+							"  pm.expect(pm.environment.get('register_cookie'))\r",
+							"    .to.include('.Nop.')\r",
+							");\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {
+					"user-agent": true,
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/register",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Register (dublicate email)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Reuse the email saved from success test\r",
+							"const dupe = pm.environment.get('registered_email');\r",
+							"pm.expect(dupe, 'registered_email must exist (run success first)').to.be.a('string').and.to.have.length.greaterThan(5);\r",
+							"\r",
+							"// Force reg_email to be the same\r",
+							"pm.environment.set('reg_email', dupe);\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200 (duplicate case)', () => {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Duplicate email message is shown', () => {\r",
+							"  const html = pm.response.text();\r",
+							"  pm.expect(html).to.include('already registered');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test('No success text', () => {\r",
+							"  pm.expect(pm.response.text()).to.not.include('Your registration completed');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"connection": true,
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "https://nop-qa.portnov.com",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "https://nop-qa.portnov.com/register?returnurl=%2F",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "FirstName",
+							"value": "{{first_name}}",
+							"type": "text"
+						},
+						{
+							"key": "LastName",
+							"value": "{{last_name}}",
+							"type": "text"
+						},
+						{
+							"key": "Email",
+							"value": "{{reg_email}}",
+							"type": "text"
+						},
+						{
+							"key": "Password",
+							"value": "{{reg_password}}",
+							"type": "text"
+						},
+						{
+							"key": "ConfirmPassword",
+							"value": "{{reg_password}}",
+							"type": "text"
+						},
+						{
+							"key": "__RequestVerificationToken",
+							"value": "{{requestVerificationToken}}",
+							"type": "text"
+						},
+						{
+							"key": "Newsletter",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "Gender",
+							"value": "F",
+							"type": "text"
+						},
+						{
+							"key": "DateOfBirthDay",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "DateOfBirthMonth",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "DateOfBirthYear",
+							"value": "1998",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}{{formAction}}",
+					"host": [
+						"{{baseUrl}}{{formAction}}"
+					]
+				},
+				"description": "## Endpoint Description\n\nThis endpoint is used to submit user registration details. It processes a POST request containing user information and handles the registration logic on the server side.\n\n### Request Parameters\n\nThe request body must be sent as `x-www-form-urlencoded` and includes the following parameters:\n\n- **FirstName** (text): The first name of the user registering.\n    \n- **LastName** (text): The last name of the user registering.\n    \n- **Email** (text): The email address of the user. This will be used for account verification and login.\n    \n- **Password** (text): The password chosen by the user for account security.\n    \n- **ConfirmPassword** (text): A confirmation of the password to ensure it matches the original input.\n    \n- **__RequestVerificationToken** (text): A token used to prevent cross-site request forgery (CSRF) attacks.\n    \n\n### Response Structure\n\nUpon successful registration, the server responds with a status code of **200** and a `Content-Type` of **text/html**. The response body is empty, indicating that the request was processed successfully without any errors.\n\n### Summary\n\nThis endpoint is crucial for creating new user accounts by collecting essential user information and ensuring secure submission through verification tokens."
+			},
+			"response": []
+		},
+		{
+			"name": "Register page Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Чистим окружение перед новым заходом\r",
+							"pm.environment.unset(\"requestVerificationToken\");\r",
+							"pm.environment.unset(\"formAction\");\r",
+							"pm.environment.unset(\"register_cookie\");\r",
+							"\r",
+							"const cheerio = require('cheerio');\r",
+							"const html = pm.response.text();\r",
+							"const $ = cheerio.load(html);\r",
+							"\r",
+							"// 1) __RequestVerificationToken (он на странице вне формы)\r",
+							"const token = $('input[name=\"__RequestVerificationToken\"]').attr('value') || '';\r",
+							"if (token) {\r",
+							"  pm.environment.set('requestVerificationToken', token);\r",
+							"  console.log('✅ Token saved:', token);\r",
+							"} else {\r",
+							"  console.log('❌ Token not found');\r",
+							"}\r",
+							"\r",
+							"// 2) Ищем ИМЕННО форму регистрации, не форму поиска\r",
+							"let action =\r",
+							"  $('.registration-page form[method=\"post\"]').attr('action') ||\r",
+							"  $('form[action*=\"/register\"]').attr('action') ||\r",
+							"  '';\r",
+							"\r",
+							"if (action) {\r",
+							"  // убираем query-параметры (?returnUrl=%2F и т.п.)\r",
+							"  action = action.split('?')[0].trim();\r",
+							"  pm.environment.set('formAction', action);\r",
+							"  console.log('✅ Form action saved:', action);\r",
+							"} else {\r",
+							"  console.log('❌ Register form action not found');\r",
+							"}\r",
+							"\r",
+							"\r",
+							"// 3) Собираем ВСЕ Set-Cookie -> \"k1=v1; k2=v2; ...\"\r",
+							"const setCookies = pm.response.headers\r",
+							"  .all()\r",
+							"  .filter(h => h.key.toLowerCase() === 'set-cookie')\r",
+							"  .map(h => h.value.split(';')[0]);\r",
+							"\r",
+							"if (setCookies.length) {\r",
+							"  const cookies = Array.from(new Set(setCookies)).join('; ');\r",
+							"  pm.environment.set('register_cookie', cookies);\r",
+							"  console.log('✅ Cookies:', cookies);\r",
+							"} else {\r",
+							"  console.log('❌ No Set-Cookie headers');\r",
+							"}\r",
+							"\r",
+							"// 4) Базовые проверки\r",
+							"pm.test('Status code is 200', () => pm.response.to.have.status(200));\r",
+							"pm.test('Token captured', () =>\r",
+							"  pm.expect(pm.environment.get('requestVerificationToken'))\r",
+							"    .to.be.a('string').and.to.have.length.greaterThan(10)\r",
+							");\r",
+							"pm.test('Correct formAction', () =>\r",
+							"  pm.expect(pm.environment.get('formAction'))\r",
+							"    .to.match(/^\\/register/i)\r",
+							");\r",
+							"pm.test('Cookies captured', () =>\r",
+							"  pm.expect(pm.environment.get('register_cookie'))\r",
+							"    .to.include('.Nop.')\r",
+							");\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {
+					"user-agent": true,
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/register",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Register (missing required)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200 (validation page)', () => {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Shows validation errors', () => {\r",
+							"  const html = pm.response.text();\r",
+							"  pm.expect(html).to.include('First name is required.');\r",
+							"  pm.expect(html).to.include('Last name is required.');\r",
+							"  pm.expect(html).to.include('Email is required.');\r",
+							"  pm.expect(html).to.include('Password is required.');\r",
+							"});\r",
+							"\r",
+							"pm.test('No success text', () => {\r",
+							"  pm.expect(pm.response.text()).to.not.include('Your registration completed');\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"connection": true,
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "https://nop-qa.portnov.com",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "https://nop-qa.portnov.com/register?returnurl=%2F",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "FirstName",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "LastName",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "Email",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "Password",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "ConfirmPassword",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "__RequestVerificationToken",
+							"value": "{{requestVerificationToken}}",
+							"type": "text"
+						},
+						{
+							"key": "Newsletter",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "Gender",
+							"value": "F",
+							"type": "text"
+						},
+						{
+							"key": "DateOfBirthDay",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "DateOfBirthMonth",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "DateOfBirthYear",
+							"value": "1998",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}{{formAction}}",
+					"host": [
+						"{{baseUrl}}{{formAction}}"
+					]
+				},
+				"description": "## Endpoint Description\n\nThis endpoint is used to submit user registration details. It processes a POST request containing user information and handles the registration logic on the server side.\n\n### Request Parameters\n\nThe request body must be sent as `x-www-form-urlencoded` and includes the following parameters:\n\n- **FirstName** (text): The first name of the user registering.\n    \n- **LastName** (text): The last name of the user registering.\n    \n- **Email** (text): The email address of the user. This will be used for account verification and login.\n    \n- **Password** (text): The password chosen by the user for account security.\n    \n- **ConfirmPassword** (text): A confirmation of the password to ensure it matches the original input.\n    \n- **__RequestVerificationToken** (text): A token used to prevent cross-site request forgery (CSRF) attacks.\n    \n\n### Response Structure\n\nUpon successful registration, the server responds with a status code of **200** and a `Content-Type` of **text/html**. The response body is empty, indicating that the request was processed successfully without any errors.\n\n### Summary\n\nThis endpoint is crucial for creating new user accounts by collecting essential user information and ensuring secure submission through verification tokens."
+			},
+			"response": []
+		}
+	]
+}
