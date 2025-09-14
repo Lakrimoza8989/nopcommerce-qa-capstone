@@ -8,9 +8,9 @@
     "test": "tests"
   },
   "scripts": {
-  "test": "npx playwright test",
-  "test:headed": "npx playwright test --headed",
-  "report": "npx playwright show-report reports/latest/html-report"
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "report": "npx playwright show-report reports/latest/html-report"
   },
   "repository": {
     "type": "git",
@@ -25,5 +25,8 @@
   "homepage": "https://github.com/Lakrimoza8989/nopcommerce-qa-capstone#readme",
   "devDependencies": {
     "@playwright/test": "^1.55.0"
+  },
+  "dependencies": {
+    "cheerio": "^1.1.2"
   }
 }
