@@ -116,6 +116,9 @@ npx playwright test -g "Valid registration"
 
 ## Artifacts
 
-- **Spec file:** `api-tests/day06/playwright/src/registration.api.spec.ts`  
-- **Screenshots:** `api-tests/day06/playwright/screenshots/`  
-- **Saved responses & logs:** `api-tests/day06/playwright/results/`  
+- **Spec file:** [Spec file](api-tests/day06/playwright/src/registration.api.spec.ts)  
+- **Screenshots:** [Screenshots](api-tests/day06/postman/screenshots/)  
+- **Saved responses & logs:** [Saved responses & logs](api-tests/day06/postman/results/)
+
+
+
