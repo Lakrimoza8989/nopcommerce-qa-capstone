@@ -1,4 +1,0 @@
-  backup-before-restore-20250911-0237[m 71a52b6 Update playwright.config.ts
-  backup-before-restore-20250911-0239[m 921f500 restore: revert package.json & playwright.config.ts to last known good versions
-  feat/api-tests-day-structure       [m 1e3675a [[34morigin/feat/api-tests-day-structure[m] reorg(api-tests): day-based structure (day6–day12); moved artifacts to day6; added .gitkeep placeholders
-* [32mmain                               [m d53c62e [[34morigin/main[m] Add working registration API tests
