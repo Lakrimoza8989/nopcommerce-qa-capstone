@@ -11,9 +11,9 @@
     "test": "npx playwright test",
     "test:headed": "npx playwright test --headed",
 
-    "report": "npx playwright show-report reports/latest/html-report"
-
     "report": "npx playwright show-report reports/latest/html-report",
+
+    
 
     "test:ui:registration": "npx playwright test tests/registration.spec.ts --headed",
     "test:api:day06": "npx playwright test \"api-tests/day06/src/registration.api.spec.ts\"",
