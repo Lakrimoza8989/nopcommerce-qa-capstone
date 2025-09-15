@@ -170,7 +170,8 @@ Notes: Test case detailing (Preconditions / Data / Steps / Expected) completed w
 > - Fetch antiforgery token from `/register` page.  
 > - POST form with required fields.  
 > - Verify success text, validation error messages, and duplicate email message.  
-**Output.** [`api-tests/day06/playwrite/src/registration.api.spec.ts`](api-tests/day06/playwrite/src/registration.api.spec.ts)
+**Output.** Output. [registration.api.spec.ts](../api-tests/day06/playwright/src/registration.api.spec.ts)
+
 
 ##
 
