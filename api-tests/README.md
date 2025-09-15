@@ -123,10 +123,16 @@ npx playwright test -g "Valid registration"
 
 ## Artifacts
 
-- [Spec file](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/blob/main/api-tests/day06/playwright/src/registration.api.spec.ts)  
+## Artifacts
+
+### Postman
 - [Screenshots](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/tree/main/api-tests/day06/postman/screenshots)  
-- [Saved responses & logs](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/tree/main/api-tests/day06/postman/results)  
+- [Saved responses & logs (HTML report)](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/blob/main/api-tests/day06/postman/results/Registration_postman_test_run.html)  
+
+### Playwright
+- [Spec file](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/blob/main/api-tests/day06/playwright/src/registration.api.spec.ts)  
+- [Test results (screenshots, videos, traces)](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/tree/main/reports/latest/test-results)  
 - [Latest HTML report](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/tree/main/reports/latest/html-report)  
-- [Test run artifacts (screenshots, videos, traces)](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/tree/main/reports/latest/test-results)  
+
 
 
