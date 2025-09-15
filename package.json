@@ -10,15 +10,15 @@
   "scripts": {
     "test": "npx playwright test",
     "test:headed": "npx playwright test --headed",
-<<<<<<< HEAD
+
     "report": "npx playwright show-report reports/latest/html-report"
-=======
+
     "report": "npx playwright show-report reports/latest/html-report",
 
     "test:ui:registration": "npx playwright test tests/registration.spec.ts --headed",
     "test:api:day06": "npx playwright test \"api-tests/day06/src/registration.api.spec.ts\"",
     "test:api:day06:headed": "npx playwright test \"api-tests/day06/src/registration.api.spec.ts\" --headed"
->>>>>>> 48b7cc088163ea0edaca00171d43ea45e9c187fd
+
   },
   "repository": {
     "type": "git",
