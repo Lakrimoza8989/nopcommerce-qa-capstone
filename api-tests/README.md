@@ -77,3 +77,45 @@ End-to-end registration flow via nopCommerce public site using Postman (UI only)
 ### Proofs
 - Screenshots: `docs/img/api-registration-success.png`
 
+##
+
+# API Tests — Day 6 (Playwright)
+
+This module covers **registration scenarios** through Playwright’s `APIRequestContext` (no browser UI).  
+Requests replicate a real browser flow: fetch `__RequestVerificationToken` with `GET /register`, preserve cookies in the same API context, and submit form data with `form:`.
+
+---
+
+## How to Run
+```bash
+# run all Day 6 API specs
+npx playwright test api-tests/day06/playwright/src/registration.api.spec.ts
+
+# run a single scenario by title
+npx playwright test -g "Valid registration"
+```
+
+---
+
+## Scenarios
+
+- ✅ **Valid registration** → HTTP `200/302 OK`, response body contains `"Your registration completed"`.
+- ❌ **Missing required fields** → HTTP `200 OK`, body contains `"First name is required"`, `"Last name is required"`, `"Email is required"`.
+- ⚠️ **Duplicate email** → HTTP `200/302 OK`, body contains `"The specified email already exists"`.
+
+---
+
+## Notes
+
+- Each test begins with `GET /register` to obtain a fresh `__RequestVerificationToken` and initialize cookies.
+- Headers emulate a real browser (`User-Agent`, `Accept`, `Accept-Language`, `Referer`) to prevent anti-bot blocking.
+- Unique email is generated per run (e.g., `user_<timestamp>@mail.com`); duplicate scenario reuses the same email.
+- Redirects (`302`) are followed automatically; assertions check the final `200` response page.
+
+---
+
+## Artifacts
+
+- **Spec file:** `api-tests/day06/playwright/src/registration.api.spec.ts`  
+- **Screenshots:** `api-tests/day06/playwright/screenshots/`  
+- **Saved responses & logs:** `api-tests/day06/playwright/results/`  
