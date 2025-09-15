@@ -214,4 +214,14 @@ npx playwright show-report
   3) Assert 200 + success text; otherwise extract message from `<div class="message-error">`.
 
 
+## AI Contribution Summary (Day 6)
+
+- ~80% of artifacts (requirements, test strategy, test plan, BDD features, Playwright specs) were scaffolded by GPT-5.
+- Manual fixes (~20%) included:
+  - Adding `User-Agent`, cookies, and antiforgery token handling.
+  - Stabilizing API tests (valid/missing/duplicate).
+  - Validating results in Postman and Playwright runs.
+- Workflow: **AI-generated → Human-refined**.
+
+---
 
