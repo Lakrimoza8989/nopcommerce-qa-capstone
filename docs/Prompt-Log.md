@@ -216,12 +216,20 @@ npx playwright show-report
 
 ## AI Contribution Summary (Day 6)
 
-- ~80% of artifacts (requirements, test strategy, test plan, BDD features, Playwright specs) were scaffolded by GPT-5.
-- Manual fixes (~20%) included:
-  - Adding `User-Agent`, cookies, and antiforgery token handling.
-  - Stabilizing API tests (valid/missing/duplicate).
-  - Validating results in Postman and Playwright runs.
-- Workflow: **AI-generated → Human-refined**.
+The Day 6 deliverables focused on **API-based registration testing** with Playwright:
+
+- **AI-generated foundation (~80%)**  
+  GPT-5 was used to scaffold the initial Playwright API test specifications, including test cases for valid registration, missing required fields, and duplicate email handling.  
+
+- **Manual refinement (~20%)**  
+  Additional adjustments were required to achieve stable execution:  
+  - Injecting realistic `User-Agent` headers, cookies, and antiforgery token handling.  
+  - Ensuring consistent status codes and validation of response messages.  
+  - Running and verifying flows in Postman, Playwright, and Git Bash.  
+
+- **Process**  
+  The workflow followed a structured cycle: **AI-generated scaffolding → human debugging and refinement**, resulting in a stable and reproducible test suite.
+
 
 ---
 
