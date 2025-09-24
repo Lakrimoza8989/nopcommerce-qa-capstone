@@ -198,110 +198,123 @@ npx playwright test
 
 ---
 
-# ✅ Day 7 — UI & API Login Tests (Postman + Playwright)
-
-**Scope.** Завершение автоматизации логина: позитивные и негативные сценарии через UI и API. Тесты выполняются как через Postman (Newman-ready), так и через Playwright (headless/headed). Включена проверка токена, редиректов, сообщений об ошибках и сценариев валидации.
+Понял. Держи правильный, **англоязычный README**, без русского текста, с чёткой структурой, и **прямыми ссылками на файлы**, как положено:
 
 ---
 
-## 🔍 Deliverables
+## ✅ Day 7 — Login Tests (UI + API via Playwright & Postman)
 
-### ✅ **UI:** `tests/login.spec.ts`
-
-* **Valid login** → редирект на главную, **"Log out"** на странице
-* **Invalid password** → остаётся на странице логина, сообщение об ошибке
-* **Non-existent email** → остаётся на странице логина, сообщение об ошибке
-* Используются:
-
-  * `getByRole`, `getByLabelText` — стабильные селекторы
-  * Авто-скролл к полям при необходимости
-  * Уникальные данные через генератор email'ов
+**Scope:** Automated login tests via UI and API using both **Playwright** and **Postman**. Includes positive and negative flows, token handling, and response validations. Designed to be CI-ready and fully parameterized.
 
 ---
 
-### ✅ **API (Playwright):** `api-tests/login.api.spec.ts`
+### 📂 Deliverables
 
-* Используется встроенный HTTP-клиент Playwright (`request.newContext`)
-* `GET /login` → парсит `__RequestVerificationToken` и `form[action]`
-* `POST /login` → включает заголовки, токен и форму
-* **Сценарии:**
+#### ✅ **UI Tests** — [`tests/login.spec.ts`](tests/login.spec.ts)
 
-  * ✅ **Valid login** → `302` + редирект на `/`
-  * ❌ **Invalid password** → `200` + сообщение “Login was unsuccessful”
-  * ❌ **Non-existent email** → `200` + сообщение “Login was unsuccessful”
+* **Valid login** → redirects to `/`, sees `"Log out"` in header
+* **Invalid password** → stays on login page, shows `"Login was unsuccessful"`
+* **Non-existent email** → same as above
+* Robust locators:
 
----
-
-### ✅ **API (Postman):** `Postman Collection: nopCommerce API (day7).postman_collection.json`
-
-* Коллекция полностью параметризована: `baseUrl`, `userAgent`, `__RequestVerificationToken`
-* Пре-реквест скрипт делает `GET /login` и сохраняет токен
-* Тесты:
-
-  * ✅ Успешный логин — проверка `302`, `Set-Cookie`, `Log out`
-  * ❌ Неверный пароль — `200`, остался на `/login`, нет `Log out`
-  * ❌ Несуществующий email — те же проверки
-* Покрыта логика: `stayedOnLogin`, `notLoggedIn`, `errorShown`
+  * `getByRole`, `getByLabelText`
+  * Scroll helpers to bring fields into view
+  * Unique email generators for future use
 
 ---
 
-## ⚙️ Config
+#### ✅ **API Tests (Playwright)** — [`api-tests/login.api.spec.ts`](api-tests/login.api.spec.ts)
 
-### Playwright (`playwright.config.ts`)
+* Uses **Playwright’s HTTP Client**
+* Flow:
+
+  * `GET /login` → parses `__RequestVerificationToken` and `form[action]`
+  * `POST /login` → sends form with token and credentials
+* Scenarios:
+
+  * ✅ **Valid login** → HTTP `302` + redirect to `/`
+  * ❌ **Wrong password** → HTTP `200`, `"Login was unsuccessful"`
+  * ❌ **Invalid email** → HTTP `200`, same error
+
+---
+
+#### ✅ **API Tests (Postman)** — [`nopCommerce API (day7).postman_collection.json`](./nopCommerce%20API%20%28day7%29.postman_collection.json)
+
+* Token dynamically retrieved from `GET /login`
+* Form POST includes token, headers, cookies
+* Tests use `pm.expect()` and DOM parsing (HTML)
+* Checks:
+
+  * Response status
+  * Page content (presence of `Log out` or error messages)
+  * Boolean logic: `stayedOnLogin`, `notLoggedIn`
+
+---
+
+### ⚙️ Config — [`playwright.config.ts`](playwright.config.ts)
 
 * `baseURL=https://nop-qa.portnov.com`
-* `headless=false` (удобно для отладки)
-* `viewport: 1366×768`
-* Скриншоты, видео и трейс сохраняются при падениях
-* Project: Chromium (можно переключить на `channel: 'chrome'`)
+* `headless=false` for local debugging
+* Viewport: `1366×768`, tuned timeouts
+* Artifacts:
+
+  * Video + trace on failure
+  * Screenshots: `on`
+* Chromium project; easily switchable to `channel: 'chrome'`
 
 ---
 
-## 🚀 How to Run
+## ▶️ How to Run
 
-### 📦 **UI (Playwright)**
+### UI Tests
 
 ```bash
 npx playwright test tests/login.spec.ts --headed --trace on
 ```
 
-### 📦 **API (Playwright)**
+### API Tests (Playwright)
 
 ```bash
 npx playwright test api-tests/login.api.spec.ts
 ```
 
-### 📦 **API (Postman)**
+### API Tests (Postman)
 
 ```bash
-# Через Postman GUI
-# или экспорт в файл и:
-newman run "nopCommerce API (day7).postman_collection.json" --env-var baseUrl=https://nop-qa.portnov.com
+# Option 1: Postman GUI (import collection)
+# Option 2: Newman CLI
+newman run "nopCommerce API (day7).postman_collection.json" \
+  --env-var baseUrl=https://nop-qa.portnov.com
 ```
 
 ---
 
-## 📊 Reports & Artifacts
+## 📊 Reports
 
-* 📁 `reports/latest/playwright-report/index.html` — отчёт UI/API тестов (Playwright)
-* 📁 `reports/latest/playwright-report/data/` — видео, скриншоты, trace
-* 📁 Postman консоль/отчёты — через GUI или CLI (Newman)
+### Playwright
 
-### 🔍 Открыть локальный Playwright-отчёт:
+* Open report:
 
-```bash
-npx playwright show-report reports/latest/playwright-report
-```
+  ```bash
+  npx playwright show-report reports/latest/playwright-report
+  ```
+* Default saved location:
 
----
-
-### ▶️ Всё сразу
-
-```bash
-npx playwright test
-npx playwright show-report
-```
+  * `reports/latest/playwright-report/index.html`
+  * Trace/videos: `reports/latest/playwright-report/data/`
 
 ---
 
+## 📁 Files
+
+| Type       | File                                                                                                         |
+| ---------- | ------------------------------------------------------------------------------------------------------------ |
+| ✅ Postman  | [`nopCommerce API (day7).postman_collection.json`](./nopCommerce%20API%20%28day7%29.postman_collection.json) |
+| ✅ UI Test  | [`tests/login.spec.ts`](tests/login.spec.ts)                                                                 |
+| ✅ API Test | [`api-tests/login.api.spec.ts`](api-tests/login.api.spec.ts)                                                 |
+| ⚙️ Config  | [`playwright.config.ts`](playwright.config.ts)                                                               |
+
+---
+
+Let me know if you want a `.md` version exported or CI/CD instructions added.
 
