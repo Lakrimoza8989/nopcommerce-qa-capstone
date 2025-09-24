@@ -234,3 +234,105 @@ The Day 6 deliverables focused on **API-based registration testing** with Playwr
 
 ---
 
+Отлично, понял. Я собрал **Day 7 · Prompt Log** ровно в том же стиле, что у тебя для Day 6, со всеми блоками: номер, файл, цель, промпт, аутпут. Вот чистовой вариант:
+
+---
+
+## 2025-09-11 · Day 7 · Prompt Log
+
+### 1) login.spec.ts (UI)
+
+**Goal.** Automate Login flow via UI:
+
+* Case 1: valid login with real credentials → assert that **Log out** appears.
+* Case 2: invalid password → assert **Login was unsuccessful** message.
+* Case 3: non-existent email → assert **Login was unsuccessful** message.
+
+**Prompt used:**
+
+> Write a Playwright test in TypeScript for nopCommerce demo site login.
+>
+> * Use environment variables `TEST_USER_EMAIL` and `TEST_USER_PASSWORD`.
+> * Case 1: valid login, check `Log out`.
+> * Case 2: wrong password, expect error message.
+> * Case 3: non-existent email, expect error message.
+>   Use `getByLabel` / `getByRole` locators. Save screenshot/trace/video artifacts.
+
+**Output.** [`tests/login.spec.ts`](../tests/login.spec.ts)
+
+##
+
+### 2) login.api.spec.ts (API)
+
+**Goal.** Automate Login flow via API:
+
+* Valid credentials → expect `200` or `302`, and GET `/` shows `Log out`.
+* Invalid password → expect `200` with error message.
+* Non-existent email → expect `200` with error message.
+
+**Prompt used:**
+
+> Write API tests in Playwright (TypeScript) for nopCommerce demo login.
+>
+> * GET `/login` to capture `__RequestVerificationToken`.
+> * POST `/login` with form data (email, password).
+> * Handle cookies and token in the same APIRequestContext.
+> * Save raw HTML response bodies into `results/` for recruiter evidence.
+> * Cases: valid login, wrong password, non-existent email.
+
+**Output.** [`api-tests/day07/playwright/src/login.api.spec.ts`](../api-tests/day07/playwright/src/login.api.spec.ts)
+
+##
+
+### 3) package.json
+
+**Goal.** Add npm scripts to run Day 7 login tests.
+
+**Prompt used:**
+
+> Update `package.json` scripts:
+>
+> * `"test:ui:login": "npx playwright test tests/login.spec.ts --headed"`
+> * `"test:api:day07:login": "npx playwright test \"api-tests/day07/playwright/src/login.api.spec.ts\""`
+
+**Output.** [`package.json`](../package.json)
+
+##
+
+### 4) Results
+
+**Goal.** Store recruiter-friendly evidence.
+
+**Prompt used:**
+
+> Save HTML response bodies from API tests under `api-tests/day07/playwright/results/`.
+> Ensure screenshots, traces, and videos are generated for UI tests in `reports/latest/`.
+
+**Output.**
+
+* [`api-tests/day07/playwright/results/`](../api-tests/day07/playwright/results/)
+* [`reports/latest/test-results/`](../reports/latest/test-results/)
+
+##
+
+### Verification
+
+**Prompt used:**
+
+> How to run Day 7 login tests and verify results?
+
+**Output.**
+
+```bash
+# Run UI login tests
+npm run test:ui:login
+
+# Run API login tests
+npm run test:api:day07:login
+
+# Open latest Playwright report
+npx playwright show-report reports/latest/html-report
+```
+
+---
+
