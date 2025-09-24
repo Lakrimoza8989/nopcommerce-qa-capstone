@@ -1,0 +1,170 @@
+{
+	"id": "256a25a9-2a5d-46a5-b0c4-a98314a6f8e4",
+	"name": "nopCommerce API (day7) Login",
+	"timestamp": "2025-09-24T23:17:59.056Z",
+	"collection_id": "27210950-dfeef4de-b82a-4837-b80b-29a29782fa90",
+	"folder_id": 0,
+	"environment_id": "27210950-0361aef2-44ca-4702-b021-db89bb50d808",
+	"totalPass": 8,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-09-24T23:17:56.732Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "ce417263-3e38-4f36-ac1a-4a8da01c5aa7",
+			"name": "Login page",
+			"url": "https://nop-qa.portnov.com/login?returnUrl=%2F",
+			"time": 362,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"GET /login → 200 + HTML": true,
+				"__RequestVerificationToken найден": true
+			},
+			"testPassFailCounts": {
+				"GET /login → 200 + HTML": {
+					"pass": 1,
+					"fail": 0
+				},
+				"__RequestVerificationToken найден": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				362
+			],
+			"allTests": [
+				{
+					"GET /login → 200 + HTML": true,
+					"__RequestVerificationToken найден": true
+				}
+			]
+		},
+		{
+			"id": "294e79c5-57d1-47c5-b536-6b622c40a09c",
+			"name": "Login (200)",
+			"url": "https://nop-qa.portnov.com/login?returnurl=%2F",
+			"time": 127,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Login: 200 или 302": true,
+				"Login outcome visible": true
+			},
+			"testPassFailCounts": {
+				"Login: 200 или 302": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Login outcome visible": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				127
+			],
+			"allTests": [
+				{
+					"Login: 200 или 302": true,
+					"Login outcome visible": true
+				}
+			]
+		},
+		{
+			"id": "ad38a427-e1ea-4ed0-a7db-6bdd99e12fb0",
+			"name": "Login  (invalid password)",
+			"url": "https://nop-qa.portnov.com/login?returnurl=%2F",
+			"time": 111,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200 (validation page)": true,
+				"Invalid login is shown (still on login, not logged in, error visible)": true
+			},
+			"testPassFailCounts": {
+				"Status is 200 (validation page)": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Invalid login is shown (still on login, not logged in, error visible)": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				111
+			],
+			"allTests": [
+				{
+					"Status is 200 (validation page)": true,
+					"Invalid login is shown (still on login, not logged in, error visible)": true
+				}
+			]
+		},
+		{
+			"id": "6cc1b16c-b7e0-45e7-83f4-52dd1a4dec09",
+			"name": "Login  (non-existent email)",
+			"url": "https://nop-qa.portnov.com/login?returnurl=%2F",
+			"time": 112,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200 (validation page)": true,
+				"Invalid login is shown (still on login, not logged in, error visible)": true
+			},
+			"testPassFailCounts": {
+				"Status is 200 (validation page)": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Invalid login is shown (still on login, not logged in, error visible)": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				112
+			],
+			"allTests": [
+				{
+					"Status is 200 (validation page)": true,
+					"Invalid login is shown (still on login, not logged in, error visible)": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 712,
+	"collection": {
+		"requests": [
+			{
+				"id": "ce417263-3e38-4f36-ac1a-4a8da01c5aa7",
+				"method": "GET"
+			},
+			{
+				"id": "294e79c5-57d1-47c5-b536-6b622c40a09c",
+				"method": "POST"
+			},
+			{
+				"id": "ad38a427-e1ea-4ed0-a7db-6bdd99e12fb0",
+				"method": "POST"
+			},
+			{
+				"id": "6cc1b16c-b7e0-45e7-83f4-52dd1a4dec09",
+				"method": "POST"
+			}
+		]
+	}
+}

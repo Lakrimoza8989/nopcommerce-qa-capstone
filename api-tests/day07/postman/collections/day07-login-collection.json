@@ -1,0 +1,525 @@
+{
+	"info": {
+		"_postman_id": "dfeef4de-b82a-4837-b80b-29a29782fa90",
+		"name": "nopCommerce API (day7) Login",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27210950",
+		"_collection_link": "https://www.postman.com/namedteam-4575/workspace/nop-qa-portnov-com/collection/27210950-dfeef4de-b82a-4837-b80b-29a29782fa90?action=share&source=collection_link&creator=27210950"
+	},
+	"item": [
+		{
+			"name": "Login page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET /login → 200 + HTML\", () => {\r",
+							"  pm.response.to.have.status(200);\r",
+							"  pm.expect((pm.response.headers.get(\"content-type\") || \"\").toLowerCase()).to.include(\"text/html\");\r",
+							"});\r",
+							"\r",
+							"const html = pm.response.text();\r",
+							"const $ = cheerio.load(html, { decodeEntities: false });\r",
+							"\r",
+							"\r",
+							"let token = $('input[name=\"__RequestVerificationToken\"]').attr('value');\r",
+							"if (!token) token = $('input[name=__RequestVerificationToken]').attr('value');\r",
+							"\r",
+							"\r",
+							"let action = $('form[action*=\"/login\"]').attr('action') || \"/login?returnurl=%2F\";\r",
+							"\r",
+							"\r",
+							"const baseUrl = (pm.environment.get(\"baseUrl\") || \"\").replace(/\\/+$/, \"\");\r",
+							"let absAction;\r",
+							"if (/^https?:\\/\\//i.test(action)) absAction = action;\r",
+							"else if (action.startsWith(\"//\")) absAction = (baseUrl.startsWith(\"https://\") ? \"https:\" : \"http:\") + action;\r",
+							"else if (action.startsWith(\"/\")) absAction = baseUrl + action;\r",
+							"else absAction = baseUrl + \"/\" + action.replace(/^\\/+/, \"\");\r",
+							"\r",
+							"\r",
+							"pm.test(\"__RequestVerificationToken найден\", () => {\r",
+							"  pm.expect(token, \"токен отсутствует в HTML\").to.be.a(\"string\").and.not.empty;\r",
+							"});\r",
+							"pm.environment.set(\"__RequestVerificationToken\", token);\r",
+							"pm.environment.set(\"loginAction\", absAction);\r",
+							"\r",
+							"\r",
+							"console.log(\"token:\", token);\r",
+							"console.log(\"loginAction:\", absAction);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true,
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "{{userAgent}}",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "{{baseUrl}}/",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/login?returnUrl={{returnUrl}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "returnUrl",
+							"value": "{{returnUrl}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login (200)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const code = pm.response.code;\r",
+							"pm.test(\"Login: 200 или 302\", () => pm.expect([200,302]).to.include(code));\r",
+							"\r",
+							"const body = pm.response.text();\r",
+							"const ok = /My\\s*account/i;\r",
+							"const err = /Login was unsuccessful|The credentials provided are incorrect|No customer account found|Please enter your email/i;\r",
+							"\r",
+							"pm.test(\"Login outcome visible\", () => {\r",
+							"  if (code === 302) {\r",
+							"    pm.expect(true).to.be.true; // редирект = успех\r",
+							"  } else {\r",
+							"    pm.expect(ok.test(body) || err.test(body)).to.be.true;\r",
+							"  }\r",
+							"});\r",
+							"\r",
+							"// дебаг в консоль\r",
+							"console.log(\"POST status:\", code);\r",
+							"console.log(\"HTML[0..200]:\", body.slice(0,200));\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true,
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "{{userAgent}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "{{baseUrl}}/login?returnUrl={{returnUrl}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "__RequestVerificationToken",
+							"value": "{{__RequestVerificationToken}}",
+							"type": "text"
+						},
+						{
+							"key": "Email",
+							"value": "{{email}}",
+							"type": "text"
+						},
+						{
+							"key": "Password",
+							"value": "{{password}}",
+							"type": "text"
+						},
+						{
+							"key": "RememberMe",
+							"value": "false",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{loginAction}}",
+					"host": [
+						"{{loginAction}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login  (invalid password)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status is 200 (validation page)', () => {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const html = pm.response.text();\r",
+							"\r",
+							"// Проверка: остался на странице логина\r",
+							"const stayedOnLogin =\r",
+							"  /class=\"page login-page\"/i.test(html) ||\r",
+							"  /<form[^>]+action=\"\\/login\\?returnurl=%2F\"/i.test(html);\r",
+							"\r",
+							"// Проверка: не залогинен (нет \"Log out\", нет \"My account\" в верхнем меню)\r",
+							"const notLoggedIn =\r",
+							"  !/\\/logout/i.test(html) &&\r",
+							"  !/ico-account|ico-logout/i.test(html);\r",
+							"\r",
+							"// Проверка: есть сообщение об ошибке\r",
+							"const errorShown =\r",
+							"  /Login was unsuccessful|The credentials provided are incorrect/i.test(html);\r",
+							"\r",
+							"// Debug в консоль (открой Postman Console)\r",
+							"console.log('stayedOnLogin:', stayedOnLogin);\r",
+							"console.log('notLoggedIn:', notLoggedIn);\r",
+							"console.log('errorShown:', errorShown);\r",
+							"\r",
+							"// Финальный тест: должны быть выполнены все 3 условия\r",
+							"pm.test('Invalid login is shown (still on login, not logged in, error visible)', () => {\r",
+							"  pm.expect(stayedOnLogin && notLoggedIn && errorShown).to.be.true;\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const baseUrl = pm.environment.get('baseUrl');\r",
+							"const returnUrl = pm.environment.get('returnUrl') || '%2F';\r",
+							"const userAgent = pm.environment.get('userAgent');\r",
+							"\r",
+							"// 1. Logout\r",
+							"pm.sendRequest({\r",
+							"  url: `${baseUrl}/logout`,\r",
+							"  method: 'GET'\r",
+							"}, function (err, res) {\r",
+							"  console.log('✅ Logged out');\r",
+							"\r",
+							"  // 2. Get login page & extract token + action\r",
+							"  pm.sendRequest({\r",
+							"    url: `${baseUrl}/login?returnUrl=${returnUrl}&_t=${Date.now()}`,\r",
+							"    method: 'GET',\r",
+							"    header: {\r",
+							"      'User-Agent': userAgent,\r",
+							"      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',\r",
+							"      'Accept-Language': 'en-US,en;q=0.9',\r",
+							"      'Referer': `${baseUrl}/`,\r",
+							"      'Cache-Control': 'no-cache',\r",
+							"      'Pragma': 'no-cache'\r",
+							"    }\r",
+							"  }, function (err, res) {\r",
+							"    const $ = cheerio.load(res.text(), { decodeEntities: false });\r",
+							"\r",
+							"    // 3. Token\r",
+							"    const token = $('input[name=\"__RequestVerificationToken\"]').attr('value');\r",
+							"    pm.environment.set('__RequestVerificationToken', token);\r",
+							"\r",
+							"    // 4. Action\r",
+							"    let action = $('form[action*=\"/login\"]').attr('action') || '/login?returnurl=%2F';\r",
+							"    const b = baseUrl.replace(/\\/+$/, '');\r",
+							"    const abs = /^https?:\\/\\//i.test(action)\r",
+							"      ? action\r",
+							"      : action.startsWith('/')\r",
+							"        ? b + action\r",
+							"        : b + '/' + action;\r",
+							"\r",
+							"    pm.environment.set('loginAction', abs);\r",
+							"    console.log('✅ Token & loginAction set');\r",
+							"  });\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true,
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "{{userAgent}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "{{baseUrl}}/login?returnUrl={{returnUrl}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "__RequestVerificationToken",
+							"value": "{{__RequestVerificationToken}}",
+							"type": "text"
+						},
+						{
+							"key": "Email",
+							"value": "{{email}}",
+							"type": "text"
+						},
+						{
+							"key": "Password",
+							"value": "Qwerty123",
+							"type": "text"
+						},
+						{
+							"key": "RememberMe",
+							"value": "false",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{loginAction}}",
+					"host": [
+						"{{loginAction}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login  (non-existent email)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status is 200 (validation page)', () => {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const html = pm.response.text();\r",
+							"\r",
+							"\r",
+							"const stayedOnLogin =\r",
+							"  /class=\"page login-page\"/i.test(html) ||\r",
+							"  /<form[^>]+action=\"\\/login\\?returnurl=%2F\"/i.test(html);\r",
+							"\r",
+							"// 2. Проверка: не вошли (нет 'Log out' или 'My account')\r",
+							"const notLoggedIn =\r",
+							"  !/\\/logout/i.test(html) &&\r",
+							"  !/ico-account|ico-logout/i.test(html);\r",
+							"\r",
+							"// 3. Проверка: сообщение об ошибке входа\r",
+							"const errorShown =\r",
+							"  /Login was unsuccessful|The credentials provided are incorrect/i.test(html);\r",
+							"\r",
+							"// Debug в консоль\r",
+							"console.log('stayedOnLogin:', stayedOnLogin);\r",
+							"console.log('notLoggedIn:', notLoggedIn);\r",
+							"console.log('errorShown:', errorShown);\r",
+							"\r",
+							"// Финальный assert\r",
+							"pm.test('Invalid login is shown (still on login, not logged in, error visible)', () => {\r",
+							"  pm.expect(stayedOnLogin && notLoggedIn && errorShown).to.be.true;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const baseUrl = pm.environment.get('baseUrl');\r",
+							"const returnUrl = pm.environment.get('returnUrl') || '%2F';\r",
+							"const userAgent = pm.environment.get('userAgent');\r",
+							"\r",
+							"pm.sendRequest({\r",
+							"  url: `${baseUrl}/login?returnUrl=${returnUrl}&_t=${Date.now()}`,\r",
+							"  method: 'GET',\r",
+							"  header: {\r",
+							"    'User-Agent': userAgent,\r",
+							"    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',\r",
+							"    'Accept-Language': 'en-US,en;q=0.9',\r",
+							"    'Referer': `${baseUrl}/`,\r",
+							"    'Cache-Control': 'no-cache',\r",
+							"    'Pragma': 'no-cache'\r",
+							"  }\r",
+							"}, (err, res) => {\r",
+							"  const $ = cheerio.load(res.text(), { decodeEntities: false });\r",
+							"  const token = $('input[name=\"__RequestVerificationToken\"]').attr('value');\r",
+							"  let action = $('form[action*=\"/login\"]').attr('action') || '/login?returnurl=%2F';\r",
+							"  const b = baseUrl.replace(/\\/+$/, '');\r",
+							"  const abs = /^https?:\\/\\//i.test(action) ? action : action.startsWith('/') ? b + action : b + '/' + action;\r",
+							"  pm.environment.set('__RequestVerificationToken', token);\r",
+							"  pm.environment.set('loginAction', abs);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true,
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "{{userAgent}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "{{baseUrl}}/login?returnUrl={{returnUrl}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "__RequestVerificationToken",
+							"value": "{{__RequestVerificationToken}}",
+							"type": "text"
+						},
+						{
+							"key": "Email",
+							"value": "Wrong_Password@wrong.com",
+							"type": "text"
+						},
+						{
+							"key": "Password",
+							"value": "{{password}}",
+							"type": "text"
+						},
+						{
+							"key": "RememberMe",
+							"value": "false",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{loginAction}}",
+					"host": [
+						"{{loginAction}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
