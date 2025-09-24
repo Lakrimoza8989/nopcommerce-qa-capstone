@@ -202,88 +202,93 @@ npx playwright test
 
 ---
 
+Понял. Без лишнего — исправляю ссылки и делаю всё как нужно, **исходя из реальной структуры репозитория [`Lakrimoza8989/nopcommerce-qa-capstone`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone)**.
+
+Вот готовый, **корректный README.md для Day 7**, полностью на английском, с **абсолютно рабочими GitHub-ссылками на файлы в репозитории**:
+
+---
+
 ## ✅ Day 7 — Login Tests (UI + API via Playwright & Postman)
 
-**Scope:** Automated login tests via UI and API using both **Playwright** and **Postman**. Includes positive and negative flows, token handling, and response validations. Designed to be CI-ready and fully parameterized.
+**Scope:** Automated login validation using **UI** and **API** flows via **Playwright** and **Postman**. Covers positive and negative scenarios including password mismatch and unregistered email. Ready for CI use.
 
 ---
 
 ### 📂 Deliverables
 
-#### ✅ **UI Tests** — [`tests/login.spec.ts`](tests/login.spec.ts)
+#### ✅ UI Tests — [`tests/login.spec.ts`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/blob/main/tests/login.spec.ts)
 
-* **Valid login** → redirects to `/`, sees `"Log out"` in header
-* **Invalid password** → stays on login page, shows `"Login was unsuccessful"`
-* **Non-existent email** → same as above
-* Robust locators:
+* ✅ Valid login: redirected to homepage, sees `Log out`
+* ❌ Invalid password: stays on login page, sees `"Login was unsuccessful"`
+* ❌ Non-existent email: same behavior as above
+* Stable selectors:
 
   * `getByRole`, `getByLabelText`
-  * Scroll helpers to bring fields into view
-  * Unique email generators for future use
+  * Auto-scroll helper for visibility
+* Assertions based on visible UI content
 
 ---
 
-#### ✅ **API Tests (Playwright)** — [`api-tests/login.api.spec.ts`](api-tests/login.api.spec.ts)
+#### ✅ API Tests (Playwright) — [`api-tests/day07/login.api.spec.ts`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/blob/main/api-tests/day07/login.api.spec.ts)
 
-* Uses **Playwright’s HTTP Client**
-* Flow:
+* Uses **Playwright HTTP Client**
+* Workflow:
 
-  * `GET /login` → parses `__RequestVerificationToken` and `form[action]`
-  * `POST /login` → sends form with token and credentials
+  * `GET /login` → extract `__RequestVerificationToken` and `form[action]`
+  * `POST /login` → send login form with credentials
 * Scenarios:
 
-  * ✅ **Valid login** → HTTP `302` + redirect to `/`
-  * ❌ **Wrong password** → HTTP `200`, `"Login was unsuccessful"`
-  * ❌ **Invalid email** → HTTP `200`, same error
+  * ✅ Valid login → HTTP `302`, redirect to `/`
+  * ❌ Invalid password → HTTP `200`, `"Login was unsuccessful"`
+  * ❌ Non-existent email → HTTP `200`, same error
 
 ---
 
-#### ✅ **API Tests (Postman)** — [`nopCommerce API (day7).postman_collection.json`](./nopCommerce%20API%20%28day7%29.postman_collection.json)
+#### ✅ API Tests (Postman) — [`api-tests/day07/postman/nopCommerce API (day7).postman_collection.json`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/blob/main/api-tests/day07/postman/nopCommerce%20API%20%28day7%29.postman_collection.json)
 
-* Token dynamically retrieved from `GET /login`
-* Form POST includes token, headers, cookies
-* Tests use `pm.expect()` and DOM parsing (HTML)
-* Checks:
+* Automated via `Pre-request Script` (token extraction)
+* Scenarios:
 
-  * Response status
-  * Page content (presence of `Log out` or error messages)
-  * Boolean logic: `stayedOnLogin`, `notLoggedIn`
-
----
-
-### ⚙️ Config — [`playwright.config.ts`](playwright.config.ts)
-
-* `baseURL=https://nop-qa.portnov.com`
-* `headless=false` for local debugging
-* Viewport: `1366×768`, tuned timeouts
-* Artifacts:
-
-  * Video + trace on failure
-  * Screenshots: `on`
-* Chromium project; easily switchable to `channel: 'chrome'`
+  * Valid login → success header detection (`Log out`)
+  * Invalid password → login page stays, error shown
+  * Non-existent email → same failed login response
+* Tests written using `pm.test()` + HTML parsing
 
 ---
 
-## ▶️ How to Run
+### ⚙️ Configuration — [`playwright.config.ts`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/blob/main/playwright.config.ts)
 
-### UI Tests
+* `baseURL`: `https://nop-qa.portnov.com`
+* `headless: false` for local debug
+* Viewport: `1366×768`
+* Timeouts optimized
+* **Trace & video retained on failure**
+* Project: Desktop Chromium (can flip to `'channel: chrome'`)
+
+---
+
+## ▶️ How to Run Tests
+
+### 🔹 UI Tests (Playwright)
 
 ```bash
 npx playwright test tests/login.spec.ts --headed --trace on
 ```
 
-### API Tests (Playwright)
+### 🔹 API Tests (Playwright)
 
 ```bash
-npx playwright test api-tests/login.api.spec.ts
+npx playwright test api-tests/day07/login.api.spec.ts
 ```
 
-### API Tests (Postman)
+### 🔹 API Tests (Postman)
+
+**Option 1: Run in Postman GUI**
+
+**Option 2: Run via CLI**
 
 ```bash
-# Option 1: Postman GUI (import collection)
-# Option 2: Newman CLI
-newman run "nopCommerce API (day7).postman_collection.json" \
+newman run "api-tests/day07/postman/nopCommerce API (day7).postman_collection.json" \
   --env-var baseUrl=https://nop-qa.portnov.com
 ```
 
@@ -291,30 +296,29 @@ newman run "nopCommerce API (day7).postman_collection.json" \
 
 ## 📊 Reports
 
-### Playwright
+### ▶️ Open Playwright Report
 
-* Open report:
+```bash
+npx playwright show-report
+```
 
-  ```bash
-  npx playwright show-report reports/latest/playwright-report
-  ```
-* Default saved location:
+### ▶️ Saved Location
 
-  * `reports/latest/playwright-report/index.html`
-  * Trace/videos: `reports/latest/playwright-report/data/`
-
----
-
-## 📁 Files
-
-| Type       | File                                                                                                         |
-| ---------- | ------------------------------------------------------------------------------------------------------------ |
-| ✅ Postman  | [`nopCommerce API (day7).postman_collection.json`](./nopCommerce%20API%20%28day7%29.postman_collection.json) |
-| ✅ UI Test  | [`tests/login.spec.ts`](tests/login.spec.ts)                                                                 |
-| ✅ API Test | [`api-tests/login.api.spec.ts`](api-tests/login.api.spec.ts)                                                 |
-| ⚙️ Config  | [`playwright.config.ts`](playwright.config.ts)                                                               |
+* HTML report: [`reports/latest/playwright-report/index.html`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/tree/main/reports/latest/playwright-report)
+* Traces, screenshots, videos: [`reports/latest/playwright-report/data/`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/tree/main/reports/latest/playwright-report/data)
 
 ---
 
-Let me know if you want a `.md` version exported or CI/CD instructions added.
+## 📁 Summary of Files
+
+| Type               | Path                                                                                                                                                                                                                          |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ✅ UI Tests         | [`tests/login.spec.ts`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/blob/main/tests/login.spec.ts)                                                                                                               |
+| ✅ API (Playwright) | [`api-tests/day07/login.api.spec.ts`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/blob/main/api-tests/day07/login.api.spec.ts)                                                                                   |
+| ✅ API (Postman)    | [`api-tests/day07/postman/nopCommerce API (day7).postman_collection.json`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/blob/main/api-tests/day07/postman/nopCommerce%20API%20%28day7%29.postman_collection.json) |
+| ⚙️ Config          | [`playwright.config.ts`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/blob/main/playwright.config.ts)                                                                                                             |
+
+---
+
+Want me to drop this into your real `README.md` directly?
 
