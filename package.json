@@ -17,7 +17,11 @@
 
     "test:ui:registration": "npx playwright test tests/registration.spec.ts --headed",
     "test:api:day06": "npx playwright test \"api-tests/day06/src/registration.api.spec.ts\"",
-    "test:api:day06:headed": "npx playwright test \"api-tests/day06/src/registration.api.spec.ts\" --headed"
+    "test:api:day06:headed": "npx playwright test \"api-tests/day06/src/registration.api.spec.ts\" --headed",
+    
+    "test:ui:login": "npx playwright test tests/login.spec.ts --headed",
+    "test:api:day07:login": "npx playwright test \"api-tests/day07/playwright/src/login.api.spec.ts\""
+
 
   },
   "repository": {
