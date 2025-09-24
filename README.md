@@ -193,3 +193,115 @@ npx playwright show-report reports/latest/playwright-report
 npx playwright test
 
 ```
+
+Конечно. Вот готовый README-документ в том же стиле для **Day 7 — Login UI + API (Postman & Playwright)**:
+
+---
+
+# ✅ Day 7 — UI & API Login Tests (Postman + Playwright)
+
+**Scope.** Завершение автоматизации логина: позитивные и негативные сценарии через UI и API. Тесты выполняются как через Postman (Newman-ready), так и через Playwright (headless/headed). Включена проверка токена, редиректов, сообщений об ошибках и сценариев валидации.
+
+---
+
+## 🔍 Deliverables
+
+### ✅ **UI:** `tests/login.spec.ts`
+
+* **Valid login** → редирект на главную, **"Log out"** на странице
+* **Invalid password** → остаётся на странице логина, сообщение об ошибке
+* **Non-existent email** → остаётся на странице логина, сообщение об ошибке
+* Используются:
+
+  * `getByRole`, `getByLabelText` — стабильные селекторы
+  * Авто-скролл к полям при необходимости
+  * Уникальные данные через генератор email'ов
+
+---
+
+### ✅ **API (Playwright):** `api-tests/login.api.spec.ts`
+
+* Используется встроенный HTTP-клиент Playwright (`request.newContext`)
+* `GET /login` → парсит `__RequestVerificationToken` и `form[action]`
+* `POST /login` → включает заголовки, токен и форму
+* **Сценарии:**
+
+  * ✅ **Valid login** → `302` + редирект на `/`
+  * ❌ **Invalid password** → `200` + сообщение “Login was unsuccessful”
+  * ❌ **Non-existent email** → `200` + сообщение “Login was unsuccessful”
+
+---
+
+### ✅ **API (Postman):** `Postman Collection: nopCommerce API (day7).postman_collection.json`
+
+* Коллекция полностью параметризована: `baseUrl`, `userAgent`, `__RequestVerificationToken`
+* Пре-реквест скрипт делает `GET /login` и сохраняет токен
+* Тесты:
+
+  * ✅ Успешный логин — проверка `302`, `Set-Cookie`, `Log out`
+  * ❌ Неверный пароль — `200`, остался на `/login`, нет `Log out`
+  * ❌ Несуществующий email — те же проверки
+* Покрыта логика: `stayedOnLogin`, `notLoggedIn`, `errorShown`
+
+---
+
+## ⚙️ Config
+
+### Playwright (`playwright.config.ts`)
+
+* `baseURL=https://nop-qa.portnov.com`
+* `headless=false` (удобно для отладки)
+* `viewport: 1366×768`
+* Скриншоты, видео и трейс сохраняются при падениях
+* Project: Chromium (можно переключить на `channel: 'chrome'`)
+
+---
+
+## 🚀 How to Run
+
+### 📦 **UI (Playwright)**
+
+```bash
+npx playwright test tests/login.spec.ts --headed --trace on
+```
+
+### 📦 **API (Playwright)**
+
+```bash
+npx playwright test api-tests/login.api.spec.ts
+```
+
+### 📦 **API (Postman)**
+
+```bash
+# Через Postman GUI
+# или экспорт в файл и:
+newman run "nopCommerce API (day7).postman_collection.json" --env-var baseUrl=https://nop-qa.portnov.com
+```
+
+---
+
+## 📊 Reports & Artifacts
+
+* 📁 `reports/latest/playwright-report/index.html` — отчёт UI/API тестов (Playwright)
+* 📁 `reports/latest/playwright-report/data/` — видео, скриншоты, trace
+* 📁 Postman консоль/отчёты — через GUI или CLI (Newman)
+
+### 🔍 Открыть локальный Playwright-отчёт:
+
+```bash
+npx playwright show-report reports/latest/playwright-report
+```
+
+---
+
+### ▶️ Всё сразу
+
+```bash
+npx playwright test
+npx playwright show-report
+```
+
+---
+
+
