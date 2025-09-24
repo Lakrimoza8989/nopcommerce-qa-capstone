@@ -125,5 +125,99 @@ npx playwright test -g "Valid registration"
 - [Test results (screenshots, videos, traces)](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/tree/main/reports/latest/test-results)  
 - [Latest HTML report](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/tree/main/reports/latest/html-report)  
 
+---
+
+Вот структурированное **README для Day 7**, сделанное в том же стиле, что и Day 6. Можно прямо вставлять в репозиторий.
+
+---
+
+# Day 7 — Login Tests (UI + API)
+
+## Scope
+
+Cover login functionality with both **UI automation** and **API tests**.
+Scenarios include valid login, invalid password, and non-existent email.
+Artifacts: Playwright reports (screenshots, videos, traces) and saved HTML responses for evidence.
+
+##
+
+## Deliverables
+
+### 1) UI: [`tests/login.spec.ts`](../tests/login.spec.ts)
+
+* **✅ Valid login** → shows **“Log out”** link after entering correct credentials.
+* **❌ Invalid password** → shows **“Login was unsuccessful”** message.
+* **❌ Non-existent email** → shows **“Login was unsuccessful”** message.
+* Uses `getByLabel` / `getByRole`, environment variables (`TEST_USER_EMAIL`, `TEST_USER_PASSWORD`), and Playwright artifacts.
+
+Run:
+
+```bash
+npm run test:ui:login
+```
+
+---
+
+### 2) API: [`api-tests/day07/playwright/src/login.api.spec.ts`](../api-tests/day07/playwright/src/login.api.spec.ts)
+
+* **✅ Valid login** → expect status `200` or `302`, then GET `/` contains **Log out**.
+* **❌ Invalid password** → status `200`, body includes **“Login was unsuccessful”**.
+* **❌ Non-existent email** → same as above.
+* Handles antiforgery token (`__RequestVerificationToken`) and cookies via `APIRequestContext`.
+* Saves raw HTML bodies to [`results/`](../api-tests/day07/playwright/results) for recruiter-visible proof.
+
+Run:
+
+```bash
+npm run test:api:day07:login
+```
+
+---
+
+### 3) Postman (structure only)
+
+Folders prepared under [`api-tests/day07/postman/`](../api-tests/day07/postman/):
+
+* **collections/** — request collection with login scenarios
+* **environments/** — baseUrl, userAgent, credentials
+* **results/** — exported run results
+* **screenshots/** — error evidence if needed
+
+(Execution to be added in the next iteration.)
+
+---
+
+## Reports & Artifacts
+
+* **Playwright HTML report** (screenshots, videos, traces): [`reports/latest/html-report/`](../reports/latest/html-report)
+* **Saved raw responses**: [`api-tests/day07/playwright/results/`](../api-tests/day07/playwright/results)
+
+Open local report:
+
+```bash
+npx playwright show-report reports/latest/html-report
+```
+
+---
+
+## AI Contribution Summary (Day 7)
+
+AI was used to:
+
+* Scaffold both UI and API login test specifications (\~75%).
+* Suggest environment variable usage for credentials.
+* Generate token + cookie handling for API flows.
+* Propose Postman folder structure consistent with Day 6.
+
+Human refinements (\~25%):
+
+* Debugging of login status codes (`200 vs 400`).
+* Adjusting assertions for “Login was unsuccessful”.
+* Organizing results into structured folders for recruiter visibility.
+
+Process: **AI scaffolding → manual debugging → verified test runs → structured repo commit.**
+
+---
+
 
 
