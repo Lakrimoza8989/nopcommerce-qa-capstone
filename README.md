@@ -194,131 +194,104 @@ npx playwright test
 
 ```
 
-Конечно. Вот готовый README-документ в том же стиле для **Day 7 — Login UI + API (Postman & Playwright)**:
+ **Day 7 — UI & API Login Tests**
+
+````md
+# Day 7 — UI & API Login Tests (NFR-ready)
+
+## Scope  
+Implement login automation end-to-end:  
+- **UI tests** (valid login, invalid password, non-existent email)  
+- **API tests** (valid login, invalid password, non-existent email)  
+- Config and reporting aligned with Day 6.  
 
 ---
 
-Понял. Держи правильный, **англоязычный README**, без русского текста, с чёткой структурой, и **прямыми ссылками на файлы**, как положено:
+## Deliverables  
+
+### UI: `tests/login.spec.ts`  
+- **Valid login** → sees *“Log out”* and *“My account”* in navigation.  
+- **Invalid password** → error message *“Login was unsuccessful”*.  
+- **Non-existent email** → error message *“Login was unsuccessful”*.  
+- Stable locators (`getByLabel` / `getByRole`), conditional skip if no credentials provided.  
+
+### API: `api-tests/day07/playwright/src/login.api.spec.ts`  
+- Uses Playwright HTTP client (`APIRequestContext`).  
+- Flow:  
+  - `GET /login` → warm cookies + antiforgery token.  
+  - `POST /login` with form data.  
+- Cases:  
+  - **Valid login** → status `200` or `302`, follow-up `GET /` contains “Log out”.  
+  - **Invalid password** → status `200`, body contains “Login was unsuccessful”.  
+  - **Non-existent email** → status `200`, body contains “Login was unsuccessful”.  
+- HTML responses saved to:  
+  `api-tests/day07/playwright/results/*.html`  
+
+### Postman: `api-tests/day07/postman/`  
+- `collections/day07-login-collection.json` — all requests grouped.  
+- `environments/day07.postman_environment.json` — variables (`baseUrl`, `userAgent`, etc).  
+- `results/day07-login-test-run.json` — exported run results.  
+- `screenshots/*.png` — proof of UI state for each request (GET + POST cases).  
 
 ---
 
-Понял. Без лишнего — исправляю ссылки и делаю всё как нужно, **исходя из реальной структуры репозитория [`Lakrimoza8989/nopcommerce-qa-capstone`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone)**.
-
-Вот готовый, **корректный README.md для Day 7**, полностью на английском, с **абсолютно рабочими GitHub-ссылками на файлы в репозитории**:
-
----
-
-## ✅ Day 7 — Login Tests (UI + API via Playwright & Postman)
-
-**Scope:** Automated login validation using **UI** and **API** flows via **Playwright** and **Postman**. Covers positive and negative scenarios including password mismatch and unregistered email. Ready for CI use.
+## Config: `playwright.config.ts`  
+- `baseURL=https://nop-qa.portnov.com`  
+- `headless=false` (debug), viewport 1366×768  
+- `screenshot: "on"`, `trace: "on"`, `video: "on"`  
+- Project: Desktop Chrome (Chromium).  
 
 ---
 
-### 📂 Deliverables
+## How to Run  
 
-#### ✅ UI Tests — [`tests/login.spec.ts`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/blob/main/tests/login.spec.ts)
-
-* ✅ Valid login: redirected to homepage, sees `Log out`
-* ❌ Invalid password: stays on login page, sees `"Login was unsuccessful"`
-* ❌ Non-existent email: same behavior as above
-* Stable selectors:
-
-  * `getByRole`, `getByLabelText`
-  * Auto-scroll helper for visibility
-* Assertions based on visible UI content
-
----
-
-#### ✅ API Tests (Playwright) — [`api-tests/day07/login.api.spec.ts`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/blob/main/api-tests/day07/login.api.spec.ts)
-
-* Uses **Playwright HTTP Client**
-* Workflow:
-
-  * `GET /login` → extract `__RequestVerificationToken` and `form[action]`
-  * `POST /login` → send login form with credentials
-* Scenarios:
-
-  * ✅ Valid login → HTTP `302`, redirect to `/`
-  * ❌ Invalid password → HTTP `200`, `"Login was unsuccessful"`
-  * ❌ Non-existent email → HTTP `200`, same error
-
----
-
-#### ✅ API Tests (Postman) — [`api-tests/day07/postman/nopCommerce API (day7).postman_collection.json`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/blob/main/api-tests/day07/postman/nopCommerce%20API%20%28day7%29.postman_collection.json)
-
-* Automated via `Pre-request Script` (token extraction)
-* Scenarios:
-
-  * Valid login → success header detection (`Log out`)
-  * Invalid password → login page stays, error shown
-  * Non-existent email → same failed login response
-* Tests written using `pm.test()` + HTML parsing
-
----
-
-### ⚙️ Configuration — [`playwright.config.ts`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/blob/main/playwright.config.ts)
-
-* `baseURL`: `https://nop-qa.portnov.com`
-* `headless: false` for local debug
-* Viewport: `1366×768`
-* Timeouts optimized
-* **Trace & video retained on failure**
-* Project: Desktop Chromium (can flip to `'channel: chrome'`)
-
----
-
-## ▶️ How to Run Tests
-
-### 🔹 UI Tests (Playwright)
-
+### UI only  
 ```bash
 npx playwright test tests/login.spec.ts --headed --trace on
-```
+````
 
-### 🔹 API Tests (Playwright)
-
-```bash
-npx playwright test api-tests/day07/login.api.spec.ts
-```
-
-### 🔹 API Tests (Postman)
-
-**Option 1: Run in Postman GUI**
-
-**Option 2: Run via CLI**
+### API only
 
 ```bash
-newman run "api-tests/day07/postman/nopCommerce API (day7).postman_collection.json" \
-  --env-var baseUrl=https://nop-qa.portnov.com
+npx playwright test api-tests/day07/playwright/src/login.api.spec.ts
 ```
 
----
+### Postman
 
-## 📊 Reports
+* Import collection + environment into Postman
+* Run `day07-login-collection.json` with environment `day07.postman_environment.json`
 
-### ▶️ Open Playwright Report
+### Everything
 
 ```bash
+npx playwright test
 npx playwright show-report
 ```
 
-### ▶️ Saved Location
+---
 
-* HTML report: [`reports/latest/playwright-report/index.html`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/tree/main/reports/latest/playwright-report)
-* Traces, screenshots, videos: [`reports/latest/playwright-report/data/`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/tree/main/reports/latest/playwright-report/data)
+## Reports & Artifacts
+
+* Saved HTML snapshot: `reports/latest/html-report/index.html`
+* Traces/videos/screenshots: `reports/latest/test-results/`
+* Postman results: `api-tests/day07/postman/results/`
+
+### Open latest Playwright report
+
+```bash
+npx playwright show-report reports/latest/html-report
+```
 
 ---
 
-## 📁 Summary of Files
+## Launch
 
-| Type               | Path                                                                                                                                                                                                                          |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ✅ UI Tests         | [`tests/login.spec.ts`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/blob/main/tests/login.spec.ts)                                                                                                               |
-| ✅ API (Playwright) | [`api-tests/day07/login.api.spec.ts`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/blob/main/api-tests/day07/login.api.spec.ts)                                                                                   |
-| ✅ API (Postman)    | [`api-tests/day07/postman/nopCommerce API (day7).postman_collection.json`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/blob/main/api-tests/day07/postman/nopCommerce%20API%20%28day7%29.postman_collection.json) |
-| ⚙️ Config          | [`playwright.config.ts`](https://github.com/Lakrimoza8989/nopcommerce-qa-capstone/blob/main/playwright.config.ts)                                                                                                             |
+```bash
+npm run test:ui:login
+npm run test:api:day07:login
+```
 
----
+```
 
-Want me to drop this into your real `README.md` directly?
+
 
