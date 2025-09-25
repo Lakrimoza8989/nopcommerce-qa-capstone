@@ -194,104 +194,54 @@ npx playwright test
 
 ```
 
- **Day 7 — UI & API Login Tests**
+## Day 7 — UI & API Login Tests (NFR-ready)
 
-````md
-# Day 7 — UI & API Login Tests (NFR-ready)
+**Scope.** Automate Login flow end-to-end: UI tests (valid/invalid), API tests (valid/invalid password/non-existent email), Postman collections, config consistency, and local verification.
 
-## Scope  
-Implement login automation end-to-end:  
-- **UI tests** (valid login, invalid password, non-existent email)  
-- **API tests** (valid login, invalid password, non-existent email)  
-- Config and reporting aligned with Day 6.  
+##
 
----
+### Deliverables
+- **UI:** [`tests/login.spec.ts`](tests/login.spec.ts)  
+  - Valid login → sees **“Log out”** and **“My account”**  
+  - Invalid password → error **“Login was unsuccessful”**  
+  - Non-existent email → error **“Login was unsuccessful”**  
+  - Stable locators (`getByLabel`/`getByRole`), conditional skip if no credentials  
 
-## Deliverables  
+- **API:** [`api-tests/day07/playwright/src/login.api.spec.ts`](api-tests/day07/playwright/src/login.api.spec.ts)  
+  - Uses Playwright HTTP client (no browser)  
+  - Flow: `GET /login` to fetch cookies + antiforgery token, then `POST /login` with form data  
+  - Cases:  
+    - **Valid** → HTTP `200/302` + `GET /` shows “Log out”  
+    - **Invalid password** → HTTP `200` + error message  
+    - **Non-existent email** → HTTP `200` + error message  
+  - Saved HTML responses → `api-tests/day07/playwright/results/*.html`
 
-### UI: `tests/login.spec.ts`  
-- **Valid login** → sees *“Log out”* and *“My account”* in navigation.  
-- **Invalid password** → error message *“Login was unsuccessful”*.  
-- **Non-existent email** → error message *“Login was unsuccessful”*.  
-- Stable locators (`getByLabel` / `getByRole`), conditional skip if no credentials provided.  
+- **Postman:** [`api-tests/day07/postman/`](api-tests/day07/postman/)  
+  - Collection: `collections/day07-login-collection.json`  
+  - Environment: `environments/day07.postman_environment.json`  
+  - Results: `results/day07-login-test-run.json`  
+  - Screenshots: `screenshots/*.png`
 
-### API: `api-tests/day07/playwright/src/login.api.spec.ts`  
-- Uses Playwright HTTP client (`APIRequestContext`).  
-- Flow:  
-  - `GET /login` → warm cookies + antiforgery token.  
-  - `POST /login` with form data.  
-- Cases:  
-  - **Valid login** → status `200` or `302`, follow-up `GET /` contains “Log out”.  
-  - **Invalid password** → status `200`, body contains “Login was unsuccessful”.  
-  - **Non-existent email** → status `200`, body contains “Login was unsuccessful”.  
-- HTML responses saved to:  
-  `api-tests/day07/playwright/results/*.html`  
+- **Config:** [`playwright.config.ts`](playwright.config.ts)  
+  - `baseURL=https://nop-qa.portnov.com`, `headless=false` (debug)  
+  - Viewport 1366×768, screenshots always, **trace/video on**  
+  - Project: Desktop Chrome (Chromium).  
 
-### Postman: `api-tests/day07/postman/`  
-- `collections/day07-login-collection.json` — all requests grouped.  
-- `environments/day07.postman_environment.json` — variables (`baseUrl`, `userAgent`, etc).  
-- `results/day07-login-test-run.json` — exported run results.  
-- `screenshots/*.png` — proof of UI state for each request (GET + POST cases).  
+##
 
----
-
-## Config: `playwright.config.ts`  
-- `baseURL=https://nop-qa.portnov.com`  
-- `headless=false` (debug), viewport 1366×768  
-- `screenshot: "on"`, `trace: "on"`, `video: "on"`  
-- Project: Desktop Chrome (Chromium).  
-
----
-
-## How to Run  
-
-### UI only  
+### How to Run
 ```bash
+# UI only
 npx playwright test tests/login.spec.ts --headed --trace on
-````
 
-### API only
-
-```bash
+# API only
 npx playwright test api-tests/day07/playwright/src/login.api.spec.ts
-```
 
-### Postman
+# Postman
+Import collection + environment and run in Postman
 
-* Import collection + environment into Postman
-* Run `day07-login-collection.json` with environment `day07.postman_environment.json`
-
-### Everything
-
-```bash
+# Everything
 npx playwright test
 npx playwright show-report
-```
-
----
-
-## Reports & Artifacts
-
-* Saved HTML snapshot: `reports/latest/html-report/index.html`
-* Traces/videos/screenshots: `reports/latest/test-results/`
-* Postman results: `api-tests/day07/postman/results/`
-
-### Open latest Playwright report
-
-```bash
-npx playwright show-report reports/latest/html-report
-```
-
----
-
-## Launch
-
-```bash
-npm run test:ui:login
-npm run test:api:day07:login
-```
-
-```
-
 
 
