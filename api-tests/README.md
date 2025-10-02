@@ -311,5 +311,112 @@ npx playwright test "api-tests/day08/playwright/src/books.add-to-cart.api.spec.t
 Day 8 adds full coverage of **Add to Cart** flow across UI, API, and Postman, ensuring consistency between user-facing behavior and backend logic. Artifacts and HTML responses are saved for recruiter visibility and future debugging.
 
 
+---
+
+Вот исправленный блок README (Day 8) с **корректными ссылками**, чтобы ничего не давало 404:
+
+````md
+# Day 8 — Add to Cart (UI + API + Postman)
+
+## Scope
+
+Validate the **Add to Cart** functionality using multiple layers of testing:  
+1. **UI** — simulate a user adding a book to the cart and verifying the cart page.  
+2. **API (Playwright)** — use direct HTTP requests to add the item and check the `/cart` page.  
+3. **Postman** — reproduce the same flow via a collection and save evidence.
+
+##
+
+## Deliverables
+
+### 1) UI: [tests/add-to-cart.spec.ts](../../tests/add-to-cart.spec.ts)
+
+**Scenarios covered:**
+- Navigate to **Books** section  
+- Open PDP for *Fahrenheit 451 by Ray Bradbury*  
+- Click **Add to cart**  
+- Cart indicator updates to **(1)**  
+- `/cart` page shows:
+  - Correct product name
+  - Qty = 1
+  - Total = `$27.00`
+
+**Run:**
+```bash
+npm run test:ui:day08:add-to-cart
+# or
+npx playwright test tests/add-to-cart.spec.ts --headed --trace on
+````
+
+---
+
+### 2) API: [api-tests/day08/playwright/src/books.add-to-cart.api.spec.ts](./playwright/src/books.add-to-cart.api.spec.ts)
+
+**Flow implemented:**
+
+1. `GET /fahrenheit-451-by-ray-bradbury`
+
+   * Extract `productId` (e.g. `10030`)
+   * Extract `__RequestVerificationToken` using regex
+
+2. `POST /addproducttocart/details/{productId}/1`
+
+   * Form data includes token + quantity = 1
+
+3. `GET /cart`
+
+   * Verify product is present in HTML
+   * Check quantity and total
+
+**Run:**
+
+```bash
+npm run test:api:day08:add-to-cart
+# or
+npx playwright test "api-tests/day08/playwright/src/books.add-to-cart.api.spec.ts"
+```
+
+---
+
+### 3) Postman: [api-tests/day08/postman](./postman/)
+
+**Structure:**
+
+* [Collection](./postman/collections/nopCommerce%20API%20%28Day%208%29%20Add%20to%20Cart%20%26%20Verify%20Cart.postman_collection.json)
+* [Environment](./postman/environments/Day%208.postman_environment.json)
+* [Run results](./postman/results/nopCommerce%20API%20%28Day%208%29%20Add%20to%20Cart%20%26%20Verify%20Cart.postman_test_run.json)
+* [Screenshot: GET PDP](./postman/screenshots/GET%20-%20PDP.png)
+* [Screenshot: POST ADD_TO_CART](./postman/screenshots/POST%20-%20ADD_TO_CART.png)
+* [Screenshot: GET Verifying Cart](./postman/screenshots/GET%20-%20Verifing_cart.png)
+
+**Flow:**
+
+* `GET PDP` — parse productId and token
+* `POST addproducttocart` — expect `"success": true`
+* `GET /cart` — assert product name, qty, total
+
+---
+
+## Reports & Artifacts
+
+* **Playwright HTML report:** [`reports/latest/html-report/`](../../reports/latest/html-report/)
+* **API raw HTML:** [`api-tests/day08/playwright/results/`](./playwright/results/)
+* **Postman evidence:** [`api-tests/day08/postman/`](./postman/)
+
+---
+
+## Summary
+
+Day 8 adds full coverage of **Add to Cart** flow across UI, API, and Postman, ensuring consistency between user-facing behavior and backend logic. Artifacts and HTML responses are saved for recruiter visibility and future debugging.
+
+```
+
+✅ Все пути:
+- UI → `../../` (из папки Day 8 к корню)  
+- API → `./` (локально в day08/playwright/src)  
+- Postman → `./postman/...` с URL-кодировкой пробелов и спецсимволов  
+
+Теперь все ссылки откроются без 404.
+```
 
 
