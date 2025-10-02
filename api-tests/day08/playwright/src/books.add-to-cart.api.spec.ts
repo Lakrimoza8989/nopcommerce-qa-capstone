@@ -1,32 +1,49 @@
-// api-tests/day08/playwright/src/books.add-to-cart.api.spec.ts
 import { test, expect, request } from '@playwright/test';
+import * as cheerio from 'cheerio';
+import { writeFileSync, mkdirSync } from 'fs';
+import { join } from 'path';
 
 const baseURL = 'https://nop-qa.portnov.com';
 
-// Парсинг href по тексту ссылки (устойчивый вариант)
+// Helper: сохраняем HTML-ответы в results
+function saveBody(name: string, body: string) {
+  const dir = 'api-tests/day08/playwright/results';
+  mkdirSync(dir, { recursive: true });
+  const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const file = join(dir, `${stamp}__${name}.html`);
+  writeFileSync(file, body, 'utf-8');
+  console.log('[saved]', file);
+}
+
+// Парсим PDP-ссылку на Fahrenheit 451 из HTML /books
 function extractPdpFromBooks(html: string): string | null {
-  // Самая надёжная проверка — ищем <a ...>Fahrenheit 451 by Ray Bradbury</a>
-  const re = /<a[^>]+href=['"]([^'"]+)['"][^>]*>\s*Fahrenheit\s*451\s*by\s*Ray\s*Bradbury\s*<\/a>/i;
-  const m = html.match(re);
-  if (m?.[1]) {
-    let href = m[1].trim();
-    if (href.startsWith('http')) {
-      try {
-        const url = new URL(href);
-        href = url.pathname + (url.search || '');
-      } catch { /* ignore */ }
+  const $ = cheerio.load(html);
+  const link = $('a')
+    .filter((_, el) => $(el).text().toLowerCase().includes('fahrenheit 451'))
+    .first();
+
+  if (link.length) {
+    let href = link.attr('href') || null;
+    if (href) {
+      href = href.trim();
+      if (href.startsWith('http')) {
+        try {
+          const url = new URL(href);
+          href = url.pathname + (url.search || '');
+        } catch { /* ignore */ }
+      }
+      if (!href.startsWith('/')) href = '/' + href.replace(/^\.?\//, '');
+      return href;
     }
-    if (!href.startsWith('/')) href = '/' + href.replace(/^\.?\//, '');
-    return href;
   }
   return null;
 }
 
-// productId
+// productId парсер
 function extractProductId(pdpHtml: string): string | null {
   const m =
-    pdpHtml.match(/data-productid=['"](\d+)['"]/i) ||
-    pdpHtml.match(/id=['"]addtocart_(\d+)_EnteredQuantity['"]/i) ||
+    pdpHtml.match(/data-productid=['"]?(\d+)['"]?/i) ||
+    pdpHtml.match(/id=['"]?addtocart_(\d+)_EnteredQuantity['"]?/i) ||
     pdpHtml.match(/addtocart_(\d+)\.EnteredQuantity/i);
   return m?.[1] || null;
 }
@@ -50,6 +67,7 @@ test.describe('Day 8 — API: Home → Books → PDP → Add to Cart → Cart', 
     const books = await api.get('/books');
     expect(books.ok()).toBeTruthy();
     const booksHtml = await books.text();
+    saveBody('books-page', booksHtml);
 
     // 3) PDP линк
     const pdpPath = extractPdpFromBooks(booksHtml);
@@ -59,16 +77,18 @@ test.describe('Day 8 — API: Home → Books → PDP → Add to Cart → Cart', 
     const pdp = await api.get(pdpPath!, { headers: { Accept: 'text/html' } });
     expect(pdp.ok(), `PDP GET failed for ${pdpPath}`).toBeTruthy();
     const pdpHtml = await pdp.text();
+    saveBody('pdp-page', pdpHtml);
 
-    // 5) productId + токен
+    // 5) productId
     const productId = extractProductId(pdpHtml);
     expect(productId, 'productId not found on PDP').toBeTruthy();
 
-    const tokenMatch = pdpHtml.match(/name="__RequestVerificationToken"[^>]*value="([^"]+)"/i);
-    expect(tokenMatch, '__RequestVerificationToken not found on PDP').toBeTruthy();
+    // 6) токен (берём с /books)
+    const tokenMatch = booksHtml.match(/name=['"]?__RequestVerificationToken['"]?[^>]*value=['"]?([^'"\s>]+)['"]?/i);
+    expect(tokenMatch, '__RequestVerificationToken not found on /books').toBeTruthy();
     const token = tokenMatch![1];
 
-    // 6) POST add-to-cart
+    // 7) POST add-to-cart
     const add = await api.post(`/addproducttocart/details/${productId}/1`, {
       form: {
         __RequestVerificationToken: token,
@@ -84,10 +104,11 @@ test.describe('Day 8 — API: Home → Books → PDP → Add to Cart → Cart', 
     const addJson = await add.json();
     expect(addJson.success, `Add-to-cart failed: ${addJson.message || ''}`).toBeTruthy();
 
-    // 7) /cart проверка
+    // 8) /cart проверка
     const cart = await api.get('/cart');
     expect(cart.ok()).toBeTruthy();
     const cartHtml = await cart.text();
+    saveBody('cart-page', cartHtml);
     expect(cartHtml.toLowerCase()).toContain('fahrenheit 451');
   });
 });

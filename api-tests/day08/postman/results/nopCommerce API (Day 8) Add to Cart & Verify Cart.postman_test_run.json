@@ -1,0 +1,163 @@
+{
+	"id": "bec7eb2d-aa14-44c4-b39c-6d84d73bba4e",
+	"name": "nopCommerce API (Day 8) Add to Cart & Verify Cart",
+	"timestamp": "2025-10-02T19:02:23.427Z",
+	"collection_id": "27210950-69e5cdf0-d0d4-464d-bf11-76dc0db6ffbd",
+	"folder_id": 0,
+	"environment_id": "27210950-1517b30b-eb11-4946-8108-180a8a398dd3",
+	"totalPass": 11,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-10-02T19:02:21.318Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "805b0f40-9088-4bd7-bef1-11c372118efb",
+			"name": "PDP",
+			"url": "https://nop-qa.portnov.com/fahrenheit-451-by-ray-bradbury",
+			"time": 442,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"GET PDP → 200 OK": true,
+				"Extract productId": true,
+				"Extract CSRF": true,
+				"Extract productName": true,
+				"Sanity vars set": true
+			},
+			"testPassFailCounts": {
+				"GET PDP → 200 OK": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Extract productId": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Extract CSRF": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Extract productName": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Sanity vars set": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				442
+			],
+			"allTests": [
+				{
+					"GET PDP → 200 OK": true,
+					"Extract productId": true,
+					"Extract CSRF": true,
+					"Extract productName": true,
+					"Sanity vars set": true
+				}
+			]
+		},
+		{
+			"id": "6378272d-a819-477e-a662-529dceefb122",
+			"name": "Add to Cart",
+			"url": "https://nop-qa.portnov.com/addproducttocart/details/37/1",
+			"time": 141,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"POST add to cart → 200 OK": true,
+				"JSON has success=true": true,
+				"Top cart counter updated": true
+			},
+			"testPassFailCounts": {
+				"POST add to cart → 200 OK": {
+					"pass": 1,
+					"fail": 0
+				},
+				"JSON has success=true": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Top cart counter updated": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				141
+			],
+			"allTests": [
+				{
+					"POST add to cart → 200 OK": true,
+					"JSON has success=true": true,
+					"Top cart counter updated": true
+				}
+			]
+		},
+		{
+			"id": "abfacb34-d944-46b0-920b-b8040b48c1e3",
+			"name": "Virifiding cart",
+			"url": "https://nop-qa.portnov.com/cart",
+			"time": 176,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"GET /cart → 200 OK": true,
+				"Cart contains product name": true,
+				"Quantity appears (sanity)": true
+			},
+			"testPassFailCounts": {
+				"GET /cart → 200 OK": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Cart contains product name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Quantity appears (sanity)": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				176
+			],
+			"allTests": [
+				{
+					"GET /cart → 200 OK": true,
+					"Cart contains product name": true,
+					"Quantity appears (sanity)": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 759,
+	"collection": {
+		"requests": [
+			{
+				"id": "805b0f40-9088-4bd7-bef1-11c372118efb",
+				"method": "GET"
+			},
+			{
+				"id": "6378272d-a819-477e-a662-529dceefb122",
+				"method": "POST"
+			},
+			{
+				"id": "abfacb34-d944-46b0-920b-b8040b48c1e3",
+				"method": "GET"
+			}
+		]
+	}
+}

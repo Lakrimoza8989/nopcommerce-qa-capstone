@@ -1,0 +1,287 @@
+{
+	"info": {
+		"_postman_id": "69e5cdf0-d0d4-464d-bf11-76dc0db6ffbd",
+		"name": "nopCommerce API (Day 8) Add to Cart & Verify Cart",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27210950",
+		"_collection_link": "https://www.postman.com/namedteam-4575/workspace/nop-qa-portnov-com/collection/27210950-69e5cdf0-d0d4-464d-bf11-76dc0db6ffbd?action=share&source=collection_link&creator=27210950"
+	},
+	"item": [
+		{
+			"name": "PDP",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('GET PDP → 200 OK', () => pm.response.to.have.status(200));\r",
+							"\r",
+							"const html = pm.response.text();\r",
+							"\r",
+							"/* ---------- productId: из имени поля qty, допускаем разные варианты --------- */\r",
+							"// Ищем addtocart_37.EnteredQuantity или id=product_enteredQuantity_37 + data-productid=37\r",
+							"let id = null;\r",
+							"const m1 = html.match(/addtocart_(\\d+)\\.EnteredQuantity/);\r",
+							"if (m1) id = m1[1];\r",
+							"if (!id) {\r",
+							"  const m2 = html.match(/data-productid\\s*=\\s*[\"']?(\\d+)/i);\r",
+							"  if (m2) id = m2[1];\r",
+							"}\r",
+							"pm.test('Extract productId', () => pm.expect(id, 'productId not found').to.match(/^\\d+$/));\r",
+							"pm.environment.set('productId', id);\r",
+							"\r",
+							"/* -------------------- CSRF: гибкий парсер без ожидания кавычек -------------------- */\r",
+							"// Пример в HTML: <input name=__RequestVerificationToken type=hidden value=CfDJ...>\r",
+							"const tokenMatch = html.match(/<input[^>]*name=[\"']?__RequestVerificationToken[\"']?[^>]*value=[\"']?([^\"'\\s>]+)/i);\r",
+							"pm.test('Extract CSRF', () => pm.expect(tokenMatch, 'csrf regex').to.not.be.null);\r",
+							"pm.environment.set('csrf', tokenMatch ? tokenMatch[1] : '');\r",
+							"\r",
+							"/* --------------------------- productName: <h1> или <title> ------------------------ */\r",
+							"let productName = null;\r",
+							"const h1 = html.match(/<h1[^>]*>(.*?)<\\/h1>/is);\r",
+							"if (h1 && h1[1]) {\r",
+							"  productName = h1[1].replace(/\\s+/g, ' ').trim();\r",
+							"} else {\r",
+							"  const title = html.match(/<title[^>]*>(.*?)<\\/title>/is);\r",
+							"  if (title && title[1]) productName = title[1].replace(/\\s+/g, ' ').trim();\r",
+							"}\r",
+							"pm.test('Extract productName', () => pm.expect(productName, 'productName').to.exist);\r",
+							"pm.environment.set('productName', productName);\r",
+							"\r",
+							"/* ---------------------------------- sanity --------------------------------------- */\r",
+							"pm.test('Sanity vars set', () => {\r",
+							"  pm.expect(pm.environment.get('productId')).to.match(/^\\d+$/);\r",
+							"  pm.expect(pm.environment.get('csrf')).to.be.a('string').and.not.empty;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true,
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/{{productSlug}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{productSlug}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add to Cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('POST add to cart → 200 OK', () => pm.response.to.have.status(200));\r",
+							"\r",
+							"// ответ может быть JSON; если вдруг пришёл HTML — это признак отсутствия AJAX-заголовков\r",
+							"let json = null;\r",
+							"try {\r",
+							"  json = pm.response.json();\r",
+							"} catch (e) {\r",
+							"  // быстрый сигнал: включи X-Requested-With/Accept и проверь Referer/Origin\r",
+							"  pm.test('Response is JSON', () => pm.expect.fail('Server returned non-JSON (HTML?). Fix headers or CSRF.'));\r",
+							"}\r",
+							"\r",
+							"if (json) {\r",
+							"  pm.test('JSON has success=true', () => pm.expect(json.success, 'success flag').to.eql(true));\r",
+							"\r",
+							"  // вытащим счётчик из updatetopcartsectionhtml: \"(1)\"\r",
+							"  const counterHtml = String(json.updatetopcartsectionhtml || '');\r",
+							"  const m = counterHtml.match(/\\((\\d+)\\)/);\r",
+							"  if (m) pm.environment.set('cartCount', m[1]);\r",
+							"\r",
+							"  pm.test('Top cart counter updated', () => {\r",
+							"    pm.expect(pm.environment.get('cartCount')).to.match(/^\\d+$/);\r",
+							"  });\r",
+							"\r",
+							"  // иногда сервер отдаёт уведомления / сообщения\r",
+							"  if (json.message) pm.environment.set('lastMessage', String(json.message));\r",
+							"}\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true,
+					"accept": true,
+					"user-agent": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded; charset=UTF-8",
+						"type": "text"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/javascript, */*; q=0.01",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "{{baseUrl}}",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "{{baseUrl}}/{{productSlug}}",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "__RequestVerificationToken",
+							"value": "{{csrf}}",
+							"type": "text"
+						},
+						{
+							"key": "addtocart_{{productId}}.EnteredQuantity",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/addproducttocart/details/{{productId}}/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"addproducttocart",
+						"details",
+						"{{productId}}",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Virifiding cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('GET /cart → 200 OK', () => pm.response.to.have.status(200));\r",
+							"\r",
+							"const html = pm.response.text();\r",
+							"const expectedName = pm.environment.get('productName');\r",
+							"\r",
+							"// 1) Товар по имени\r",
+							"pm.test('Cart contains product name', () => {\r",
+							"  pm.expect(expectedName, 'env productName missing').to.exist;\r",
+							"  pm.expect(html, 'product name not found in cart').to.include(expectedName);\r",
+							"});\r",
+							"\r",
+							"// 2) Количество (sanity): ищем «value=\"1\"» рядом с qty-инпутом или просто значение 1\r",
+							"// Для стенда этого достаточно. При желании сделаем жёстче по структуре таблицы.\r",
+							"const qtySanity = /(\\bqty\\b|\\bquantity\\b|value\\s*=\\s*[\"']?1\\b)/i.test(html);\r",
+							"pm.test('Quantity appears (sanity)', () => pm.expect(qtySanity, 'qty not detected').to.be.true);\r",
+							"\r",
+							"// 3) (опционально) Subtotal: если хочешь строгую проверку — раскомментируй и подстрой селекторы/число\r",
+							"// const price = 27.00;\r",
+							"// const subtotalOk = new RegExp(String(price.toFixed(2)).replace('.', '\\\\.'), 'i').test(html);\r",
+							"// pm.test('Subtotal contains price (sanity)', () => pm.expect(subtotalOk, 'subtotal/price not found').to.be.true);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true,
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/cart",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cart"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
