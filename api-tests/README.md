@@ -219,11 +219,7 @@ Process: **AI scaffolding → manual debugging → verified test runs → struct
 
 ---
 
-Отлично. Ниже — 📄 **`api-tests/day08/README.md`** (локальный для Day 8), в стиле Day 7.
 
----
-
-````markdown
 # Day 8 — Add to Cart (UI + API + Postman)
 
 ## Scope
@@ -312,8 +308,6 @@ npx playwright test "api-tests/day08/playwright/src/books.add-to-cart.api.spec.t
 ## Summary
 
 Day 8 adds full coverage of **Add to Cart** flow across UI, API, and Postman, ensuring consistency between user-facing behavior and backend logic. Artifacts and HTML responses are saved for recruiter visibility and future debugging.
-
-```
 
 
 
