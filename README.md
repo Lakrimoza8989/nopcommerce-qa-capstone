@@ -243,5 +243,92 @@ Import collection + environment and run in Postman
 # Everything
 npx playwright test
 npx playwright show-report
+```
+
+##
+Понял. Переписываю **общий README для Day 8** полностью на английском — в том же стиле, как у тебя оформлен Day 7:
+
+````markdown
+## Day 8 — UI & API Add to Cart Tests (NFR-ready)
+
+**Scope.** Automate “Add to Cart” flow end-to-end:  
+- **UI tests** — verify that adding a product from the catalog updates the cart indicator and cart page.  
+- **API tests** — programmatically add a product to the cart and verify its presence via `/cart`.  
+- **Postman collection** — mirrors the API flow with environment variables and saved results.
+
+##
+
+### Deliverables
+- **UI:** [`tests/add-to-cart.spec.ts`](tests/add-to-cart.spec.ts)  
+  - Navigate to **Books** → PDP “Fahrenheit 451 by Ray Bradbury”  
+  - Click **Add to cart**  
+  - Header shows **Shopping cart (1)**  
+  - `/cart` page displays the product, Qty = 1, and Total = $27.00  
+  - Stable locators (`getByRole`, `getByText`), Playwright artifacts (screenshots, traces, videos)
+
+- **API (Playwright):** [`api-tests/day08/playwright/src/books.add-to-cart.api.spec.ts`](api-tests/day08/playwright/src/books.add-to-cart.api.spec.ts)  
+  - **GET PDP** → extract `productId` and antiforgery token  
+  - **POST** `/addproducttocart/details/{productId}/1` with form data  
+  - **GET /cart** → verify product name, quantity, and total  
+  - Raw HTML responses stored in `api-tests/day08/playwright/results/` for recruiter-visible evidence
+
+- **Postman:** [`api-tests/day08/postman/`](api-tests/day08/postman/)  
+  - **collections/** — `nopCommerce API (Day 8) Add to Cart & Verify Cart.postman_collection.json`  
+  - **environments/** — `Day 8.postman_environment.json`  
+  - **results/** — exported run results (`*.postman_test_run.json`)  
+  - **screenshots/** — PDP, Add-to-Cart, Cart verification steps
+
+- **Config:** [`playwright.config.ts`](playwright.config.ts)  
+  - `baseURL=https://nop-qa.portnov.com`  
+  - Headed mode for debugging, screenshots always, trace/video enabled
+
+##
+
+### How to Run
+
+```bash
+# UI
+npx playwright test tests/add-to-cart.spec.ts --headed --trace on
+
+# API (Playwright)
+npx playwright test api-tests/day08/playwright/src/books.add-to-cart.api.spec.ts
+
+# Postman
+# Import collection + environment and run through Postman Runner or CLI
+
+# Everything
+npx playwright test
+npx playwright show-report
+````
+
+##
+
+### Reports & Artifacts
+
+* **Playwright HTML report** — `reports/latest/html-report/`
+* **API raw responses** — `api-tests/day08/playwright/results/`
+* **Postman run evidence** — `api-tests/day08/postman/{collections,environments,results,screenshots}`
+
+##
+
+### AI Contribution Summary (Day 8)
+
+AI was used to:
+
+* Scaffold UI and API Add-to-Cart test specifications
+* Generate parsing logic for PDP tokens and product IDs
+* Propose structured Postman setup mirroring Playwright tests
+
+Human refinements:
+
+* Adjust token/productId regex for real PDP HTML
+* Debug POST payload and headers for successful cart update
+* Validate cart HTML manually and fix header assertions
+* Organize Postman artifacts and commit results for recruiter visibility
+
+Process: **AI scaffolding → manual debugging → verified test runs → structured repo commit**
+
+```
+
 
 
