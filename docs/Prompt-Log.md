@@ -336,3 +336,151 @@ npx playwright show-report reports/latest/html-report
 
 ---
 
+
+
+## 2025-09-27 · Day 8 · Prompt Log
+
+### 1) add-to-cart.spec.ts (UI)
+
+**Goal.** Automate **Add to Cart** flow via UI:
+
+* Navigate to **Books** → open PDP for “Fahrenheit 451 by Ray Bradbury”.
+* Click **Add to cart**.
+* Assert that cart icon in header updates to **(1)**.
+* Open `/cart` page → verify:
+
+  * Product name is displayed
+  * Quantity = 1
+  * Total = `$27.00`
+
+**Prompt used:**
+
+> Write a Playwright UI test in TypeScript for nopCommerce demo site:
+>
+> * Navigate to `/books`, open PDP for “Fahrenheit 451 by Ray Bradbury”.
+> * Click Add to Cart and assert that the cart indicator in the header shows “(1)”.
+> * Open `/cart` and assert product name, quantity = 1, and total = `$27.00`.
+> * Use stable locators (`getByRole`, `getByText`).
+> * Save screenshots, traces, and videos for recruiter visibility.
+
+**Output.** [`tests/add-to-cart.spec.ts`](../tests/add-to-cart.spec.ts)
+
+##
+
+### 2) books.add-to-cart.api.spec.ts (API)
+
+**Goal.** Automate **Add to Cart** flow via Playwright API:
+
+* GET PDP → parse `productId` and antiforgery token.
+* POST `/addproducttocart/details/{productId}/1` with form data and token.
+* GET `/cart` → verify that the product is present with correct quantity and total.
+
+**Prompt used:**
+
+> Write a Playwright API test in TypeScript for nopCommerce demo site to add a product to the cart and verify it:
+>
+> * GET PDP `/fahrenheit-451-by-ray-bradbury`, parse `productId` and `__RequestVerificationToken`.
+> * POST to `/addproducttocart/details/{productId}/1` with form data.
+> * Reuse cookies and token.
+> * GET `/cart` and assert product name, quantity = 1, total = $27.00.
+> * Save HTML responses to `api-tests/day08/playwright/results/` for recruiter evidence.
+
+**Output.** [`api-tests/day08/playwright/src/books.add-to-cart.api.spec.ts`](../api-tests/day08/playwright/src/books.add-to-cart.api.spec.ts)
+
+##
+
+### 3) package.json
+
+**Goal.** Add npm scripts to run Day 8 Add to Cart tests.
+
+**Prompt used:**
+
+> Update `package.json` scripts:
+>
+> * `"test:ui:day08:add-to-cart": "npx playwright test tests/add-to-cart.spec.ts --headed"`
+> * `"test:api:day08:add-to-cart": "npx playwright test \"api-tests/day08/playwright/src/books.add-to-cart.api.spec.ts\""`
+
+**Output.** [`package.json`](../package.json)
+
+##
+
+### 4) Postman Collection
+
+**Goal.** Reproduce the Add to Cart flow in Postman and save results.
+
+**Prompt used:**
+
+> Create a Postman collection that replicates the Playwright API test:
+>
+> * GET PDP → parse `productId` and token with scripts.
+> * POST add-to-cart → expect `"success": true`.
+> * GET `/cart` → assert product name, qty, total in Tests tab.
+> * Use environment variables for base URL, productId, token.
+> * Export collection, environment, run results, and screenshots.
+
+**Output.**
+
+* [`api-tests/day08/postman/collections/nopCommerce API (Day 8) Add to Cart & Verify Cart.postman_collection.json`](../api-tests/day08/postman/collections/)
+* [`api-tests/day08/postman/environments/Day 8.postman_environment.json`](../api-tests/day08/postman/environments/)
+* [`api-tests/day08/postman/results/*.postman_test_run.json`](../api-tests/day08/postman/results/)
+* [`api-tests/day08/postman/screenshots/*.png`](../api-tests/day08/postman/screenshots/)
+
+##
+
+### 5) Results
+
+**Goal.** Store recruiter-friendly evidence of UI, API, and Postman runs.
+
+**Prompt used:**
+
+> Save Playwright HTML report and raw HTML responses for Day 8.
+> Export Postman run results and screenshots to `api-tests/day08/postman/`.
+
+**Output.**
+
+* [`reports/latest/html-report/`](../reports/latest/html-report/) — Playwright UI/API artifacts
+* [`api-tests/day08/playwright/results/`](../api-tests/day08/playwright/results/) — saved PDP & Cart HTML
+* [`api-tests/day08/postman/`](../api-tests/day08/postman/) — collection, environment, results, screenshots
+
+##
+
+### 6) Verification
+
+**Prompt used:**
+
+> How to run Day 8 Add to Cart tests and verify results?
+
+**Output.**
+
+```bash
+# Run UI Add to Cart test
+npm run test:ui:day08:add-to-cart
+
+# Run API Add to Cart test
+npm run test:api:day08:add-to-cart
+
+# Postman
+# Import collection + environment and run through Postman Runner
+
+# Open latest Playwright report
+npx playwright show-report reports/latest/html-report
+```
+
+---
+
+### Debugging & Human Fixes
+
+During Day 8 implementation, multiple AI-generated issues were identified and manually fixed:
+
+* ❌ **Wrong headers in Postman GET Cart request** — AI forgot to preserve cookies; fixed by adding the correct Cookie and antiforgery token headers.
+* ❌ **Broken `success=true` assertion** in Postman tests — AI wrote an incorrect check; replaced with correct JSON validation.
+* ❌ **Missing environment setup** — AI didn’t generate environment variables; manually created `Day 8.postman_environment.json` and linked it to the collection.
+* ❌ **Regex extraction errors** — AI’s initial regex for `productId` and token failed on real PDP HTML; manually corrected regex to match actual attributes.
+* ✅ Verified HTML responses manually, fixed headers/payloads, and re-ran tests until all assertions passed.
+
+**Summary:** AI provided initial structure but failed in several implementation details. All critical steps (headers, token extraction, assertions) were debugged and corrected manually to achieve stable and reproducible results.
+
+---
+
+
+
