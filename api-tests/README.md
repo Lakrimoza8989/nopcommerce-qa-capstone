@@ -233,7 +233,8 @@ Validate the **Add to Cart** functionality using multiple layers of testing:
 
 ## Deliverables
 
-### 1) UI: [`tests/add-to-cart.spec.ts`](../../../tests/add-to-cart.spec.ts)
+### 1) UI: [tests/add-to-cart.spec.ts](../../tests/add-to-cart.spec.ts)
+
 
 **Scenarios covered:**
 - Navigate to **Books** section  
