@@ -246,9 +246,7 @@ npx playwright show-report
 ```
 
 ##
-Понял. Переписываю **общий README для Day 8** полностью на английском — в том же стиле, как у тебя оформлен Day 7:
 
-````markdown
 ## Day 8 — UI & API Add to Cart Tests (NFR-ready)
 
 **Scope.** Automate “Add to Cart” flow end-to-end:  
