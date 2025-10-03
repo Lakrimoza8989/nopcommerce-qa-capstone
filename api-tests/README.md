@@ -220,9 +220,7 @@ Process: **AI scaffolding → manual debugging → verified test runs → struct
 ---
 
 
-Ниже — **исправленный блок для `api-tests/README.md`** с рабочими относительными ссылками (из папки `api-tests`):
 
-````md
 # Day 8 — Add to Cart (UI + API + Postman)
 
 ## Scope
